@@ -25,7 +25,11 @@
   },
   "scripts": {
     "build:compile": "npx babel src --extensions .ts --out-dir build --source-maps",
-    "build:types": "tsc"
+    "build:types": "tsc",
+    "prettier": "prettier --write \"src/**/*.ts\"",
+    "prettier:check": "prettier --check \"src/**/*.ts\"",
+    "lint": "eslint --ignore-path .eslintignore \"src/**/*.ts\" --fix",
+    "lint:check": "eslint --ignore-path .eslintignore \"src/**/*.ts\""
   },
   "devDependencies": {
     "@babel/cli": "7.21.0",
@@ -37,9 +41,19 @@
     "@babel/preset-typescript": "7.21.0",
     "@babel/runtime": "7.21.0",
     "@types/node": "18.15.8",
+    "@typescript-eslint/eslint-plugin": "5.56.0",
+    "@typescript-eslint/parser": "5.56.0",
     "babel-core": "6.26.3",
     "babel-plugin-module-resolver": "5.0.0",
     "babel-plugin-source-map-support": "2.2.0",
+    "eslint": "8.36.0",
+    "eslint-config-prettier": "8.8.0",
+    "eslint-config-standard": "17.0.0",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-promise": "6.1.1",
+    "prettier": "2.8.7",
     "typescript": "5.0.2"
   }
 }
