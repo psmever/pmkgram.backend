@@ -17,5 +17,14 @@
   },
   "bugs": {
     "url": "https://github.com/psmever/pmkgram.backend/issues"
+  },
+  "engines": {
+    "node": ">=18.15.0",
+    "yarn": ">=1.22.19",
+    "npm": "please-use-yarn"
+  },
+  "devDependencies": {
+    "@types/node": "18.15.8",
+    "typescript": "5.0.2"
   }
 }
