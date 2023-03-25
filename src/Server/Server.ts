@@ -1,5 +1,6 @@
 import { Application } from 'express'
 import { TestsRouter } from '../Routes/Api'
+import { Logger } from '../Common/Logger'
 
 const addRouters = (app: Application): void => {
   const baseApiRoute = '/api'
@@ -20,5 +21,5 @@ export function startServer(app: Application): void {
   const appName = `pmkgram.backend`
   const appEnv = `local`
 
-  app.listen(port, () => console.debug(`\nExpress :: ${appName} ${appEnv} :: running on port ${port}\n`, null, true))
+  app.listen(port, () => Logger.info(`Express :: ${appName} ${appEnv} :: running on port ${port}\n`, null, true))
 }

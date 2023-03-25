@@ -64,7 +64,9 @@
     "typescript": "5.0.2"
   },
   "dependencies": {
+    "@types/winston": "2.4.4",
     "express": "4.18.2",
-    "husky": "8.0.3"
+    "husky": "8.0.3",
+    "winston": "3.8.2"
   }
 }
