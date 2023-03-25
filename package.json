@@ -24,6 +24,7 @@
     "npm": "please-use-yarn"
   },
   "scripts": {
+    "build": "tsc",
     "build:compile": "npx babel src --extensions .ts --out-dir build --source-maps",
     "build:types": "tsc",
     "prettier": "prettier --write \"src/**/*.ts\"",
