@@ -1,8 +1,21 @@
 {
   "name": "pmkgram.backend",
-  "version": "1.0.0",
+  "version": "0.1.0",
+  "description": "",
+  "keywords": [],
   "main": "index.js",
-  "repository": "https://github.com/psmever/pmkgram.backend.git",
-  "author": "psmever <psmever@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "author": {
+    "name": "SungMin, Park",
+    "email": "psmever@gmail.com",
+    "url": "https://github.com/psmever"
+  },
+  "homepage": "https://github.com/psmever/pmkgram.backend",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/psmever/pmkgram.backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/psmever/pmkgram.backend/issues"
+  }
 }
