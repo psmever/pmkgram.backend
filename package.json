@@ -29,7 +29,8 @@
     "prettier": "prettier --write \"src/**/*.ts\"",
     "prettier:check": "prettier --check \"src/**/*.ts\"",
     "lint": "eslint --ignore-path .eslintignore \"src/**/*.ts\" --fix",
-    "lint:check": "eslint --ignore-path .eslintignore \"src/**/*.ts\""
+    "lint:check": "eslint --ignore-path .eslintignore \"src/**/*.ts\"",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@babel/cli": "7.21.0",
@@ -55,5 +56,8 @@
     "eslint-plugin-promise": "6.1.1",
     "prettier": "2.8.7",
     "typescript": "5.0.2"
+  },
+  "dependencies": {
+    "husky": "8.0.3"
   }
 }
