@@ -1,7 +1,9 @@
-import { Application } from 'express'
+import express, { Application } from 'express'
+import path from 'path'
 import _ from 'lodash'
 import fs from 'fs'
 import { TestsRouter } from '@Routes/Api'
+import { WebRouter } from '@Routes/Web'
 import { Logger } from '@Logger'
 import Config from '@Config'
 
@@ -42,14 +44,19 @@ export const checkEnvironment = (): { state: boolean; message: string } => {
 
 const addRouters = (app: Application): void => {
     const baseApiRoute = '/api'
+    // const baseWebRoute = '/web'
 
     app.use(`${baseApiRoute}/tests`, TestsRouter)
+    app.use(`/`, WebRouter)
 }
 
 // 서버 초기화 설정.
-export function initServer(app: Application): void {
-    addRouters(app)
+export function initServer(app: Application, Path: string): void {
+    app.set('view engine', 'pug')
+    app.set('views', path.join(Path, 'Resources/view'))
+    app.use(express.static(path.join(Path, 'Resources/public')))
 
+    addRouters(app)
     return
 }
 
