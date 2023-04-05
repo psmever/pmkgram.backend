@@ -1,6 +1,6 @@
 import express, { Application } from 'express'
-import { Logger } from './Common/Logger'
-import * as Server from './Server/Server'
+import { Logger } from '@Commons/Logger'
+import * as Server from '@Servers/Server'
 
 const app: Application = express()
 

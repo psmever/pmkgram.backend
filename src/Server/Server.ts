@@ -1,9 +1,9 @@
 import { Application } from 'express'
 import _ from 'lodash'
 import fs from 'fs'
-import { TestsRouter } from '../Routes/Api'
-import { Logger } from '../Common/Logger'
-import Config from '../Common/Config'
+import { TestsRouter } from '@Routes/Api'
+import { Logger } from '@Logger'
+import Config from '@Config'
 
 export const checkEnvironment = (): { state: boolean; message: string } => {
   const notFound: string[] = []
