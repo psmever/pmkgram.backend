@@ -7,9 +7,9 @@ const app: Application = express()
 const checkResult = Server.checkEnvironment()
 
 if (checkResult.state) {
-  Server.initServer(app)
-  Server.startServer(app)
+    Server.initServer(app)
+    Server.startServer(app)
 } else {
-  console.clear()
-  Logger.consoleError(`\n\nStart Server Error: ${checkResult.message}\n`)
+    console.clear()
+    Logger.consoleError(`\n\nStart Server Error: ${checkResult.message}\n`)
 }
