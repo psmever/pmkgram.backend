@@ -24,11 +24,12 @@
     "npm": "please-use-yarn"
   },
   "scripts": {
-    "start": "nodemon --exec ts-node -r tsconfig-paths/register --files src/App.ts -e ts",
+    "start:dev": "cp ./project/develop.environment.env .env && nodemon --exec ts-node -r tsconfig-paths/register --files src/App.ts -e ts",
+    "start:prod": "cp ./project/production.environment.env .env && nodemon --exec ts-node -r tsconfig-paths/register --files src/App.ts -e ts",
     "clean": "rm -rf build",
-    "build": "yarn build:compile && yarn build:types",
     "build:compile": "npx babel src --extensions .ts --out-dir build --source-maps",
     "build:types": "tsc",
+    "build": "yarn build:compile && yarn build:types",
     "prettier": "prettier --write \"src/**/*.ts\"",
     "prettier:check": "prettier --check \"src/**/*.ts\"",
     "lint": "eslint --ignore-path .eslintignore \"src/**/*.ts\" --fix",
@@ -60,13 +61,18 @@
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-promise": "6.1.1",
+    "nodemon": "2.0.22",
     "prettier": "2.8.7",
     "typescript": "5.0.2"
   },
   "dependencies": {
+    "@types/lodash": "4.14.192",
     "@types/winston": "2.4.4",
+    "dotenv": "16.0.3",
     "express": "4.18.2",
+    "fs": "0.0.1-security",
     "husky": "8.0.3",
+    "lodash": "4.17.21",
     "winston": "3.8.2"
   }
 }

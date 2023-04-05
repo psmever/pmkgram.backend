@@ -1,5 +1,24 @@
 import winston from 'winston'
 
+const logLevels = {
+  levels: {
+    error: 0,
+    warn: 1,
+    info: 2,
+    http: 3,
+    sql: 4,
+    debug: 5,
+  },
+  colors: {
+    error: 'red',
+    warn: 'darkred',
+    info: 'white',
+    http: 'green',
+    sql: 'blue',
+    debug: 'gray',
+  },
+}
+
 /**
  * The logger service wrapper.
  */
@@ -31,8 +50,10 @@ const logger = winston.createLogger({
 /**
  * A console only logger.
  */
+winston.addColors(logLevels.colors)
 const consoleLogger = winston.createLogger({
   // format: winston.format.combine(winston.format.colorize(), winston.format.timestamp(), winston.format.json()),
+
   format: winston.format.combine(
     winston.format.colorize({ all: true }),
     winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
@@ -87,5 +108,13 @@ export class Logger {
     if (logToConsole) {
       consoleLogger.info(message, meta)
     }
+  }
+
+  /**
+   * 콘솔 에러 메시지
+   * @param message
+   */
+  public static consoleError(message: string): void {
+    consoleLogger.error(message)
   }
 }

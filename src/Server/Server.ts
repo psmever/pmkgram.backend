@@ -1,6 +1,44 @@
 import { Application } from 'express'
+import _ from 'lodash'
+import fs from 'fs'
 import { TestsRouter } from '../Routes/Api'
 import { Logger } from '../Common/Logger'
+import Config from '../Common/Config'
+
+export const checkEnvironment = (): { state: boolean; message: string } => {
+  const notFound: string[] = []
+
+  const envFileExits = fs.existsSync('.env')
+
+  if (!envFileExits) {
+    return {
+      state: false,
+      message: `Environment APP_ENV not found...`,
+    }
+  }
+
+  if (_.isEmpty(Config.APP_NAME)) notFound.push('APP_NAME')
+  if (_.isEmpty(Config.NODE_ENV)) notFound.push('NODE_ENV')
+  if (_.isEmpty(Config.APP_ENV)) notFound.push('APP_ENV')
+  if (_.isEmpty(Config.PORT)) notFound.push('PORT')
+  if (_.isEmpty(Config.HOSTNAME)) notFound.push('HOSTNAME')
+  if (_.isEmpty(Config.MYSQL_HOST)) notFound.push('MYSQL_HOST')
+  if (_.isEmpty(Config.MYSQL_PORT)) notFound.push('MYSQL_PORT')
+  if (_.isEmpty(Config.MYSQL_DATABASE)) notFound.push('MYSQL_DATABASE')
+  if (_.isEmpty(Config.MYSQL_USERNAME)) notFound.push('MYSQL_USERNAME')
+
+  if (notFound.length > 0) {
+    return {
+      state: false,
+      message: `${notFound.join(', ')} Environment Not Found...........`,
+    }
+  }
+
+  return {
+    state: true,
+    message: `check end `,
+  }
+}
 
 const addRouters = (app: Application): void => {
   const baseApiRoute = '/api'
@@ -17,9 +55,11 @@ export function initServer(app: Application): void {
 
 // 서버 시작.
 export function startServer(app: Application): void {
-  const port = 3000
-  const appName = `pmkgram.backend`
-  const appEnv = `local`
+  const port = Config.PORT
+  const appName = Config.APP_NAME
+  const appEnv = Config.APP_ENV
 
-  app.listen(port, () => Logger.info(`Express :: ${appName} ${appEnv} :: running on port ${port}\n`, null, true))
+  app.listen(port, () =>
+    Logger.info(`\n\nRunning Name  - ${appName}\nRunning Environment - ${appEnv}\nRunning on port - ${port}\n:: Server Start Success ::`, null, true),
+  )
 }
