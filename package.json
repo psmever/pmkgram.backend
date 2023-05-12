@@ -37,8 +37,10 @@
     "prepare": "husky install",
     "migration:generate": "typeorm-ts-node-commonjs migration:generate -d src/Database/DataSource.ts",
     "migration:create": "cd ./src/Database/Migrations && typeorm migration:create",
+    "migration:show": "typeorm-ts-node-commonjs migration:show -d src/Database/DataSource.ts",
     "migration:run": "typeorm-ts-node-commonjs migration:run -d src/Database/DataSource.ts",
-    "migration:revert": "typeorm-ts-node-commonjs migration:revert -d src/Database/DataSource.ts"
+    "migration:revert": "typeorm-ts-node-commonjs migration:revert -d src/Database/DataSource.ts",
+    "migration:seed": "ts-node -r tsconfig-paths/register --files src/Database/Seeds/Master.ts -e ts"
   },
   "devDependencies": {
     "@babel/cli": "7.21.0",

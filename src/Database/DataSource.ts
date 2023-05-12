@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-export default new DataSource({
+const AppDataSource = new DataSource({
     type: 'mysql',
     host: process.env.MYSQL_HOST,
     port: Number(process.env.MYSQL_PORT),
@@ -16,3 +16,13 @@ export default new DataSource({
     migrations: [__dirname + '/Migrations/*.ts'],
     subscribers: [],
 })
+
+AppDataSource.initialize()
+    .then(() => {
+        console.log('Data Source has been initialized!')
+    })
+    .catch((err) => {
+        console.error('Error during Data Source initialization', err)
+    })
+
+export default AppDataSource
