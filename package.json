@@ -76,6 +76,8 @@
     "lodash": "4.17.21",
     "path": "0.12.7",
     "pug": "3.0.2",
+    "reflect-metadata": "0.1.13",
+    "typeorm": "0.3.16",
     "winston": "3.8.2"
   }
 }
