@@ -10,7 +10,7 @@
     "email": "psmever@gmail.com",
     "url": "https://github.com/psmever"
   },
-  "homepage": "https://github.com/psmever/pmkgram.backend",
+  "homepage": "https://github.com/psmever/p가mkgram.backend",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/psmever/pmkgram.backend.git"
@@ -34,7 +34,11 @@
     "prettier:check": "prettier --check \"src/**/*.ts\"",
     "lint": "eslint --ignore-path .eslintignore \"src/**/*.ts\" --fix",
     "lint:check": "eslint --ignore-path .eslintignore \"src/**/*.ts\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "migration:generate": "typeorm-ts-node-commonjs migration:generate -d src/Database/DataSource.ts",
+    "migration:create": "cd ./src/Database/Migrations && typeorm migration:create",
+    "migration:run": "typeorm-ts-node-commonjs migration:run -d src/Database/DataSource.ts",
+    "migration:revert": "typeorm-ts-node-commonjs migration:revert -d src/Database/DataSource.ts"
   },
   "devDependencies": {
     "@babel/cli": "7.21.0",
@@ -74,6 +78,7 @@
     "fs": "0.0.1-security",
     "husky": "8.0.3",
     "lodash": "4.17.21",
+    "mysql2": "3.3.1",
     "path": "0.12.7",
     "pug": "3.0.2",
     "reflect-metadata": "0.1.13",
