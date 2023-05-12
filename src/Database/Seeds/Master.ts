@@ -1,4 +1,4 @@
-import { Codes } from '@Entities'
+// import { Codes } from '@Entities'
 import _ from 'lodash'
 
 // codes
@@ -13,8 +13,8 @@ console.debug(
     }),
 )
 
-_.forEach(codes, (code) => {
-    const CodeModel = new Codes()
-    CodeModel.group_id = code.groupid
-    // CodeModel.type = code.type
-})
+// _.forEach(codes, (code) => {
+// const CodeModel = new Codes()
+// CodeModel.group_id = code.groupid
+// CodeModel.type = code.type
+// })
