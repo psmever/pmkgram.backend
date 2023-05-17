@@ -8,8 +8,7 @@
     [
       "@babel/plugin-proposal-decorators",
       {
-        "version": "legacy",
-        "legacy": true
+        "version": "legacy"
       }
     ],
     [
