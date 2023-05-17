@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 'use strict'
-import _ from 'lodash'
+// import _ from 'lodash'
 import { DataBaseSource } from '@Database/DataBaseSource'
 import { Codes, CodeTypeEnum } from '@Entity/Codes'
 import { exit } from 'node:process'
