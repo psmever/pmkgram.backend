@@ -1,6 +1,4 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm'
-
-export type BookFormat = 'group' | 'code'
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm'
 
 export enum CodeTypeEnum {
     GROUP = 'group',
@@ -8,8 +6,8 @@ export enum CodeTypeEnum {
 }
 
 @Entity()
-export default class Codes {
-    @PrimaryColumn()
+export class Codes extends BaseEntity {
+    @PrimaryGeneratedColumn()
     id: number
 
     @Column({ type: `enum`, nullable: false, enum: CodeTypeEnum })

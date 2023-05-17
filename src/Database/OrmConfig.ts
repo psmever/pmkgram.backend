@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { DataSource } from 'typeorm'
 import dotenv from 'dotenv'
 
@@ -24,5 +25,4 @@ AppDataSource.initialize()
     .catch((err) => {
         console.error('Error during Data Source initialization', err)
     })
-
 export default AppDataSource
