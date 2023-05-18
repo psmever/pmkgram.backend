@@ -14,7 +14,6 @@ const connToDatabase = async () => {
         password: process.env.MYSQL_PASSWORD,
         database: process.env.MYSQL_DATABASE,
         synchronize: process.env.MYSQL_SYNCHRONIZE === 'true',
-        // logging: process.env.APP_ENV !== 'production',
         logging: process.env.MYSQL_LOGGING === 'true',
         entities: [__dirname + '/Entities/*.ts'],
         migrations: [__dirname + '/Migrations/*.ts'],

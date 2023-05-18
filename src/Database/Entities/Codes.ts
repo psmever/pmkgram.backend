@@ -13,10 +13,10 @@ export class Codes extends BaseEntity {
     @Column({ type: `enum`, nullable: false, enum: CodeTypeEnum })
     type: CodeTypeEnum
 
-    @Column({ type: `varchar`, nullable: false })
+    @Column({ type: `varchar`, nullable: false, length: 3 })
     group_id: string
 
-    @Column({ type: `varchar`, nullable: false })
+    @Column({ type: `varchar`, nullable: false, length: 6 })
     code_id: string
 
     @Column({ type: `varchar`, nullable: false })

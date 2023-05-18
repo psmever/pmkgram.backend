@@ -11,29 +11,24 @@ console.debug(`#################################################################
     if (serviceDS) {
         const codesRepository = await serviceDS.getRepository(CodesEntity)
 
-        const codeData: Array<{ idx: number; type: CodeTypeEnum; group_id: string; code_id: string; name: string }> = []
-
-        let idx = 1
+        const codeData: Array<{ type: CodeTypeEnum; group_id: string; code_id: string; name: string }> = []
 
         _.forEach(Codes, (c) => {
-            codeData.push({ idx: idx, type: `group` as CodeTypeEnum, group_id: c.id, code_id: ``, name: c.name })
-            idx += 1
+            codeData.push({ type: `group` as CodeTypeEnum, group_id: c.id, code_id: ``, name: c.name })
             _.forEach(c.list, (l) => {
                 codeData.push({
-                    idx: idx,
                     type: `code` as CodeTypeEnum,
                     group_id: c.id,
                     code_id: `${c.id}${l.id}`,
                     name: l.name,
                 })
-                idx += 1
             })
         })
 
         await codesRepository.clear()
 
         for await (const code of codeData) {
-            console.log(`idx: ${code.idx} group-id : ${code.group_id}\t code-id: ${code.code_id}\t name: ${code.name}`)
+            console.log(`group-id : ${code.group_id}\t code-id: ${code.code_id}\t name: ${code.name}`)
             const task = await codesRepository.insert({
                 type: code.type as CodeTypeEnum,
                 group_id: code.group_id,

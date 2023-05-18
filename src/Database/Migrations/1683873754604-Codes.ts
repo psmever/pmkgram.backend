@@ -9,6 +9,9 @@ export class Codes1683873754604 implements MigrationInterface {
                     {
                         name: 'id',
                         type: 'int',
+                        isPrimary: true,
+                        isGenerated: true,
+                        generationStrategy: 'increment',
                     },
                     {
                         name: 'type',
@@ -19,10 +22,12 @@ export class Codes1683873754604 implements MigrationInterface {
                     {
                         name: 'group_id',
                         type: 'varchar',
+                        length: '3',
                     },
                     {
                         name: 'code_id',
                         type: 'varchar',
+                        length: '6',
                     },
                     {
                         name: 'name',
