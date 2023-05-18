@@ -61,6 +61,9 @@
       "@Const": [
         "Common/Const"
       ],
+      "@Codes": [
+        "Common/Codes"
+      ],
       "@Entities": [
         "Database/Entities"
       ],

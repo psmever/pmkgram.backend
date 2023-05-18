@@ -1,76 +1,52 @@
 #!/usr/bin/env node
-
-'use strict'
-// import _ from 'lodash'
+import _ from 'lodash'
 import { DataBaseSource } from '@Database/DataBaseSource'
-import { Codes, CodeTypeEnum } from '@Entity/Codes'
+import { Codes as CodesEntity, CodeTypeEnum } from '@Entity/Codes'
 import { exit } from 'node:process'
+import Codes from '@Codes'
 
-const CodeModel = new Codes()
-
-// codes
-const groupCodes = [
-    { type: `group`, groupid: `010`, name: `클라이언트 구분` },
-    { type: `group`, groupid: `020`, name: `회원 관련` },
-]
-
-const codes = [
-    { type: `code`, groupid: `010`, codeid: `010`, name: `iOS` },
-    { type: `code`, groupid: `010`, codeid: `020`, name: `android` },
-    { type: `code`, groupid: `010`, codeid: `030`, name: `web` },
-    { type: `code`, groupid: `020`, codeid: `010`, name: `인증 전 상태` },
-    { type: `code`, groupid: `020`, codeid: `020`, name: `인증 완료` },
-    { type: `code`, groupid: `020`, codeid: `030`, name: `접속 차단` },
-]
-
-const MasterSeed = async () => {
+console.debug(`######################################################################`)
+;(async () => {
     const serviceDS = await DataBaseSource
     if (serviceDS) {
-        const codesRepository = await serviceDS.getRepository(Codes)
+        const codesRepository = await serviceDS.getRepository(CodesEntity)
 
-        const groupCodeInsertPromises = groupCodes.map(async (group) => {
-            CodeModel.type = group.type as CodeTypeEnum
-            CodeModel.group_id = group.groupid
-            CodeModel.code_id = ``
-            CodeModel.name = group.name
+        const codeData: Array<{ idx: number; type: CodeTypeEnum; group_id: string; code_id: string; name: string }> = []
 
-            const groupTask = await codesRepository.insert({
-                type: group.type as CodeTypeEnum,
-                group_id: group.groupid,
-                code_id: ``,
-                name: group.name,
-            })
-            if (!groupTask) {
-                console.debug('seed insert error...')
-                exit()
-            }
+        let idx = 1
 
-            const codeInsertPromises = codes
-                .filter(async (f) => f.groupid === group.groupid)
-                .map(async (c) => {
-                    const codeTask = await codesRepository.insert({
-                        type: c.type as CodeTypeEnum,
-                        group_id: c.groupid,
-                        code_id: c.codeid,
-                        name: c.name,
-                    })
-                    if (!codeTask) {
-                        console.debug('seed insert error...')
-                        exit()
-                    }
+        _.forEach(Codes, (c) => {
+            codeData.push({ idx: idx, type: `group` as CodeTypeEnum, group_id: c.id, code_id: ``, name: c.name })
+            idx += 1
+            _.forEach(c.list, (l) => {
+                codeData.push({
+                    idx: idx,
+                    type: `code` as CodeTypeEnum,
+                    group_id: c.id,
+                    code_id: `${c.id}${l.id}`,
+                    name: l.name,
                 })
-
-            await Promise.all(codeInsertPromises)
+                idx += 1
+            })
         })
 
         await codesRepository.clear()
-        await Promise.all(groupCodeInsertPromises)
+
+        for await (const code of codeData) {
+            console.log(`idx: ${code.idx} group-id : ${code.group_id}\t code-id: ${code.code_id}\t name: ${code.name}`)
+            const task = await codesRepository.insert({
+                type: code.type as CodeTypeEnum,
+                group_id: code.group_id,
+                code_id: code.code_id,
+                name: code.name,
+            })
+            if (!task) {
+                console.debug('seed insert error...')
+                exit()
+            }
+        }
     }
 
-    return
-}
-
-MasterSeed().then(() => {
-    console.debug('!!!!!!!!!!!!!!!!!!!!!!!!!!!end!!!!!!!!!!!!!!!!!!!!')
+    console.debug(`######################################################################`)
     exit()
-})
+})()

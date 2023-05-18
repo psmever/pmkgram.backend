@@ -9,9 +9,6 @@ export class Codes1683873754604 implements MigrationInterface {
                     {
                         name: 'id',
                         type: 'int',
-                        isPrimary: true,
-                        isGenerated: true,
-                        generationStrategy: 'increment',
                     },
                     {
                         name: 'type',

@@ -7,7 +7,7 @@ export enum CodeTypeEnum {
 
 @Entity()
 export class Codes extends BaseEntity {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('increment')
     id: number
 
     @Column({ type: `enum`, nullable: false, enum: CodeTypeEnum })

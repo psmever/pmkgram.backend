@@ -5,29 +5,7 @@ import * as process from 'process'
 
 dotenv.config()
 
-// const AppDataSource = new DataSource({
-//     type: 'mysql',
-//     host: process.env.MYSQL_HOST,
-//     port: Number(process.env.MYSQL_PORT),
-//     username: process.env.MYSQL_USERNAME,
-//     password: process.env.MYSQL_PASSWORD,
-//     database: process.env.MYSQL_DATABASE,
-//     synchronize: true,
-//     logging: false,
-//     entities: [__dirname + '/Entities/*.ts'],
-//     migrations: [__dirname + '/Migrations/*.ts'],
-//     subscribers: [],
-// })
-//
-// AppDataSource.initialize()
-//     .then(() => {
-//         console.log('Data Source has been initialized!')
-//     })
-//     .catch((err) => {
-//         console.error('Error during Data Source initialization', err)
-//     })
-
-const connToDS = async () => {
+const connToDatabase = async () => {
     const dataSourceConn = new DataSource({
         type: 'mysql',
         host: process.env.MYSQL_HOST,
@@ -35,8 +13,9 @@ const connToDS = async () => {
         username: process.env.MYSQL_USERNAME,
         password: process.env.MYSQL_PASSWORD,
         database: process.env.MYSQL_DATABASE,
-        synchronize: true,
-        logging: process.env.APP_ENV !== 'production',
+        synchronize: process.env.MYSQL_SYNCHRONIZE === 'true',
+        // logging: process.env.APP_ENV !== 'production',
+        logging: process.env.MYSQL_LOGGING === 'true',
         entities: [__dirname + '/Entities/*.ts'],
         migrations: [__dirname + '/Migrations/*.ts'],
         subscribers: [],
@@ -50,6 +29,4 @@ const connToDS = async () => {
     }
 }
 
-export const DataBaseSource = connToDS()
-
-// export default AppDataSource
+export const DataBaseSource = connToDatabase()
