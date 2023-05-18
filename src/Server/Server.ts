@@ -2,7 +2,8 @@ import express, { Application } from 'express'
 import path from 'path'
 import _ from 'lodash'
 import fs from 'fs'
-import { TestsRouter } from '@Routes/Api'
+import { TestsRouter, SystemRouter } from '@Routes/Api'
+import { RestBeforeMiddleware } from '@Middlewares/RestBeforeMiddleware'
 import { WebRouter } from '@Routes/Web'
 import { Logger } from '@Logger'
 import Config from '@Config'
@@ -47,6 +48,7 @@ const addRouters = (app: Application): void => {
     // const baseWebRoute = '/web'
 
     app.use(`${baseApiRoute}/tests`, TestsRouter)
+    app.use(`${baseApiRoute}/system`, RestBeforeMiddleware, SystemRouter)
     app.use(`/`, WebRouter)
 }
 

@@ -49,6 +49,9 @@
       "@Controllers/*": [
         "Controller/*"
       ],
+      "@Middlewares/*": [
+        "Middlewares/*"
+      ],
       "@Config": [
         "Common/Config"
       ],
