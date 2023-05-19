@@ -2,11 +2,12 @@ import express, { Application } from 'express'
 import path from 'path'
 import _ from 'lodash'
 import fs from 'fs'
-import { TestsRouter, SystemRouter } from '@Routes/Api'
+import { TestsRouter, SystemRouter, AuthRouter } from '@Routes/Api'
 import { RestBeforeMiddleware } from '@Middlewares/RestBeforeMiddleware'
 import { WebRouter } from '@Routes/Web'
 import { Logger } from '@Logger'
 import Config from '@Config'
+import bodyParser from 'body-parser'
 
 export const checkEnvironment = (): { state: boolean; message: string } => {
     const notFound: string[] = []
@@ -49,6 +50,7 @@ const addRouters = (app: Application): void => {
 
     app.use(`${baseApiRoute}/tests`, TestsRouter)
     app.use(`${baseApiRoute}/system`, RestBeforeMiddleware, SystemRouter)
+    app.use(`${baseApiRoute}/auth`, RestBeforeMiddleware, AuthRouter)
     app.use(`/`, WebRouter)
 }
 
@@ -57,6 +59,8 @@ export function initServer(app: Application, Path: string): void {
     app.set('view engine', 'pug')
     app.set('views', path.join(Path, 'Resources/view'))
     app.use(express.static(path.join(Path, 'Resources/public')))
+    app.use(bodyParser.urlencoded({ extended: false }))
+    app.use(bodyParser.json())
 
     addRouters(app)
     return

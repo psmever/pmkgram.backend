@@ -3,6 +3,7 @@ import { ClientErrorResponse } from '@Commons/ResponseProvider'
 import Messages from '@Commons/Messages'
 import _ from 'lodash'
 import Codes from '@Commons/Codes'
+import { Logger } from '@Logger'
 
 export const RestBeforeMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     res.setHeader('Content-Type', 'application/json; charset=utf-8')
@@ -35,5 +36,8 @@ export const RestBeforeMiddleware = async (req: Request, res: Response, next: Ne
         ClientErrorResponse(res, Messages.error.defaultClientError)
         return
     }
+
+    Logger.info(`${JSON.stringify(req.headers)}`, null, true)
+    Logger.info(`${JSON.stringify(req.body)}`, null, true)
     next()
 }
