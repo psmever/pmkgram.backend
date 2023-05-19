@@ -13,6 +13,7 @@ export const BaseData = async (req: Request, res: Response): Promise<void> => {
     const dataSource = await DataBaseSource
 
     let resultCodeStep1 = {}
+    let resultCodeStep2 = {}
 
     if (dataSource) {
         const getCode = await dataSource.getRepository(Codes).createQueryBuilder('codes').getMany()
@@ -26,7 +27,25 @@ export const BaseData = async (req: Request, res: Response): Promise<void> => {
                 name: name,
             }
         })
+
+        const group = getCode.filter((c) => c.type === `group`)
+        const code = getCode.filter((c) => c.type === `code`)
+
+        resultCodeStep2 = group.map((g) => {
+            return {
+                group: g.group_id,
+                name: g.name,
+                codes: code
+                    .filter((cf) => cf.group_id === g.group_id)
+                    .map((cfg) => {
+                        return {
+                            code_id: cfg.code_id,
+                            name: cfg.name,
+                        }
+                    }),
+            }
+        })
     }
 
-    SuccessResponse(res, { code: { step1: resultCodeStep1 } })
+    SuccessResponse(res, { code: { step1: resultCodeStep1, step2: resultCodeStep2 } })
 }
