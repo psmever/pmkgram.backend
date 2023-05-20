@@ -23,6 +23,11 @@ MYSQL_USERNAME=${MYSQL_USERNAME}
 MYSQL_PASSWORD=${MYSQL_PASSWORD}
 MYSQL_DIALECT=${MYSQL_DIALECT}
 
+MYSQL_LOGGING=${MYSQL_LOGGING}
+MYSQL_SYNCHRONIZE=${MYSQL_SYNCHRONIZE}
+
+BCRYPT_SALTROUNDS=${BCRYPT_SALTROUNDS}
+
 > ./project env 파일 생성
 develop.environment.env
 production.environment.env
@@ -32,5 +37,24 @@ production.environment.env
 # yarn start:dev
 ```
 
+## 마이그레이션 && Seeder 실행
+
+```bash
+
+# yarn migration:run && yarn migration:seed
+
+```
+
+## 테스트 사용자 등록
+
+```bash
+# yarn ts-node -r tsconfig-paths/register --files src/Command/UserInsert.ts -e ts
+```
+
+## 빌드 테스트
+
+```bash
+# yarn build:test 
+```
 
 
