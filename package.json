@@ -29,6 +29,7 @@
     "clean": "rm -rf build",
     "build:compile": "npx babel src --extensions .ts --out-dir build --source-maps",
     "build:types": "tsc",
+    "build:test": "yarn lint && yarn build",
     "build": "yarn build:compile && yarn build:types",
     "prettier": "prettier --write \"src/**/*.ts\"",
     "prettier:check": "prettier --check \"src/**/*.ts\"",
@@ -73,10 +74,14 @@
     "typescript": "5.0.2"
   },
   "dependencies": {
+    "@types/bcrypt": "5.0.0",
+    "@types/cors": "2.8.13",
     "@types/lodash": "4.14.192",
     "@types/pug": "2.0.6",
     "@types/winston": "2.4.4",
+    "bcrypt": "5.1.0",
     "body-parser": "1.20.2",
+    "cors": "2.8.5",
     "dotenv": "16.0.3",
     "express": "4.18.2",
     "fs": "0.0.1-security",

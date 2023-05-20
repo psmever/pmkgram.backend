@@ -36,6 +36,7 @@ export class Users1684475213993 implements MigrationInterface {
                         type: 'varchar',
                         length: '255',
                         isNullable: false,
+                        isUnique: true,
                     },
                     {
                         name: 'password',
@@ -48,11 +49,13 @@ export class Users1684475213993 implements MigrationInterface {
                         type: 'varchar',
                         length: '255',
                         isNullable: false,
+                        isUnique: true,
                     },
                     {
                         name: 'email_verified_at',
                         type: 'timestamp',
-                        default: 'now()',
+                        isNullable: true,
+                        default: null,
                     },
                     {
                         name: 'updated_at',

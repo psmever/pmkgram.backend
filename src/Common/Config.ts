@@ -14,4 +14,5 @@ export default {
     MYSQL_HOST: process.env.MYSQL_HOST,
     MYSQL_DIALECT: process.env.MYSQL_DIALECT,
     MYSQL_PORT: process.env.MYSQL_PORT,
+    BCRYPT_SALTROUNDS: process.env.BCRYPT_SALTROUNDS,
 }

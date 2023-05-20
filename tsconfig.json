@@ -58,6 +58,9 @@
       "@Logger": [
         "Common/Logger"
       ],
+      "@Helper": [
+        "Common/Helper"
+      ],
       "@Messages": [
         "Common/Messages"
       ],

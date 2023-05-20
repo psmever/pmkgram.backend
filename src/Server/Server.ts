@@ -8,6 +8,7 @@ import { WebRouter } from '@Routes/Web'
 import { Logger } from '@Logger'
 import Config from '@Config'
 import bodyParser from 'body-parser'
+import cors from 'cors'
 
 export const checkEnvironment = (): { state: boolean; message: string } => {
     const notFound: string[] = []
@@ -59,6 +60,13 @@ export function initServer(app: Application, Path: string): void {
     app.set('view engine', 'pug')
     app.set('views', path.join(Path, 'Resources/view'))
     app.use(express.static(path.join(Path, 'Resources/public')))
+
+    app.use(
+        cors({
+            origin: '*',
+        }),
+    )
+
     app.use(bodyParser.urlencoded({ extended: false }))
     app.use(bodyParser.json())
 
