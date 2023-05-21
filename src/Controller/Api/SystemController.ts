@@ -1,11 +1,16 @@
 import { Request, Response } from 'express'
-import { NoCotentResponse, SuccessResponse } from '@Commons/ResponseProvider'
+import { NoCotentResponse, SuccessResponse, ClientErrorResponse } from '@Commons/ResponseProvider'
 import { DataBaseSource } from '@Database/DataBaseSource'
 import { Codes } from '@Entity/Codes'
 
 // 서버 체크
 export const CheckStatus = async (req: Request, res: Response): Promise<void> => {
     NoCotentResponse(res)
+}
+
+// 에러
+export const ErrorTest = async (req: Request, res: Response): Promise<void> => {
+    ClientErrorResponse(res, '문제가 발생 했습니다.', Error('에러발생'))
 }
 
 // 기본 데이터
