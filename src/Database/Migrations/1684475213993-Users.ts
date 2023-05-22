@@ -113,6 +113,15 @@ export class Users1684475213993 implements MigrationInterface {
                 isUnique: true,
             }),
         )
+
+        await queryRunner.createIndex(
+            'users',
+            new TableIndex({
+                name: 'IDX_USERS_NICKNAME',
+                columnNames: ['nickname'],
+                isUnique: true,
+            }),
+        )
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

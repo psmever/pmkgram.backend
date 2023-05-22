@@ -16,7 +16,7 @@ export class Codes extends BaseEntity {
     @Column({ type: `varchar`, nullable: false, length: 3 })
     group_id: string
 
-    @Column({ type: `varchar`, nullable: false, length: 6 })
+    @Column({ type: `varchar`, nullable: false, length: 6, unique: true })
     code_id: string
 
     @Column({ type: `varchar`, nullable: false })

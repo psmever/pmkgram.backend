@@ -15,4 +15,6 @@ export default {
     MYSQL_DIALECT: process.env.MYSQL_DIALECT,
     MYSQL_PORT: process.env.MYSQL_PORT,
     BCRYPT_SALTROUNDS: process.env.BCRYPT_SALTROUNDS,
+    GMAIL_USER: process.env.GMAIL_USER,
+    GMAIL_PASSWORD: process.env.GMAIL_PASSWORD,
 }

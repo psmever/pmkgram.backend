@@ -15,13 +15,13 @@ export class Users extends BaseEntity {
     @Column({ type: `char`, nullable: false, length: 6 })
     status: string
 
-    @Column({ type: `varchar`, nullable: false, length: 255 })
+    @Column({ type: `varchar`, nullable: false, length: 255, unique: true })
     email: string
 
     @Column({ type: `varchar`, nullable: false, length: 255 })
     password: string
 
-    @Column({ type: `varchar`, nullable: false, length: 255 })
+    @Column({ type: `varchar`, nullable: false, length: 255, unique: true })
     nickname: string
 
     @Column({ type: `timestamp`, nullable: true })

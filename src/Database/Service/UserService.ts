@@ -12,3 +12,40 @@ export const emailExits = async ({ email }: { email: string }): Promise<number> 
 
     return task.length
 }
+
+/**
+ * 사용자 등록
+ * @param type
+ * @param level
+ * @param status
+ * @param email
+ * @param password
+ * @param nickname
+ */
+export const userCreate = async ({
+    type,
+    level,
+    status,
+    email,
+    password,
+    nickname,
+}: {
+    type: string
+    level: string
+    status: string
+    email: string
+    password: string
+    nickname: string
+}): Promise<Users> => {
+    return userRepository.save(
+        {
+            type: type,
+            level: level,
+            status: status,
+            email: email,
+            password: password,
+            nickname: nickname,
+        },
+        { transaction: false, data: false },
+    )
+}
