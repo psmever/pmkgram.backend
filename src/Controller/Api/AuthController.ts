@@ -3,6 +3,7 @@ import { ClientErrorResponse, SuccessResponse } from '@Commons/ResponseProvider'
 import _ from 'lodash'
 import Messages from '@Messages'
 import { emailValidator } from '@Helper'
+import { emailExits } from '@Service/UserService'
 
 // 회원 가입
 export const Register = async (req: Request, res: Response): Promise<void> => {
@@ -21,6 +22,10 @@ export const Register = async (req: Request, res: Response): Promise<void> => {
     }
 
     // 이메일 중복 체크
+    const emailCheck = await emailExits({ email: email })
+    if (emailCheck > 0) {
+        ClientErrorResponse(res, Messages.auth.register.emailValidate)
+    }
 
     SuccessResponse(res, { test: 'test' })
 }

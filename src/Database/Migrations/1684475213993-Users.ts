@@ -110,6 +110,7 @@ export class Users1684475213993 implements MigrationInterface {
             new TableIndex({
                 name: 'IDX_USERS_EMAIL',
                 columnNames: ['email'],
+                isUnique: true,
             }),
         )
     }

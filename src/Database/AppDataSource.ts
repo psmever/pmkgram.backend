@@ -11,7 +11,7 @@ const AppDataSource = new DataSource({
     username: process.env.MYSQL_USERNAME,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE,
-    synchronize: true,
+    synchronize: false,
     logging: false,
     entities: [__dirname + '/Entities/*.ts'],
     migrations: [__dirname + '/Migrations/*.ts'],
@@ -20,9 +20,9 @@ const AppDataSource = new DataSource({
 
 AppDataSource.initialize()
     .then(() => {
-        console.log('Data Source has been initialized!')
+        console.log('AppDataSource: Data Source has been initialized!')
     })
     .catch((err) => {
-        console.error('Error during Data Source initialization', err)
+        console.error('AppDataSource: Error during Data Source initialization', err)
     })
 export default AppDataSource

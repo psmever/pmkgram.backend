@@ -70,9 +70,6 @@
       "@Codes": [
         "Common/Codes"
       ],
-      "@Entities": [
-        "Database/Entities"
-      ],
       "@Types/*": [
         "Types/*"
       ],
@@ -81,6 +78,9 @@
       ],
       "@Entity/*": [
         "Database/Entities/*"
+      ],
+      "@Service/*": [
+        "Database/Service/*"
       ]
     },
     /* Specify a set of entries that re-map imports to additional lookup locations. */

@@ -1,31 +1,29 @@
 #!/usr/bin/env node
-import { Users } from '@Entity/Users'
-import { DataBaseConnent } from '@Database/DataBaseConnent'
+import MysqlConnect from '@Database/MysqlConnect'
 import bcrypt from 'bcrypt'
 import Config from '@Config'
 import { exit } from 'node:process'
+import { Logger } from '@Commons/Logger'
 
 console.debug(`######################################################################`)
 ;(async () => {
-    const serviceDS = await DataBaseConnent
-    const nowDateTime = new Date(new Date(new Date(new Date()).toISOString()).getTime() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .slice(0, 19)
-        .replace('T', ' ')
-
-    if (serviceDS) {
-        const userRepository = await serviceDS.getRepository(Users)
-        const task = await userRepository.insert({
-            type: `010030`,
-            level: `030010`,
-            status: `020020`,
-            email: `pmk@pmkgram.co.kr`,
-            password: bcrypt.hashSync(`password`, Number(Config.BCRYPT_SALTROUNDS)),
-            nickname: `pmk`,
-            email_verified_at: nowDateTime,
-        })
-
-        console.debug(task)
+    const conn = await MysqlConnect.getConnection()
+    const [result] = await conn.query(
+        `insert into users 
+                (type, level, status, email, password, nickname, email_verified_at, updated_at, created_at) 
+             values 
+             (
+                '010030', '030010', '020020', 'pmk@pmkgram.co.kr', '${bcrypt.hashSync(
+                    `password`,
+                    Number(Config.BCRYPT_SALTROUNDS),
+                )}', 'pmk', now(), now(), now()
+             );`,
+    )
+    if (!result) {
+        Logger.consoleError('seed insert error...')
+        exit()
+    } else {
+        Logger.info('success........')
     }
 
     console.debug(`######################################################################`)
