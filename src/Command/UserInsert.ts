@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 import { Users } from '@Entity/Users'
-import { DataBaseSource } from '@Database/DataBaseSource'
+import { DataBaseConnent } from '@Database/DataBaseConnent'
 import bcrypt from 'bcrypt'
 import Config from '@Config'
 import { exit } from 'node:process'
 
 console.debug(`######################################################################`)
 ;(async () => {
-    const serviceDS = await DataBaseSource
+    const serviceDS = await DataBaseConnent
     const nowDateTime = new Date(new Date(new Date(new Date()).toISOString()).getTime() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .slice(0, 19)

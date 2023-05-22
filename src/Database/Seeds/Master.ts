@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 import _ from 'lodash'
-import { DataBaseSource } from '@Database/DataBaseSource'
+import { DataBaseConnent } from '@Database/DataBaseConnent'
 import { Codes as CodesEntity, CodeTypeEnum } from '@Entity/Codes'
 import { exit } from 'node:process'
 import Codes from '@Codes'
 
 console.debug(`######################################################################`)
 ;(async () => {
-    const serviceDS = await DataBaseSource
+    const serviceDS = await DataBaseConnent
     if (serviceDS) {
         const codesRepository = await serviceDS.getRepository(CodesEntity)
 

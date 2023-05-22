@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { NoCotentResponse, SuccessResponse, ClientErrorResponse } from '@Commons/ResponseProvider'
-import { DataBaseSource } from '@Database/DataBaseSource'
+import { DataBaseConnent } from '@Database/DataBaseConnent'
 import { Codes } from '@Entity/Codes'
 
 // 서버 체크
@@ -15,7 +15,7 @@ export const ErrorTest = async (req: Request, res: Response): Promise<void> => {
 
 // 기본 데이터
 export const BaseData = async (req: Request, res: Response): Promise<void> => {
-    const dataSource = await DataBaseSource
+    const dataSource = await DataBaseConnent
 
     let resultCodeStep1 = {}
     let resultCodeStep2 = {}

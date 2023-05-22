@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, JoinTable } from 'typeorm'
-import { Codes } from '@Entity/Codes'
+import { Codes } from './Codes'
 
 @Entity()
 export class Users extends BaseEntity {
