@@ -1,11 +1,11 @@
 interface SampleType {
-    sample : string
+    sample: string
     value: number
 }
 
 const sampleValue: SampleType = {
     sample: 'test',
-    value: 0
+    value: 0,
 }
 
 console.debug('Hello World', sampleValue)

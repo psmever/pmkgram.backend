@@ -1,8 +1,17 @@
-import express, { Application } from 'express';
-import * as Server from './Server/Server'
+import express, { Application } from 'express'
+import { Logger } from '@Commons/Logger'
+import * as Server from '@Servers/Server'
 
-const app: Application = express();
+const app: Application = express()
 
-Server.initServer(app);
-Server.startServer(app);
+app.locals.env = process.env
 
+const checkResult = Server.checkEnvironment()
+
+if (checkResult.state) {
+    Server.initServer(app, __dirname)
+    Server.startServer(app)
+} else {
+    console.clear()
+    Logger.consoleError(`\n\nStart Server Error: ${checkResult.message}\n`)
+}
