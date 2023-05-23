@@ -13,8 +13,8 @@ const AppDataSource = new DataSource({
     database: process.env.MYSQL_DATABASE,
     synchronize: false,
     logging: false,
-    entities: [__dirname + '/Entities/*.ts'],
-    migrations: [__dirname + '/Migrations/*.ts'],
+    entities: [__dirname + '/Entities/*.{ts,js}'],
+    migrations: [__dirname + '/Migrations/*.{ts,js}'],
     subscribers: [],
 })
 
