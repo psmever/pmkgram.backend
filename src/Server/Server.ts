@@ -59,6 +59,7 @@ const addRouters = (app: Application): void => {
 
 // 서버 초기화 설정.
 export function initServer(app: Application, Path: string): void {
+    // console.debug(path.join(Path, 'Resources/view'))
     app.set('view engine', 'pug')
     app.set('views', path.join(Path, 'Resources/view'))
     app.use(express.static(path.join(Path, 'Resources/public')))
