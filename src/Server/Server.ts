@@ -4,7 +4,7 @@ import _ from 'lodash'
 import fs from 'fs'
 import { TestsRouter, SystemRouter, AuthRouter } from '@Routes/Api'
 import { RestBeforeMiddleware } from '@Middlewares/RestBeforeMiddleware'
-import { WebRouter } from '@Routes/Web'
+import { DefaultRouter as DefaultWebRouter, AuthRouter as AuthWebRouter } from '@Routes/Web'
 import { Logger } from '@Logger'
 import Config from '@Config'
 import bodyParser from 'body-parser'
@@ -45,14 +45,16 @@ export const checkEnvironment = (): { state: boolean; message: string } => {
     }
 }
 
+// 라우터 등록
 const addRouters = (app: Application): void => {
     const baseApiRoute = '/api'
-    // const baseWebRoute = '/web'
+    const baseWebRoute = '/web'
 
     app.use(`${baseApiRoute}/tests`, TestsRouter)
     app.use(`${baseApiRoute}/system`, RestBeforeMiddleware, SystemRouter)
     app.use(`${baseApiRoute}/auth`, RestBeforeMiddleware, AuthRouter)
-    app.use(`/`, WebRouter)
+    app.use(`/`, DefaultWebRouter)
+    app.use(`${baseWebRoute}/auth`, AuthWebRouter)
 }
 
 // 서버 초기화 설정.

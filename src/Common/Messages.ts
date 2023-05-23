@@ -15,5 +15,12 @@ export default {
             emailValidate: `정확한 이메일 주소를 입력해 주세요.`,
             emailExits: `이미 사용중인 이메일 주소 입니다.`,
         },
+        emailAuth: {
+            authCodeExits: `존재 하지 않은 인증 코드 입니다.`,
+            alreadyCode: `이미 인증을 완료했습니다.`,
+            emptyUser: `사용자 정보가 존재 하지 않습니다.`,
+            successSubApp: `앱으로 로그인 해주세요.`,
+            successSubWeb: `웹으로 로그인 해주세요.`,
+        },
     },
 }

@@ -4,8 +4,11 @@ import _ from 'lodash'
 import Messages from '@Messages'
 import { emailValidator } from '@Helper'
 import { emailExits, userCreate } from '@Service/UserService'
+import { emailAuthSave } from '@Service/EmailAuthService'
 import Config from '@Config'
 import bcrypt from 'bcrypt'
+import { v4 as uuidv4 } from 'uuid'
+import MailSender from '@Commons/MailSender'
 
 // 이메일 중복 체크
 export const EmailExits = async (req: Request, res: Response): Promise<void> => {
@@ -32,6 +35,7 @@ export const EmailExits = async (req: Request, res: Response): Promise<void> => 
 
 // 회원 가입
 export const Register = async (req: Request, res: Response): Promise<void> => {
+    const authCode = uuidv4()
     const { email, password } = req.body
 
     if (_.isEmpty(email)) {
@@ -60,6 +64,26 @@ export const Register = async (req: Request, res: Response): Promise<void> => {
             nickname: `${email.split('@')[0].toLowerCase().replace(' ', _)}_${Math.floor(Date.now() / 1000)}`,
         })
 
-        SuccessResponse(res, { email: task.email, nickname: task.nickname })
+        await emailAuthSave({
+            user_id: task.id,
+            authCode: authCode,
+        })
+
+        MailSender.SendEmailAuth({
+            ToEmail: 'psmever@gmail.com',
+            EmailAuthCode: authCode,
+        })
+
+        const payload: { email: string; nickname: string; auchcode?: string } = {
+            email: task.email,
+            nickname: task.nickname,
+            auchcode: authCode,
+        }
+
+        if (Config.APP_ENV === 'production') {
+            delete payload.auchcode
+        }
+
+        SuccessResponse(res, payload)
     }
 }
