@@ -17,4 +17,5 @@ export default {
     BCRYPT_SALTROUNDS: process.env.BCRYPT_SALTROUNDS,
     GMAIL_USER: process.env.GMAIL_USER,
     GMAIL_PASSWORD: process.env.GMAIL_PASSWORD,
+    SECRET_KEY: process.env.SECRET_KEY,
 }

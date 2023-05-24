@@ -57,4 +57,7 @@ production.environment.env
 # yarn build:test 
 ```
 
+## jsonwebtoken secret key
+
+> [jsonwebtoken secret key](https://www.grc.com/passwords.htm).
 
