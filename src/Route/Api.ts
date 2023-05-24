@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { Default } from '@Controllers/Api/TestController'
 import { CheckStatus, BaseData, ErrorTest } from '@Controllers/Api/SystemController'
-import { Register, EmailExits } from '@Controllers/Api/AuthController'
+import { Register, EmailExits, Login } from '@Controllers/Api/AuthController'
 
 export const TestsRouter = Router()
 export const SystemRouter = Router()
@@ -20,3 +20,5 @@ SystemRouter.get('/error-test', ErrorTest)
 AuthRouter.get('/:email/email-exits', EmailExits)
 // 인증
 AuthRouter.post('/register', Register)
+// 로그인
+AuthRouter.post('/login', Login)

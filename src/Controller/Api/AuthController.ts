@@ -3,7 +3,7 @@ import { ClientErrorResponse, SuccessResponse } from '@Commons/ResponseProvider'
 import _ from 'lodash'
 import Messages from '@Messages'
 import { emailValidator } from '@Helper'
-import { emailExits, userCreate } from '@Service/UserService'
+import { emailExits, userCreate, getUserForLogin } from '@Service/UserService'
 import { emailAuthSave } from '@Service/EmailAuthService'
 import Config from '@Config'
 import bcrypt from 'bcrypt'
@@ -42,12 +42,12 @@ export const Register = async (req: Request, res: Response): Promise<void> => {
         ClientErrorResponse(res, Messages.auth.register.emailEmpty)
     }
 
-    if (_.isEmpty(password)) {
-        ClientErrorResponse(res, Messages.auth.register.passwordEmpty)
-    }
-
     if (!emailValidator(email)) {
         ClientErrorResponse(res, Messages.auth.register.emailValidate)
+    }
+
+    if (_.isEmpty(password)) {
+        ClientErrorResponse(res, Messages.auth.register.passwordEmpty)
     }
 
     // 이메일 중복 체크
@@ -85,5 +85,35 @@ export const Register = async (req: Request, res: Response): Promise<void> => {
         }
 
         SuccessResponse(res, payload)
+    }
+}
+
+// 로그인
+export const Login = async (req: Request, res: Response): Promise<void> => {
+    const { email, password } = req.body
+
+    if (_.isEmpty(email)) {
+        ClientErrorResponse(res, Messages.auth.register.emailEmpty)
+    }
+
+    if (!emailValidator(email)) {
+        ClientErrorResponse(res, Messages.auth.register.emailValidate)
+    }
+
+    if (_.isEmpty(password)) {
+        ClientErrorResponse(res, Messages.auth.register.passwordEmpty)
+    }
+
+    const findUser = await getUserForLogin({ email: email })
+
+    if (findUser) {
+        const checkPassword = await bcrypt.compare(password, findUser.password)
+        if (checkPassword) {
+            SuccessResponse(res, { email: email, password: password, find: findUser })
+        } else {
+            ClientErrorResponse(res, Messages.auth.login.checkPassword)
+        }
+    } else {
+        ClientErrorResponse(res, Messages.auth.login.userExits)
     }
 }
