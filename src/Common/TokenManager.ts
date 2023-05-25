@@ -123,3 +123,49 @@ export const tokenRefresh = async ({
         }
     }
 }
+
+/**
+ * 토큰 정보
+ * @param token
+ */
+export const tokenInfo = async ({
+    token,
+}: {
+    token: string
+}): Promise<{
+    status: boolean
+    token?: {
+        status: string
+        user: {
+            email: string
+            status: string
+        }
+    }
+}> => {
+    const verify = verifyToken({ token: token })
+
+    if (verify.status) {
+        const tokenInfo = await getTokenInfo({ token: verify.token })
+        if (tokenInfo && tokenInfo.user) {
+            Logger.console(tokenInfo)
+            return {
+                status: true,
+                token: {
+                    status: tokenInfo.status,
+                    user: {
+                        email: tokenInfo.user.email,
+                        status: tokenInfo.user.status,
+                    },
+                },
+            }
+        } else {
+            return {
+                status: false,
+            }
+        }
+    } else {
+        return {
+            status: false,
+        }
+    }
+}
