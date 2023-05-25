@@ -69,19 +69,25 @@ export const Register = async (req: Request, res: Response): Promise<void> => {
             authCode: authCode,
         })
 
-        MailSender.SendEmailAuth({
-            ToEmail: 'psmever@gmail.com',
-            EmailAuthCode: authCode,
-        })
+        if (Config.APP_ENV === 'production') {
+            MailSender.SendEmailAuth({
+                ToEmail: email,
+                EmailAuthCode: authCode,
+            })
+        }
 
-        const payload: { email: string; nickname: string; auchcode?: string } = {
+        const payload: { email: string; nickname: string; authcode?: string; authlink?: string } = {
             email: task.email,
             nickname: task.nickname,
-            auchcode: authCode,
+            authcode: authCode,
+            authlink: Config.PORT
+                ? `${Config.HOSTNAME}:${Config.PORT}/web/auth/emailauth/${authCode}`
+                : `${Config.HOSTNAME}/web/auth/emailauth/${authCode}`,
         }
 
         if (Config.APP_ENV === 'production') {
-            delete payload.auchcode
+            delete payload.authcode
+            delete payload.authlink
         }
 
         SuccessResponse(res, payload)
