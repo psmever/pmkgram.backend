@@ -119,3 +119,6 @@ web_modules/
 .vscode
 .DS_Store
 .idea
+
+# deploy script
+deploy.sh
