@@ -5,7 +5,7 @@ import _ from 'lodash'
 import Codes from '@Commons/Codes'
 import { Logger } from '@Logger'
 
-export const RestBeforeMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const RestDefaultMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     res.setHeader('Content-Type', 'application/json; charset=utf-8')
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Methods', 'DELETE,GET,PATCH,POST,PUT')
@@ -29,12 +29,6 @@ export const RestBeforeMiddleware = async (req: Request, res: Response, next: Ne
             ClientErrorResponse(res, Messages.error.clientTypeNotFound)
             return
         }
-    }
-
-    // accept 체크
-    if (_.isEmpty(req.headers['accept'])) {
-        ClientErrorResponse(res, Messages.error.defaultClientError)
-        return
     }
 
     Logger.info(`${JSON.stringify(req.headers)}`, null, true)

@@ -59,3 +59,10 @@ export const userCreate = async ({
 export const emailVerified = async ({ id }: { id: number }): Promise<UpdateResult> => {
     return userRepository.update({ id: id }, { status: '020020', email_verified_at: toMySqlDatetime(new Date()) })
 }
+
+export const getUserForLogin = async ({ email }: { email: string }): Promise<Users | null> => {
+    return await userRepository.findOne({
+        select: [`id`, `email`, 'password', `status`, 'nickname'],
+        where: { email: email },
+    })
+}

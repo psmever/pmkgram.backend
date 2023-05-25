@@ -117,4 +117,12 @@ export class Logger {
     public static consoleError(message: string): void {
         consoleLogger.error(message)
     }
+
+    /**
+     * 콘솔 메시지 출력
+     * @param message
+     */
+    public static console(message: string | object): void {
+        consoleLogger.debug(typeof message === 'object' ? JSON.stringify(message) : message)
+    }
 }

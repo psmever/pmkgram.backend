@@ -3,7 +3,7 @@ import path from 'path'
 import _ from 'lodash'
 import fs from 'fs'
 import { TestsRouter, SystemRouter, AuthRouter } from '@Routes/Api'
-import { RestBeforeMiddleware } from '@Middlewares/RestBeforeMiddleware'
+import { RestDefaultMiddleware } from '@Middlewares/RestDefaultMiddleware'
 import { DefaultRouter as DefaultWebRouter, AuthRouter as AuthWebRouter } from '@Routes/Web'
 import { Logger } from '@Logger'
 import Config from '@Config'
@@ -51,8 +51,8 @@ const addRouters = (app: Application): void => {
     const baseWebRoute = '/web'
 
     app.use(`${baseApiRoute}/tests`, TestsRouter)
-    app.use(`${baseApiRoute}/system`, RestBeforeMiddleware, SystemRouter)
-    app.use(`${baseApiRoute}/auth`, RestBeforeMiddleware, AuthRouter)
+    app.use(`${baseApiRoute}/system`, RestDefaultMiddleware, SystemRouter)
+    app.use(`${baseApiRoute}/auth`, RestDefaultMiddleware, AuthRouter)
     app.use(`/`, DefaultWebRouter)
     app.use(`${baseWebRoute}/auth`, AuthWebRouter)
 }

@@ -70,6 +70,9 @@
       "@Codes": [
         "Common/Codes"
       ],
+      "@TokenManager": [
+        "Common/TokenManager"
+      ],
       "@Types/*": [
         "Types/*"
       ],
@@ -167,5 +170,10 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true
     /* Skip type checking all .d.ts files. */
+  },
+  "ts-node": {
+    "require": [
+      "tsconfig-paths/register"
+    ]
   }
 }

@@ -22,5 +22,13 @@ export default {
             successSubApp: `앱으로 로그인 해주세요.`,
             successSubWeb: `웹으로 로그인 해주세요.`,
         },
+        login: {
+            userExits: `존재 하지 않는 회원 입니다.`,
+            checkPassword: `패스워드를 확인해 주세요.`,
+        },
+        logout: {
+            tokenVerifyError: `처리중 문제가 발생했습니다.`,
+            checkPassword: `패스워드를 확인해 주세요.`,
+        },
     },
 }
