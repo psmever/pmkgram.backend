@@ -18,4 +18,6 @@ export default {
     GMAIL_USER: process.env.GMAIL_USER,
     GMAIL_PASSWORD: process.env.GMAIL_PASSWORD,
     SECRET_KEY: process.env.SECRET_KEY,
+    ACCESS_TOKEN_EXPIRESIN: process.env.ACCESS_TOKEN_EXPIRESIN,
+    REFRESH_TOKEN_EXPIRESIN: process.env.REFRESH_TOKEN_EXPIRESIN,
 }

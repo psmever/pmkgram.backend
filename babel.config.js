@@ -48,6 +48,7 @@ module.exports = function (api) {
                     '@Messages': './src/Common/Messages',
                     '@Const': './src/Common/Const',
                     '@Codes': './src/Common/Codes',
+                    '@TokenManager': './src/Common/TokenManager',
                     '@Types': './src/Types',
                     '@Database': './src/Database',
                     '@Entity': './src/Database/Entities',

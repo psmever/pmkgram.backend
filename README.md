@@ -49,6 +49,7 @@ production.environment.env
 
 ```bash
 # yarn ts-node -r tsconfig-paths/register --files src/Command/UserInsert.ts -e ts
+# yarn ts-node -r tsconfig-paths/register --files src/Command/TestCommand.ts -e ts
 ```
 
 ## 빌드 테스트

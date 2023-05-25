@@ -1,8 +1,9 @@
 import { Request, Response } from 'express'
-import { ClientErrorResponse, SuccessResponse } from '@Commons/ResponseProvider'
+import { ClientErrorResponse, NoCotentResponse, SuccessResponse, ServerErrorResponse } from '@Commons/ResponseProvider'
 import _ from 'lodash'
 import Messages from '@Messages'
 import { emailValidator } from '@Helper'
+import { generateLoginToken, revokeLogtinToken, tokenRefresh } from '@TokenManager'
 import { emailExits, userCreate, getUserForLogin } from '@Service/UserService'
 import { emailAuthSave } from '@Service/EmailAuthService'
 import Config from '@Config'
@@ -115,11 +116,34 @@ export const Login = async (req: Request, res: Response): Promise<void> => {
     if (findUser) {
         const checkPassword = await bcrypt.compare(password, findUser.password)
         if (checkPassword) {
-            SuccessResponse(res, { email: email, password: password, find: findUser })
+            const genToken = await generateLoginToken({ user_id: findUser.id, email: email })
+            SuccessResponse(res, { access_token: genToken.accessToken, refresh_token: genToken.refreshToken })
         } else {
             ClientErrorResponse(res, Messages.auth.login.checkPassword)
         }
     } else {
         ClientErrorResponse(res, Messages.auth.login.userExits)
+    }
+}
+
+// 로그아웃
+export const Logout = async (req: Request, res: Response): Promise<void> => {
+    const token = req.header('Authorization')?.replace('Bearer ', '')
+    if (token) {
+        await revokeLogtinToken({ token: token })
+        NoCotentResponse(res)
+    } else {
+        ClientErrorResponse(res, Messages.auth.logout.tokenVerifyError)
+    }
+}
+
+// 로큰 refresh
+export const TokenRefresh = async (req: Request, res: Response): Promise<void> => {
+    const { refresh_token } = req.body
+    const refreshTask = await tokenRefresh({ refreshToken: refresh_token })
+    if (refreshTask.status) {
+        SuccessResponse(res, { access_token: refreshTask.accessToken, refresh_token: refreshTask.refreshToken })
+    } else {
+        ServerErrorResponse(res)
     }
 }

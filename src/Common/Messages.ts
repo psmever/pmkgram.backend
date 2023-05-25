@@ -26,5 +26,9 @@ export default {
             userExits: `존재 하지 않는 회원 입니다.`,
             checkPassword: `패스워드를 확인해 주세요.`,
         },
+        logout: {
+            tokenVerifyError: `처리중 문제가 발생했습니다.`,
+            checkPassword: `패스워드를 확인해 주세요.`,
+        },
     },
 }
