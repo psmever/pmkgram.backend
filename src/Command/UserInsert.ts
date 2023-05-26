@@ -13,10 +13,7 @@ console.debug(`#################################################################
                 (type, level, status, email, password, nickname, email_verified_at, updated_at, created_at) 
              values 
              (
-                '010030', '030010', '020020', 'pmk@pmkgram.co.kr', '${bcrypt.hashSync(
-                    `password`,
-                    Number(Config.BCRYPT_SALTROUNDS),
-                )}', 'pmk', now(), now(), now()
+                '010030', '030010', '020020', 'pmk@pmkgram.co.kr', '${bcrypt.hashSync(`password`, Config.BCRYPT_SALT)}', 'pmk', now(), now(), now()
              );`,
     )
     if (!result) {
