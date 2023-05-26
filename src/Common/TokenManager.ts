@@ -14,7 +14,7 @@ dotenv.config()
  * @param email
  */
 export const generateLoginToken = async ({ user_id, email }: { user_id: number; email: string }) => {
-    const token = bcrypt.hashSync(`${email}`, Number(Config.BCRYPT_SALTROUNDS))
+    const token = bcrypt.hashSync(`${email}`, `${Config.SECRET_KEY}`)
 
     const userTokenCheck = await userCheck({ user_id: user_id })
 

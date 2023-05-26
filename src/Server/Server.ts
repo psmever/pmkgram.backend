@@ -2,7 +2,7 @@ import express, { Application } from 'express'
 import path from 'path'
 import _ from 'lodash'
 import fs from 'fs'
-import { TestsRouter, SystemRouter, AuthRouter } from '@Routes/Api'
+import { TestsRouter, SystemRouter, AuthRouter, MediaRouter } from '@Routes/Api'
 import { RestDefaultMiddleware } from '@Middlewares/RestDefaultMiddleware'
 import { DefaultRouter as DefaultWebRouter, AuthRouter as AuthWebRouter } from '@Routes/Web'
 import { Logger } from '@Logger'
@@ -31,6 +31,14 @@ export const checkEnvironment = (): { state: boolean; message: string } => {
     if (_.isEmpty(Config.MYSQL_PORT)) notFound.push('MYSQL_PORT')
     if (_.isEmpty(Config.MYSQL_DATABASE)) notFound.push('MYSQL_DATABASE')
     if (_.isEmpty(Config.MYSQL_USERNAME)) notFound.push('MYSQL_USERNAME')
+    if (_.isEmpty(Config.MYSQL_PASSWORD)) notFound.push('MYSQL_PASSWORD')
+    if (_.isEmpty(Config.MYSQL_LOGGING)) notFound.push('MYSQL_LOGGING')
+    if (_.isEmpty(Config.MYSQL_SYNCHRONIZE)) notFound.push('MYSQL_SYNCHRONIZE')
+    if (_.isEmpty(Config.GMAIL_USER)) notFound.push('GMAIL_USER')
+    if (_.isEmpty(Config.GMAIL_PASSWORD)) notFound.push('GMAIL_PASSWORD')
+    if (_.isEmpty(Config.SECRET_KEY)) notFound.push('SECRET_KEY')
+    if (_.isEmpty(Config.ACCESS_TOKEN_EXPIRESIN)) notFound.push('ACCESS_TOKEN_EXPIRESIN')
+    if (_.isEmpty(Config.REFRESH_TOKEN_EXPIRESIN)) notFound.push('REFRESH_TOKEN_EXPIRESIN')
 
     if (notFound.length > 0) {
         return {
@@ -53,6 +61,7 @@ const addRouters = (app: Application): void => {
     app.use(`${baseApiRoute}/tests`, TestsRouter)
     app.use(`${baseApiRoute}/system`, RestDefaultMiddleware, SystemRouter)
     app.use(`${baseApiRoute}/auth`, RestDefaultMiddleware, AuthRouter)
+    app.use(`${baseApiRoute}/media`, RestDefaultMiddleware, MediaRouter)
     app.use(`/`, DefaultWebRouter)
     app.use(`${baseWebRoute}/auth`, AuthWebRouter)
 }
