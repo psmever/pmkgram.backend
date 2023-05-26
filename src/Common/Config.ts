@@ -1,4 +1,5 @@
 import dotenv from 'dotenv'
+import * as process from 'process'
 
 dotenv.config()
 
@@ -21,4 +22,9 @@ export default {
     BCRYPT_SALT: Number(process.env.BCRYPT_SALT),
     ACCESS_TOKEN_EXPIRESIN: process.env.ACCESS_TOKEN_EXPIRESIN,
     REFRESH_TOKEN_EXPIRESIN: process.env.REFRESH_TOKEN_EXPIRESIN,
+    SFTP_HOST: process.env.SFTP_HOST,
+    SFTP_PORT: Number(process.env.SFTP_PORT),
+    SFTP_USERNAME: process.env.SFTP_USERNAME,
+    SFTP_PASSWORD: process.env.SFTP_PASSWORD,
+    SFTP_FILE_DEST_PATH: process.env.SFTP_FILE_DEST_PATH,
 }
