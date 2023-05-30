@@ -169,3 +169,33 @@ export const tokenInfo = async ({
         }
     }
 }
+
+export const tokenUser = async ({
+    token,
+}: {
+    token: string
+}): Promise<{
+    status: boolean
+    userid?: number
+}> => {
+    const verify = verifyToken({ token: token })
+
+    if (verify.status) {
+        const tokenInfo = await getTokenInfo({ token: verify.token })
+        if (tokenInfo && tokenInfo.user) {
+            Logger.console(tokenInfo)
+            return {
+                status: true,
+                userid: tokenInfo.user.id,
+            }
+        } else {
+            return {
+                status: false,
+            }
+        }
+    } else {
+        return {
+            status: false,
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table, TableIndex } from 'typeorm'
+import { MigrationInterface, QueryRunner, Table, TableForeignKey, TableIndex } from 'typeorm'
 
 export class Media1685025318263 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
@@ -14,9 +14,14 @@ export class Media1685025318263 implements MigrationInterface {
                         generationStrategy: 'increment',
                     },
                     {
+                        name: 'user_id',
+                        type: 'int',
+                        isNullable: true,
+                    },
+                    {
                         name: 'type',
-                        type: 'char',
-                        length: '6',
+                        type: 'varchar',
+                        length: '255',
                         isNullable: true,
                     },
                     {
@@ -33,10 +38,8 @@ export class Media1685025318263 implements MigrationInterface {
                     },
                     {
                         name: 'origin_name',
-                        type: 'enum',
-                        enum: ['Y', 'N'],
-                        enumName: 'statusEnum',
-                        default: '"Y"',
+                        type: 'varchar',
+                        length: '255',
                         isNullable: false,
                     },
                     {
@@ -52,6 +55,17 @@ export class Media1685025318263 implements MigrationInterface {
                 ],
             }),
             true,
+        )
+
+        await queryRunner.createForeignKey(
+            'media',
+            new TableForeignKey({
+                columnNames: ['user_id'],
+                referencedTableName: 'users',
+                referencedColumnNames: ['id'],
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
+            }),
         )
 
         await queryRunner.createIndex(

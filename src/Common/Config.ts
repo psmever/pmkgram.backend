@@ -26,5 +26,7 @@ export default {
     SFTP_PORT: Number(process.env.SFTP_PORT),
     SFTP_USERNAME: process.env.SFTP_USERNAME,
     SFTP_PASSWORD: process.env.SFTP_PASSWORD,
+    SFTP_FILE_DEST_PATH_ROOT: process.env.SFTP_FILE_DEST_PATH_ROOT,
     SFTP_FILE_DEST_PATH: process.env.SFTP_FILE_DEST_PATH,
+    MEDIA_HOSTNAME: process.env.MEDIA_HOSTNAME,
 }
