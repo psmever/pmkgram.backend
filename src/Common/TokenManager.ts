@@ -14,7 +14,7 @@ dotenv.config()
  * @param email
  */
 export const generateLoginToken = async ({ user_id, email }: { user_id: number; email: string }) => {
-    const token = bcrypt.hashSync(`${email}`, Number(Config.BCRYPT_SALTROUNDS))
+    const token = bcrypt.hashSync(`${email}`, Config.BCRYPT_SALT)
 
     const userTokenCheck = await userCheck({ user_id: user_id })
 
@@ -157,6 +157,36 @@ export const tokenInfo = async ({
                         status: tokenInfo.user.status,
                     },
                 },
+            }
+        } else {
+            return {
+                status: false,
+            }
+        }
+    } else {
+        return {
+            status: false,
+        }
+    }
+}
+
+export const tokenUser = async ({
+    token,
+}: {
+    token: string
+}): Promise<{
+    status: boolean
+    userid?: number
+}> => {
+    const verify = verifyToken({ token: token })
+
+    if (verify.status) {
+        const tokenInfo = await getTokenInfo({ token: verify.token })
+        if (tokenInfo && tokenInfo.user) {
+            Logger.console(tokenInfo)
+            return {
+                status: true,
+                userid: tokenInfo.user.id,
             }
         } else {
             return {

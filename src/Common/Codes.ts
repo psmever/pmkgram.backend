@@ -27,4 +27,12 @@ export default [
             { id: `999`, name: `최고 관리자` },
         ],
     },
+    {
+        id: `040`,
+        name: `media 파일 타입`,
+        list: [
+            { id: `010`, name: `image` },
+            { id: `999`, name: `etc` },
+        ],
+    },
 ]

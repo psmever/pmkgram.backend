@@ -3,10 +3,12 @@ import { Default } from '@Controllers/Api/TestController'
 import { CheckStatus, BaseData, ErrorTest } from '@Controllers/Api/SystemController'
 import { Register, EmailExits, Login, Logout, TokenRefresh, TokenInfo } from '@Controllers/Api/AuthController'
 import { RestAuthenticateMiddleware } from '@Middlewares/RestAuthenticateMiddleware'
+import { ImageCreate } from '@Controllers/Api/MediaController'
 
 export const TestsRouter = Router()
 export const SystemRouter = Router()
 export const AuthRouter = Router()
+export const MediaRouter = Router()
 
 /* 테스트 Router */
 TestsRouter.get('/default', Default)
@@ -29,3 +31,6 @@ AuthRouter.get('/logout', Logout)
 AuthRouter.post('/token-refresh', TokenRefresh)
 // 토큰 정보
 AuthRouter.post('/token-info', RestAuthenticateMiddleware, TokenInfo)
+
+/* Media Router */
+MediaRouter.post('/image-create', RestAuthenticateMiddleware, ImageCreate)

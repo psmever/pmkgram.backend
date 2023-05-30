@@ -61,7 +61,7 @@ export const Register = async (req: Request, res: Response): Promise<void> => {
             level: `030010`,
             status: `020010`,
             email: email,
-            password: `${bcrypt.hashSync(password, Number(Config.BCRYPT_SALTROUNDS))}`,
+            password: `${bcrypt.hashSync(password, Config.BCRYPT_SALT)}`,
             nickname: `${email.split('@')[0].toLowerCase().replace(' ', _)}_${Math.floor(Date.now() / 1000)}`,
         })
 
