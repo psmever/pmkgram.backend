@@ -147,7 +147,6 @@ export const tokenInfo = async ({
     if (verify.status) {
         const tokenInfo = await getTokenInfo({ token: verify.token })
         if (tokenInfo && tokenInfo.user) {
-            Logger.console(tokenInfo)
             return {
                 status: true,
                 token: {
@@ -159,17 +158,23 @@ export const tokenInfo = async ({
                 },
             }
         } else {
+            Logger.error(`token verify: ${JSON.stringify(tokenInfo)}`)
             return {
                 status: false,
             }
         }
     } else {
+        Logger.error(`token verify: ${JSON.stringify(verify)}`)
         return {
             status: false,
         }
     }
 }
 
+/**
+ * 토큰 사용자 정보
+ * @param token
+ */
 export const tokenUser = async ({
     token,
 }: {
@@ -183,17 +188,18 @@ export const tokenUser = async ({
     if (verify.status) {
         const tokenInfo = await getTokenInfo({ token: verify.token })
         if (tokenInfo && tokenInfo.user) {
-            Logger.console(tokenInfo)
             return {
                 status: true,
                 userid: tokenInfo.user.id,
             }
         } else {
+            Logger.error(`token verify: ${JSON.stringify(tokenInfo)}`)
             return {
                 status: false,
             }
         }
     } else {
+        Logger.error(`token user verify: ${JSON.stringify(verify)}`)
         return {
             status: false,
         }
