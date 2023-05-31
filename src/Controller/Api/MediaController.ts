@@ -19,9 +19,6 @@ export const ImageCreate = async (req: Request, res: Response): Promise<void> =>
             const imageFile = !_.isEmpty(req.files?.image) ? (req.files?.image as UploadedFile) : null
 
             if (imageFile) {
-                Logger.console(imageFile.name)
-                Logger.console(imageFile.tempFilePath)
-
                 const newImageFilename = uuidv4()
                 const fileExtension = getFileExtension(imageFile.name)
                 const targetFileName = `${newImageFilename}.${fileExtension}`
@@ -34,7 +31,7 @@ export const ImageCreate = async (req: Request, res: Response): Promise<void> =>
 
                 await sftp.connect({
                     host: Config.SFTP_HOST,
-                    port: Config.SFTP_PORT,
+                    port: Number(Config.SFTP_PORT),
                     username: Config.SFTP_USERNAME,
                     password: Config.SFTP_PASSWORD,
                 })
@@ -47,7 +44,7 @@ export const ImageCreate = async (req: Request, res: Response): Promise<void> =>
                 const result = await sftp.put(imageFile.tempFilePath, `${targetDestPath}/${targetFileName}`)
 
                 if (result) {
-                    await mediaCreate({
+                    const mediaCreateTask = await mediaCreate({
                         user_id: user.userid,
                         type: imageFile.mimetype,
                         filename: targetFileName,
@@ -56,8 +53,8 @@ export const ImageCreate = async (req: Request, res: Response): Promise<void> =>
                         size: imageFile.size,
                     })
 
-                    Logger.console(imageFile.mimetype)
                     SuccessResponse(res, {
+                        id: mediaCreateTask.id,
                         original_name: imageFile.name,
                         mimetype: imageFile.mimetype,
                         filename: targetFileName,

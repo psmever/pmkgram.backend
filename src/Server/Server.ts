@@ -12,46 +12,27 @@ import cors from 'cors'
 import fileupload from 'express-fileupload'
 
 export const checkEnvironment = (): { state: boolean; message: string } => {
-    const notFound: string[] = []
-
     const envFileExits = fs.existsSync('.env')
 
     if (!envFileExits) {
         return {
             state: false,
-            message: `Environment APP_ENV not found...`,
+            message: `Environment File not found...`,
         }
     }
 
-    if (_.isEmpty(Config.APP_NAME)) notFound.push('APP_NAME')
-    if (_.isEmpty(Config.NODE_ENV)) notFound.push('NODE_ENV')
-    if (_.isEmpty(Config.APP_ENV)) notFound.push('APP_ENV')
-    if (_.isEmpty(Config.PORT)) notFound.push('PORT')
-    if (_.isEmpty(Config.HOSTNAME)) notFound.push('HOSTNAME')
-    if (_.isEmpty(Config.MYSQL_HOST)) notFound.push('MYSQL_HOST')
-    if (_.isEmpty(Config.MYSQL_PORT)) notFound.push('MYSQL_PORT')
-    if (_.isEmpty(Config.MYSQL_DATABASE)) notFound.push('MYSQL_DATABASE')
-    if (_.isEmpty(Config.MYSQL_USERNAME)) notFound.push('MYSQL_USERNAME')
-    if (_.isEmpty(Config.MYSQL_PASSWORD)) notFound.push('MYSQL_PASSWORD')
-    if (_.isEmpty(Config.MYSQL_LOGGING)) notFound.push('MYSQL_LOGGING')
-    if (_.isEmpty(Config.MYSQL_SYNCHRONIZE)) notFound.push('MYSQL_SYNCHRONIZE')
-    if (_.isEmpty(Config.GMAIL_USER)) notFound.push('GMAIL_USER')
-    if (_.isEmpty(Config.GMAIL_PASSWORD)) notFound.push('GMAIL_PASSWORD')
-    if (_.isEmpty(Config.SECRET_KEY)) notFound.push('SECRET_KEY')
-    if (_.isEmpty(String(Config.BCRYPT_SALT))) notFound.push('BCRYPT_SALT')
-    if (_.isEmpty(Config.ACCESS_TOKEN_EXPIRESIN)) notFound.push('ACCESS_TOKEN_EXPIRESIN')
-    if (_.isEmpty(Config.REFRESH_TOKEN_EXPIRESIN)) notFound.push('REFRESH_TOKEN_EXPIRESIN')
+    const ConfigList: string[] = Object.keys(Config)
 
-    if (_.isEmpty(Config.SFTP_HOST)) notFound.push('SFTP_HOST')
-    if (_.isEmpty(String(Config.SFTP_PORT))) notFound.push('SFTP_PORT')
-    if (_.isEmpty(Config.SFTP_USERNAME)) notFound.push('SFTP_USERNAME')
-    if (_.isEmpty(Config.SFTP_PASSWORD)) notFound.push('SFTP_PASSWORD')
-    if (_.isEmpty(Config.SFTP_FILE_DEST_PATH)) notFound.push('SFTP_FILE_DEST_PATH')
+    const envCheck = ConfigList.map((e) => {
+        if (_.has(Config, e) && _.isEmpty(String(_.get(Config, e)))) {
+            return e
+        }
+    }).filter((e) => e)
 
-    if (notFound.length > 0) {
+    if (envCheck.length > 0) {
         return {
             state: false,
-            message: `${notFound.join(', ')} Environment Not Found...........`,
+            message: `${envCheck.join(', ')} Environment Not Found...........`,
         }
     }
 
@@ -104,7 +85,7 @@ export function initServer(app: Application, Path: string): void {
 
 // 서버 시작.
 export function startServer(app: Application): void {
-    const port = Config.PORT
+    const port = Number(Config.PORT)
     const appName = Config.APP_NAME
     const appEnv = Config.APP_ENV
 
