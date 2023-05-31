@@ -34,7 +34,7 @@ export const ImageCreate = async (req: Request, res: Response): Promise<void> =>
 
                 await sftp.connect({
                     host: Config.SFTP_HOST,
-                    port: Config.SFTP_PORT,
+                    port: Number(Config.SFTP_PORT),
                     username: Config.SFTP_USERNAME,
                     password: Config.SFTP_PASSWORD,
                 })
