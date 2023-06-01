@@ -20,6 +20,10 @@ const logLevels = {
     },
 }
 
+const logYear = new Date().getFullYear()
+const logMonth = ('00' + (new Date().getMonth() + 1).toString()).slice(-2)
+const logDay = ('00' + new Date().getDate().toString()).slice(-2)
+
 /**
  * The logger service wrapper.
  */
@@ -39,7 +43,7 @@ const logger = winston.createLogger({
             level: 'warn' /* error & warn logs will be logged to console. */,
         }),
         new winston.transports.File({
-            filename: 'storage/logs/errors.log',
+            filename: `storage/logs/${logYear}${logMonth}/${logYear}-${logMonth}-${logDay}-errors.log`,
             level: 'error' /* only error logs will be logged to the file. */,
             options: {
                 createDirectory: true /* Create directory and file if not exists. */,
@@ -47,7 +51,7 @@ const logger = winston.createLogger({
             },
         }),
         new winston.transports.File({
-            filename: 'storage/logs/logs.log',
+            filename: `storage/logs/${logYear}${logMonth}/${logYear}-${logMonth}-${logDay}-logs.log`,
             level: 'info' /* error, warn, & info logs will be logged to the file. */,
             options: {
                 createDirectory: true /* Create directory and file if not exists. */,
