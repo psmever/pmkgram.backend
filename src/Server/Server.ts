@@ -57,8 +57,8 @@ const addRouters = (app: Application): void => {
 }
 
 // 서버 초기화 설정.
-export function initServer(app: Application, Path: string): void {
-    morgan.token('timestamp', function () {
+export const initServer = (app: Application, Path: string): void => {
+    morgan.token('timestamp', () => {
         return LogDateTime()
     })
 
@@ -93,7 +93,7 @@ export function initServer(app: Application, Path: string): void {
 }
 
 // 서버 시작.
-export function startServer(app: Application): void {
+export const startServer = (app: Application): void => {
     const port = Number(Config.PORT)
     const appName = Config.APP_NAME
     const appEnv = Config.APP_ENV
