@@ -1,5 +1,6 @@
 import winston from 'winston'
 import Config from '@Config'
+import fs from 'fs'
 
 const logLevels = {
     levels: {
@@ -23,6 +24,9 @@ const logLevels = {
 const logYear = new Date().getFullYear()
 const logMonth = ('00' + (new Date().getMonth() + 1).toString()).slice(-2)
 const logDay = ('00' + new Date().getDate().toString()).slice(-2)
+const logHour = ('00' + new Date().getHours().toString()).slice(-2)
+const logMinute = ('00' + new Date().getMinutes().toString()).slice(-2)
+const logSec = ('00' + new Date().getSeconds().toString()).slice(-2)
 
 /**
  * The logger service wrapper.
@@ -137,3 +141,10 @@ export class Logger {
         }
     }
 }
+
+/**
+ * morgan log
+ */
+export const AccessLogStream = fs.createWriteStream(`storage/logs/${logYear}${logMonth}/${logYear}-${logMonth}-${logDay}-access.log`, { flags: 'a' })
+
+export const LogDateTime = () => `${logYear}-${logMonth}-${logDay} ${logHour}:${logMinute}:${logSec}`
