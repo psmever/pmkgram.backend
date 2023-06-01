@@ -5,11 +5,12 @@ import fs from 'fs'
 import { TestsRouter, SystemRouter, AuthRouter, MediaRouter } from '@Routes/Api'
 import { RestDefaultMiddleware } from '@Middlewares/RestDefaultMiddleware'
 import { DefaultRouter as DefaultWebRouter, AuthRouter as AuthWebRouter } from '@Routes/Web'
-import { Logger } from '@Logger'
+import { Logger, AccessLogStream, LogDateTime } from '@Logger'
 import Config from '@Config'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import fileupload from 'express-fileupload'
+import morgan from 'morgan'
 
 export const checkEnvironment = (): { state: boolean; message: string } => {
     const envFileExits = fs.existsSync('.env')
@@ -57,10 +58,20 @@ const addRouters = (app: Application): void => {
 
 // 서버 초기화 설정.
 export function initServer(app: Application, Path: string): void {
+    morgan.token('timestamp', function () {
+        return LogDateTime()
+    })
+
     app.set('view engine', 'pug')
     app.set('views', path.join(Path, 'Resources/view'))
     app.set('AppRootDir', Path)
     app.use(express.static(path.join(Path, 'Resources/public')))
+
+    app.use(
+        morgan(':remote-addr - :remote-user [:timestamp] ":method :url HTTP/:http-version" :status :res[content-length]', {
+            stream: AccessLogStream,
+        }),
+    )
 
     app.use(
         cors({
