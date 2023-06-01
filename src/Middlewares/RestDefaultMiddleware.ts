@@ -30,6 +30,9 @@ export const RestDefaultMiddleware = async (req: Request, res: Response, next: N
             ClientErrorResponse(res, Messages.error.clientTypeNotFound)
             return
         }
+    } else {
+        ClientErrorResponse(res, Messages.error.clientTypeNotFound)
+        return
     }
 
     const baseURL = Config.PORT ? `${Config.HOSTNAME}:${Config.PORT}` : `${Config.HOSTNAME}`
