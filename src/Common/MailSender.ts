@@ -4,7 +4,7 @@ import { Logger } from '@Logger'
 
 const MailSender = {
     // 메일발송 함수
-    SendEmailAuth: function ({ ToEmail, EmailAuthCode }: { ToEmail: string; EmailAuthCode: string }): void {
+    SendEmailAuth: ({ ToEmail, EmailAuthCode }: { ToEmail: string; EmailAuthCode: string }): void => {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             host: 'smtp.gmail.com',
