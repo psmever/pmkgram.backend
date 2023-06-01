@@ -34,7 +34,7 @@ export const RestDefaultMiddleware = async (req: Request, res: Response, next: N
 
     const baseURL = Config.PORT ? `${Config.HOSTNAME}:${Config.PORT}` : `${Config.HOSTNAME}`
 
-    const logMessage = `\n\nRoute: ${baseURL}${req.baseUrl}${req.path}\nMethod: ${req.method}\nHeader: ${JSON.stringify(
+    const logMessage = `\n\nRoute: ${baseURL}${req.baseUrl}${req.path}\nIP: ${req.ip}\nMethod: ${req.method}\nHeader: ${JSON.stringify(
         req.headers,
     )}}\nBody: ${JSON.stringify(req.body)}`
 
