@@ -4,6 +4,7 @@ import Messages from '@Commons/Messages'
 import _ from 'lodash'
 import Codes from '@Commons/Codes'
 import { Logger } from '@Logger'
+import Config from '@Config'
 
 export const RestDefaultMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     res.setHeader('Content-Type', 'application/json; charset=utf-8')
@@ -31,7 +32,12 @@ export const RestDefaultMiddleware = async (req: Request, res: Response, next: N
         }
     }
 
-    Logger.info(`${JSON.stringify(req.headers)}`, null, true)
-    Logger.info(`${JSON.stringify(req.body)}`, null, true)
+    const baseURL = Config.PORT ? `${Config.HOSTNAME}:${Config.PORT}` : `${Config.HOSTNAME}`
+
+    const logMessage = `\n\nRoute: ${baseURL}${req.baseUrl}${req.path}\nMethod: ${req.method}\nHeader: ${JSON.stringify(
+        req.headers,
+    )}}\nBody: ${JSON.stringify(req.body)}`
+
+    Logger.info(`${logMessage}`, null, true)
     next()
 }

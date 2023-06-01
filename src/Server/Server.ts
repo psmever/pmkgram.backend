@@ -57,8 +57,6 @@ const addRouters = (app: Application): void => {
 
 // 서버 초기화 설정.
 export function initServer(app: Application, Path: string): void {
-    Logger.console(Path)
-    Logger.console(path.resolve(__dirname))
     app.set('view engine', 'pug')
     app.set('views', path.join(Path, 'Resources/view'))
     app.set('AppRootDir', Path)
@@ -89,11 +87,7 @@ export function startServer(app: Application): void {
     const appName = Config.APP_NAME
     const appEnv = Config.APP_ENV
 
-    app.listen(port, () =>
-        Logger.info(
-            `\n\nRunning Name  - ${appName}\nRunning Environment - ${appEnv}\nRunning on port - ${port}\n:: Server Start Success ::`,
-            null,
-            true,
-        ),
-    )
+    app.listen(port, () => {
+        Logger.console(`\n\nRunning Name  - ${appName}\nRunning Environment - ${appEnv}\nRunning on port - ${port}\n:: Server Start Success ::`)
+    })
 }

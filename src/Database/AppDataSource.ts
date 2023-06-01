@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 import { DataSource } from 'typeorm'
 import dotenv from 'dotenv'
+import { Logger } from '@Logger'
 
 dotenv.config()
 
@@ -20,9 +21,9 @@ const AppDataSource = new DataSource({
 
 AppDataSource.initialize()
     .then(() => {
-        console.log('AppDataSource: Data Source has been initialized!')
+        Logger.console('Data Source has been initialized!')
     })
     .catch((err) => {
-        console.error('AppDataSource: Error during Data Source initialization', err)
+        Logger.error('Error during Data Source initialization', err)
     })
 export default AppDataSource

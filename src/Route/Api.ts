@@ -30,7 +30,7 @@ AuthRouter.get('/logout', Logout)
 // 토큰 refresh
 AuthRouter.post('/token-refresh', TokenRefresh)
 // 토큰 정보
-AuthRouter.post('/token-info', RestAuthenticateMiddleware, TokenInfo)
+AuthRouter.get('/token-info', RestAuthenticateMiddleware, TokenInfo)
 
 /* Media Router */
 MediaRouter.post('/image-create', RestAuthenticateMiddleware, ImageCreate)

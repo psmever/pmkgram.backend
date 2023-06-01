@@ -1,4 +1,5 @@
 import winston from 'winston'
+import Config from '@Config'
 
 const logLevels = {
     levels: {
@@ -23,7 +24,16 @@ const logLevels = {
  * The logger service wrapper.
  */
 const logger = winston.createLogger({
-    format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
+    // format: winston.format.combine(winston.format.timestamp(), winston.format.json()),
+    format: winston.format.combine(
+        winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        winston.format.align(),
+        winston.format.printf((info) => {
+            const { timestamp, level, message, ...extra } = info
+
+            return `${timestamp} [${level}]: ${message} ${Object.keys(extra).length ? JSON.stringify(extra, null, 2) : ''}`
+        }),
+    ),
     transports: [
         new winston.transports.Console({
             level: 'warn' /* error & warn logs will be logged to console. */,
@@ -82,7 +92,7 @@ export class Logger {
      */
     public static error(message: string, error?: Error): void {
         const meta = { stack: error ? error.stack : '' }
-        logger.error(message, meta)
+        logger.error(message, error ? meta : null)
     }
 
     /**
@@ -105,24 +115,21 @@ export class Logger {
         logger.info(message, meta)
 
         /* Make sure if it safe to log this info to the console. */
-        if (logToConsole) {
+        if (logToConsole && Config.APP_ENV !== 'production') {
             consoleLogger.info(message, meta)
         }
     }
 
     /**
-     * 콘솔 에러 메시지
+     * console log
      * @param message
+     * @param meta
      */
-    public static consoleError(message: string): void {
-        consoleLogger.error(message)
-    }
-
-    /**
-     * 콘솔 메시지 출력
-     * @param message
-     */
-    public static console(message: string | object): void {
-        consoleLogger.debug(typeof message === 'object' ? JSON.stringify(message) : message)
+    public static console(message: string, meta?: unknown): void {
+        if (Config.APP_ENV === 'production') {
+            logger.info(`console log: ${message}`, meta)
+        } else {
+            consoleLogger.info(message, meta)
+        }
     }
 }
