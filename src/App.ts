@@ -1,6 +1,7 @@
 import express, { Application } from 'express'
 import { Logger } from '@Commons/Logger'
 import * as Server from '@Servers/Server'
+import { exit } from 'node:process'
 
 const app: Application = express()
 
@@ -13,5 +14,6 @@ if (checkResult.state) {
     Server.startServer(app)
 } else {
     console.clear()
-    Logger.consoleError(`\n\nStart Server Error: ${checkResult.message}\n`)
+    Logger.error(`\n\nStart Server Error: ${checkResult.message}\n`)
+    exit()
 }

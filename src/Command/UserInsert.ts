@@ -20,7 +20,7 @@ console.debug(`#################################################################
              );`,
     )
     if (!result) {
-        Logger.consoleError('seed insert error...')
+        Logger.error('seed insert error...')
         exit()
     } else {
         Logger.info('success........')
