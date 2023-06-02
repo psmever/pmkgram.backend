@@ -24,6 +24,13 @@ export const RestAuthenticateMiddleware = async (req: Request, res: Response, ne
                     Logger.error(`tokeninfo.token.status N : ${Authorization}`)
                     AuthenticateErrorResponse(res)
                 } else {
+                    req.app.locals.user = {
+                        auth: true,
+                        user_id: tokeninfo.token.user.user_id,
+                        email: tokeninfo.token.user.email,
+                        status: tokeninfo.token.user.status,
+                        level: tokeninfo.token.user.level,
+                    }
                     next()
                 }
             }

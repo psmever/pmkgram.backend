@@ -137,8 +137,10 @@ export const tokenInfo = async ({
     token?: {
         status: string
         user: {
+            user_id: number
             email: string
             status: string
+            level: string
         }
     }
 }> => {
@@ -152,8 +154,10 @@ export const tokenInfo = async ({
                 token: {
                     status: tokenInfo.status,
                     user: {
+                        user_id: tokenInfo.user.id,
                         email: tokenInfo.user.email,
                         status: tokenInfo.user.status,
+                        level: tokenInfo.user.level,
                     },
                 },
             }
