@@ -5,8 +5,6 @@ import { exit } from 'node:process'
 
 const app: Application = express()
 
-app.locals.env = process.env
-
 const checkResult = Server.checkEnvironment()
 
 if (checkResult.state) {

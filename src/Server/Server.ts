@@ -79,6 +79,14 @@ export const initServer = (app: Application, Path: string): void => {
         }),
     )
 
+    app.locals.user = {
+        auth: false,
+        user_id: 0,
+        email: '',
+        status: '',
+        level: '',
+    }
+
     app.use(bodyParser.urlencoded({ extended: false }))
     app.use(bodyParser.json())
     app.use(

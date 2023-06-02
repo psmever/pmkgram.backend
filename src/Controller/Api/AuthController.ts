@@ -3,7 +3,7 @@ import { ClientErrorResponse, NoCotentResponse, SuccessResponse, ServerErrorResp
 import _ from 'lodash'
 import Messages from '@Messages'
 import { emailValidator } from '@Helper'
-import { generateLoginToken, revokeLogtinToken, tokenInfo, tokenRefresh } from '@TokenManager'
+import { generateLoginToken, revokeLogtinToken, tokenRefresh } from '@TokenManager'
 import { emailExits, userCreate, getUserForLogin } from '@Service/UserService'
 import { emailAuthSave } from '@Service/EmailAuthService'
 import Config from '@Config'
@@ -150,11 +150,10 @@ export const TokenRefresh = async (req: Request, res: Response): Promise<void> =
 
 // 토큰 정보
 export const TokenInfo = async (req: Request, res: Response): Promise<void> => {
-    const token = req.header('Authorization')?.replace('Bearer ', '')
-    if (token) {
-        const info = await tokenInfo({ token: token })
-        SuccessResponse(res, info.token)
-    } else {
-        ClientErrorResponse(res, Messages.auth.logout.tokenVerifyError)
-    }
+    const { email, status, level } = req.app.locals.user
+    SuccessResponse(res, {
+        email: email,
+        status: status,
+        level: level,
+    })
 }
