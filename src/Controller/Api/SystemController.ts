@@ -3,21 +3,17 @@ import { NoCotentResponse, SuccessResponse, ClientErrorResponse } from '@Commons
 import { findAll } from '@Service/CodeService'
 
 // 서버 체크
-export const CheckStatus = async (req: Request, res: Response): Promise<void> => {
-    NoCotentResponse(res)
-
-    res.end()
+export const CheckStatus = async (req: Request, res: Response): Promise<Response> => {
+    return NoCotentResponse(res)
 }
 
 // 에러
-export const ErrorTest = async (req: Request, res: Response): Promise<void> => {
-    ClientErrorResponse(res, '문제가 발생 했습니다.', Error('에러발생'))
-
-    res.end()
+export const ErrorTest = async (req: Request, res: Response): Promise<Response> => {
+    return ClientErrorResponse(res, '문제가 발생 했습니다.', Error('에러발생'))
 }
 
 // 기본 데이터
-export const BaseData = async (req: Request, res: Response): Promise<void> => {
+export const BaseData = async (req: Request, res: Response): Promise<Response> => {
     let resultCodeStep1 = {}
     let resultCodeStep2 = {}
 
@@ -51,7 +47,5 @@ export const BaseData = async (req: Request, res: Response): Promise<void> => {
         }
     })
 
-    SuccessResponse(res, { code: { step1: resultCodeStep1, step2: resultCodeStep2 } })
-
-    res.end()
+    return SuccessResponse(res, { code: { step1: resultCodeStep1, step2: resultCodeStep2 } })
 }

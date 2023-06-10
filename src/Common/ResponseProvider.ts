@@ -34,7 +34,7 @@ export const ClientErrorResponse = (response: Response, errorMessage?: string, e
         delete errorResponse.error
     }
 
-    return response.status(httpStatus.badRequest).json(errorResponse)
+    return response.status(httpStatus.badRequest).json(errorResponse).end()
 }
 
 // 기본 성공 - 데이터 있을때
