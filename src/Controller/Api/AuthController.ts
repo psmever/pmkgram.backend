@@ -12,49 +12,49 @@ import { v4 as uuidv4 } from 'uuid'
 import MailSender from '@Commons/MailSender'
 
 // 이메일 중복 체크
-export const EmailExits = async (req: Request, res: Response): Promise<void> => {
+export const EmailExits = async (req: Request, res: Response): Promise<Response> => {
     const { email } = req.params
 
     const checkEmail = decodeURIComponent(email)
 
     if (_.isEmpty(checkEmail)) {
-        ClientErrorResponse(res, Messages.auth.register.emailEmpty)
+        return ClientErrorResponse(res, Messages.auth.register.emailEmpty)
     }
 
     if (!emailValidator(checkEmail)) {
-        ClientErrorResponse(res, Messages.auth.register.emailValidate)
+        return ClientErrorResponse(res, Messages.auth.register.emailValidate)
     }
 
     // 이메일 중복 체크
     const emailCheck = await emailExits({ email: checkEmail })
     if (emailCheck > 0) {
-        SuccessResponse(res, { email: checkEmail, exits: true })
+        return SuccessResponse(res, { email: checkEmail, exits: true })
     } else {
-        SuccessResponse(res, { email: checkEmail, exits: false })
+        return SuccessResponse(res, { email: checkEmail, exits: false })
     }
 }
 
 // 회원 가입
-export const Register = async (req: Request, res: Response): Promise<void> => {
+export const Register = async (req: Request, res: Response): Promise<Response> => {
     const authCode = uuidv4()
     const { email, password } = req.body
 
     if (_.isEmpty(email)) {
-        ClientErrorResponse(res, Messages.auth.register.emailEmpty)
+        return ClientErrorResponse(res, Messages.auth.register.emailEmpty)
     }
 
     if (!emailValidator(email)) {
-        ClientErrorResponse(res, Messages.auth.register.emailValidate)
+        return ClientErrorResponse(res, Messages.auth.register.emailValidate)
     }
 
     if (_.isEmpty(password)) {
-        ClientErrorResponse(res, Messages.auth.register.passwordEmpty)
+        return ClientErrorResponse(res, Messages.auth.register.passwordEmpty)
     }
 
     // 이메일 중복 체크
     const emailCheck = await emailExits({ email: email })
     if (emailCheck > 0) {
-        ClientErrorResponse(res, Messages.auth.register.emailExits)
+        return ClientErrorResponse(res, Messages.auth.register.emailExits)
     } else {
         const task = await userCreate({
             type: `${req.headers['client-type']}`,
@@ -91,24 +91,24 @@ export const Register = async (req: Request, res: Response): Promise<void> => {
             delete payload.authlink
         }
 
-        SuccessResponse(res, payload)
+        return SuccessResponse(res, payload)
     }
 }
 
 // 로그인
-export const Login = async (req: Request, res: Response): Promise<void> => {
+export const Login = async (req: Request, res: Response): Promise<Response> => {
     const { email, password } = req.body
 
     if (_.isEmpty(email)) {
-        ClientErrorResponse(res, Messages.auth.register.emailEmpty)
+        return ClientErrorResponse(res, Messages.auth.register.emailEmpty)
     }
 
     if (!emailValidator(email)) {
-        ClientErrorResponse(res, Messages.auth.register.emailValidate)
+        return ClientErrorResponse(res, Messages.auth.register.emailValidate)
     }
 
     if (_.isEmpty(password)) {
-        ClientErrorResponse(res, Messages.auth.register.passwordEmpty)
+        return ClientErrorResponse(res, Messages.auth.register.passwordEmpty)
     }
 
     const findUser = await getUserForLogin({ email: email })
@@ -118,44 +118,44 @@ export const Login = async (req: Request, res: Response): Promise<void> => {
             const checkPassword = await bcrypt.compare(password, findUser.password)
             if (checkPassword) {
                 const genToken = await generateLoginToken({ user_id: findUser.id, email: email })
-                SuccessResponse(res, { access_token: genToken.accessToken, refresh_token: genToken.refreshToken })
+                return SuccessResponse(res, { access_token: genToken.accessToken, refresh_token: genToken.refreshToken })
             } else {
-                ClientErrorResponse(res, Messages.auth.login.checkPassword)
+                return ClientErrorResponse(res, Messages.auth.login.checkPassword)
             }
         } else {
-            ClientErrorResponse(res, Messages.auth.login.mustEmailAuth)
+            return ClientErrorResponse(res, Messages.auth.login.mustEmailAuth)
         }
     } else {
-        ClientErrorResponse(res, Messages.auth.login.userExits)
+        return ClientErrorResponse(res, Messages.auth.login.userExits)
     }
 }
 
 // 로그아웃
-export const Logout = async (req: Request, res: Response): Promise<void> => {
+export const Logout = async (req: Request, res: Response): Promise<Response> => {
     const token = req.header('Authorization')?.replace('Bearer ', '')
     if (token) {
         await revokeLogtinToken({ token: token })
-        NoCotentResponse(res)
+        return NoCotentResponse(res)
     } else {
-        ClientErrorResponse(res, Messages.auth.logout.tokenVerifyError)
+        return ClientErrorResponse(res, Messages.auth.logout.tokenVerifyError)
     }
 }
 
 // 로큰 refresh
-export const TokenRefresh = async (req: Request, res: Response): Promise<void> => {
+export const TokenRefresh = async (req: Request, res: Response): Promise<Response> => {
     const { refresh_token } = req.body
     const refreshTask = await tokenRefresh({ refreshToken: refresh_token })
     if (refreshTask.status) {
-        SuccessResponse(res, { access_token: refreshTask.accessToken, refresh_token: refreshTask.refreshToken })
+        return SuccessResponse(res, { access_token: refreshTask.accessToken, refresh_token: refreshTask.refreshToken })
     } else {
-        ServerErrorResponse(res)
+        return ServerErrorResponse(res)
     }
 }
 
 // 토큰 정보
-export const TokenInfo = async (req: Request, res: Response): Promise<void> => {
+export const TokenInfo = async (req: Request, res: Response): Promise<Response> => {
     const { email, status, level } = req.app.locals.user
-    SuccessResponse(res, {
+    return SuccessResponse(res, {
         email: email,
         status: status,
         level: level,

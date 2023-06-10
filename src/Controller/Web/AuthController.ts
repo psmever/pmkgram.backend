@@ -43,4 +43,6 @@ export const EnailAuth = async (req: Request, res: Response): Promise<void> => {
     } else {
         res.render('emailAuth', { message: Messages.auth.emailAuth.authCodeExits, subMessage: `` })
     }
+
+    res.end()
 }
