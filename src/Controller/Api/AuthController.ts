@@ -6,6 +6,7 @@ import { emailValidator } from '@Helper'
 import { generateLoginToken, revokeLogtinToken, tokenRefresh } from '@TokenManager'
 import { emailExits, userCreate, getUserForLogin } from '@Service/UserService'
 import { emailAuthSave } from '@Service/EmailAuthService'
+import { createDefaultProfile } from '@Service/ProfileService'
 import Config from '@Config'
 import bcrypt from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid'
@@ -63,6 +64,10 @@ export const Register = async (req: Request, res: Response): Promise<Response> =
             email: email,
             password: `${bcrypt.hashSync(password, Number(Config.BCRYPT_SALT))}`,
             nickname: `${email.split('@')[0].toLowerCase().replace(' ', _)}_${Math.floor(Date.now() / 1000)}`,
+        })
+
+        await createDefaultProfile({
+            user_id: task.id,
         })
 
         await emailAuthSave({
