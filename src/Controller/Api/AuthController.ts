@@ -114,12 +114,16 @@ export const Login = async (req: Request, res: Response): Promise<void> => {
     const findUser = await getUserForLogin({ email: email })
 
     if (findUser) {
-        const checkPassword = await bcrypt.compare(password, findUser.password)
-        if (checkPassword) {
-            const genToken = await generateLoginToken({ user_id: findUser.id, email: email })
-            SuccessResponse(res, { access_token: genToken.accessToken, refresh_token: genToken.refreshToken })
+        if (findUser.emailauth && findUser.emailauth.status === 'Y') {
+            const checkPassword = await bcrypt.compare(password, findUser.password)
+            if (checkPassword) {
+                const genToken = await generateLoginToken({ user_id: findUser.id, email: email })
+                SuccessResponse(res, { access_token: genToken.accessToken, refresh_token: genToken.refreshToken })
+            } else {
+                ClientErrorResponse(res, Messages.auth.login.checkPassword)
+            }
         } else {
-            ClientErrorResponse(res, Messages.auth.login.checkPassword)
+            ClientErrorResponse(res, Messages.auth.login.mustEmailAuth)
         }
     } else {
         ClientErrorResponse(res, Messages.auth.login.userExits)
