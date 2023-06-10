@@ -7,6 +7,8 @@ const app: Application = express()
 
 const checkResult = Server.checkEnvironment()
 
+app.locals.env = process.env
+
 if (checkResult.state) {
     Server.initServer(app, __dirname)
     Server.startServer(app)
