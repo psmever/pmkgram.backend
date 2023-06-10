@@ -62,4 +62,6 @@ export const ImageCreate = async (req: Request, res: Response): Promise<void> =>
     } else {
         ClientErrorResponse(res, Messages.error.emptyImageFile)
     }
+
+    res.end()
 }

@@ -5,11 +5,15 @@ import { findAll } from '@Service/CodeService'
 // 서버 체크
 export const CheckStatus = async (req: Request, res: Response): Promise<void> => {
     NoCotentResponse(res)
+
+    res.end()
 }
 
 // 에러
 export const ErrorTest = async (req: Request, res: Response): Promise<void> => {
     ClientErrorResponse(res, '문제가 발생 했습니다.', Error('에러발생'))
+
+    res.end()
 }
 
 // 기본 데이터
@@ -48,4 +52,6 @@ export const BaseData = async (req: Request, res: Response): Promise<void> => {
     })
 
     SuccessResponse(res, { code: { step1: resultCodeStep1, step2: resultCodeStep2 } })
+
+    res.end()
 }

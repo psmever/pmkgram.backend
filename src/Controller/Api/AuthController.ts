@@ -32,6 +32,8 @@ export const EmailExits = async (req: Request, res: Response): Promise<void> => 
     } else {
         SuccessResponse(res, { email: checkEmail, exits: false })
     }
+
+    res.end()
 }
 
 // 회원 가입
@@ -93,6 +95,8 @@ export const Register = async (req: Request, res: Response): Promise<void> => {
 
         SuccessResponse(res, payload)
     }
+
+    res.end()
 }
 
 // 로그인
@@ -128,6 +132,8 @@ export const Login = async (req: Request, res: Response): Promise<void> => {
     } else {
         ClientErrorResponse(res, Messages.auth.login.userExits)
     }
+
+    res.end()
 }
 
 // 로그아웃
@@ -139,6 +145,8 @@ export const Logout = async (req: Request, res: Response): Promise<void> => {
     } else {
         ClientErrorResponse(res, Messages.auth.logout.tokenVerifyError)
     }
+
+    res.end()
 }
 
 // 로큰 refresh
@@ -150,6 +158,8 @@ export const TokenRefresh = async (req: Request, res: Response): Promise<void> =
     } else {
         ServerErrorResponse(res)
     }
+
+    res.end()
 }
 
 // 토큰 정보
@@ -160,4 +170,6 @@ export const TokenInfo = async (req: Request, res: Response): Promise<void> => {
         status: status,
         level: level,
     })
+
+    res.end()
 }
