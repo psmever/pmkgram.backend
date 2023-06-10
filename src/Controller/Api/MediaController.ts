@@ -10,7 +10,7 @@ import Config from '@Config'
 import { getFileExtension, generateRandomLetter } from '@Helper'
 import { mediaCreate } from '@Service/MediaService'
 
-export const ImageCreate = async (req: Request, res: Response): Promise<void> => {
+export const ImageCreate = async (req: Request, res: Response): Promise<Response> => {
     const imageFile = !_.isEmpty(req.files?.image) ? (req.files?.image as UploadedFile) : null
 
     if (imageFile) {
@@ -48,7 +48,7 @@ export const ImageCreate = async (req: Request, res: Response): Promise<void> =>
                 size: imageFile.size,
             })
 
-            SuccessResponse(res, {
+            return SuccessResponse(res, {
                 id: mediaCreateTask.id,
                 original_name: imageFile.name,
                 mimetype: imageFile.mimetype,
@@ -57,9 +57,9 @@ export const ImageCreate = async (req: Request, res: Response): Promise<void> =>
             })
         } else {
             Logger.error(JSON.stringify(result))
-            ServerErrorResponse(res)
+            return ServerErrorResponse(res)
         }
     } else {
-        ClientErrorResponse(res, Messages.error.emptyImageFile)
+        return ClientErrorResponse(res, Messages.error.emptyImageFile)
     }
 }

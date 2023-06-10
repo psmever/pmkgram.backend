@@ -60,9 +60,14 @@ export const emailVerified = async ({ id }: { id: number }): Promise<UpdateResul
     return userRepository.update({ id: id }, { status: '020020', email_verified_at: toMySqlDatetime(new Date()) })
 }
 
+/**
+ * 로그인용 회원 정보 조회
+ * @param email
+ */
 export const getUserForLogin = async ({ email }: { email: string }): Promise<Users | null> => {
     return await userRepository.findOne({
         select: [`id`, `email`, 'password', `status`, 'nickname'],
         where: { email: email },
+        relations: ['emailauth'],
     })
 }
