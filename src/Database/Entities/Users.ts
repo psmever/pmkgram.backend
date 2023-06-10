@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, JoinTable } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, JoinTable, JoinColumn } from 'typeorm'
 import { Codes } from './Codes'
+import { EmailAuth } from './EmailAuth'
 
 @Entity()
 export class Users extends BaseEntity {
@@ -36,4 +37,8 @@ export class Users extends BaseEntity {
     @OneToOne(() => Codes, (Code) => Code.code_id, { cascade: true })
     @JoinTable()
     statusCode?: Codes
+
+    @OneToOne(() => EmailAuth, (EA) => EA.user_id, { cascade: true })
+    @JoinColumn({ name: `id` })
+    emailauth?: EmailAuth
 }
