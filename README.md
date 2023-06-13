@@ -64,6 +64,11 @@ production.environment.env
 
 ```bash
 # yarn ts-node -r tsconfig-paths/register --files src/Command/UserInsert.ts -e ts
+```
+
+## 테스트 Command
+
+```bash
 # yarn ts-node -r tsconfig-paths/register --files src/Command/TestCommand.ts -e ts
 ```
 
@@ -71,6 +76,18 @@ production.environment.env
 
 ```bash
 # yarn build:test 
+```
+
+## 배
+
+```bash
+# yarn deploy:prod
+
+
+➜  pmkgram.backend [ develop * ] yarn deploy:prod
+yarn run v1.22.19
+$ ssh sm@psmever.iptime.org -p42022 -t 'bash -ic "bash ~/Workspaces/deploy/pmk-gram/backend-deploy.sh"'
+sm@psmever.iptime.org's password: ********** 
 ```
 
 ## jsonwebtoken secret key
