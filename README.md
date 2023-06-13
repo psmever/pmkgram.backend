@@ -78,7 +78,7 @@ production.environment.env
 # yarn build:test 
 ```
 
-## 배
+## 배포
 
 ```bash
 # yarn deploy:prod
