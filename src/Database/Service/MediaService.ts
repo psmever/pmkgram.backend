@@ -3,6 +3,15 @@ import { Media } from '@Entity/Media'
 
 const mediaRepository = AppDataSource.getRepository(Media)
 
+/**
+ * 파일 등록
+ * @param user_id
+ * @param type
+ * @param path
+ * @param filename
+ * @param origin_name
+ * @param size
+ */
 export const mediaCreate = async ({
     user_id,
     type,
@@ -29,4 +38,10 @@ export const mediaCreate = async ({
         },
         { transaction: false, data: false },
     )
+}
+
+export const mediaExits = async ({ id, user_id }: { id: number; user_id: number }): Promise<number> => {
+    const task = await mediaRepository.find({ select: ['id'], where: { id: id, user_id: user_id } })
+
+    return task.length
 }

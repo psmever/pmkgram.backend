@@ -45,6 +45,13 @@ export const SuccessResponse = <T>(response: Response, payload: T): Response => 
     })
 }
 
+// 기본 성공 - 데이터 없을때
+export const SuccessDefault = (response: Response): Response => {
+    return response.status(httpStatus.success).json({
+        message: Messages.success.default,
+    })
+}
+
 // 데이터만.
 export const DataSuccessResponse = <T>(response: Response, payload: T): Response => {
     return response.status(httpStatus.success).json(payload)

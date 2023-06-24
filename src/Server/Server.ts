@@ -2,7 +2,7 @@ import express, { Application } from 'express'
 import path from 'path'
 import _ from 'lodash'
 import fs from 'fs'
-import { TestsRouter, SystemRouter, AuthRouter, MediaRouter } from '@Routes/Api'
+import { TestsRouter, SystemRouter, AuthRouter, MediaRouter, MemberRouter } from '@Routes/Api'
 import { RestDefaultMiddleware } from '@Middlewares/RestDefaultMiddleware'
 import { DefaultRouter as DefaultWebRouter, AuthRouter as AuthWebRouter } from '@Routes/Web'
 import { Logger, AccessLogStream, LogDateTime } from '@Logger'
@@ -52,6 +52,7 @@ const addRouters = (app: Application): void => {
     app.use(`${baseApiRoute}/system`, RestDefaultMiddleware, SystemRouter)
     app.use(`${baseApiRoute}/auth`, RestDefaultMiddleware, AuthRouter)
     app.use(`${baseApiRoute}/media`, RestDefaultMiddleware, MediaRouter)
+    app.use(`${baseApiRoute}/member`, RestDefaultMiddleware, MemberRouter)
     app.use(`/`, DefaultWebRouter)
     app.use(`${baseWebRoute}/auth`, AuthWebRouter)
 }

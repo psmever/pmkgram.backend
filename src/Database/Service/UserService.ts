@@ -1,7 +1,7 @@
 import { Users } from '@Entity/Users'
 import AppDataSource from '@Database/AppDataSource'
 import { toMySqlDatetime } from '@Helper'
-import { UpdateResult } from 'typeorm'
+import { UpdateResult, Not } from 'typeorm'
 
 const userRepository = AppDataSource.getRepository(Users)
 
@@ -11,6 +11,17 @@ const userRepository = AppDataSource.getRepository(Users)
  */
 export const emailExits = async ({ email }: { email: string }): Promise<number> => {
     const task = await userRepository.find({ select: ['id'], where: { email: email } })
+
+    return task.length
+}
+
+/**
+ * 닉네임 중복 체크
+ * @param nickname
+ * @param user_id
+ */
+export const nickNameExits = async ({ user_id, nickname }: { user_id: number; nickname: string }): Promise<number> => {
+    const task = await userRepository.find({ select: ['id'], where: { id: Not(user_id), nickname: nickname } })
 
     return task.length
 }
@@ -70,4 +81,19 @@ export const getUserForLogin = async ({ email }: { email: string }): Promise<Use
         where: { email: email },
         relations: ['emailauth'],
     })
+}
+
+/**
+ * 사용자 닉네임 변경
+ * @param user_id
+ * @param nickname
+ */
+export const updateNickName = async ({ user_id, nickname }: { user_id: number; nickname: string }): Promise<UpdateResult> => {
+    return userRepository.update(
+        { id: user_id },
+        {
+            nickname: nickname,
+            updated_at: toMySqlDatetime(new Date()),
+        },
+    )
 }
