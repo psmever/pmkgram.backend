@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, JoinTable } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, JoinColumn } from 'typeorm'
 import { Users } from './Users'
 import { Media } from './Media'
 
@@ -19,11 +19,11 @@ export class Profile extends BaseEntity {
     @Column({ type: `timestamp`, nullable: false })
     created_at: string
 
-    @OneToOne(() => Users, (User) => User.id, { cascade: true })
-    @JoinTable({ name: 'user_id' })
-    user: Users
+    @OneToOne(() => Users, (u) => u.id, { cascade: true })
+    @JoinColumn({ name: `user_id` })
+    user?: Users
 
-    @OneToOne(() => Media, (media) => media.id, { cascade: true })
-    @JoinTable({ name: 'profile_image_id' })
-    profileImage: Media
+    @OneToOne(() => Media, (m) => m.id, { cascade: true })
+    @JoinColumn({ name: `profile_image_id` })
+    media?: Media
 }

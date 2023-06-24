@@ -2,10 +2,27 @@ import { Request, Response } from 'express'
 import { ClientErrorResponse, SuccessDefault, SuccessResponse } from '@Commons/ResponseProvider'
 import _ from 'lodash'
 import { Logger } from '@Logger'
-import { nickNameExits, updateNickName } from '@Service/UserService'
+import { nickNameExits, updateNickName, getUserProfile } from '@Service/UserService'
 import { updateProfileImage } from '@Service/ProfileService'
 import { mediaExits } from '@Service/MediaService'
 import Messages from '@Messages'
+import Config from '@Config'
+
+// 내 프로필
+export const MyProfile = async (req: Request, res: Response): Promise<Response> => {
+    const userId = req.app.locals.user.user_id
+
+    const infoTask = await getUserProfile({ user_id: userId })
+    if (infoTask && infoTask.profile && infoTask.profile.media) {
+        return SuccessResponse(res, {
+            email: infoTask.email,
+            nickname: infoTask.nickname,
+            profile_image: `${Config.MEDIA_HOSTNAME}${infoTask.profile.media.path}/${infoTask.profile.media?.filename}`,
+        })
+    } else {
+        return ClientErrorResponse(res)
+    }
+}
 
 // 닉네임 중복 확인
 export const NickNameExits = async (req: Request, res: Response): Promise<Response> => {

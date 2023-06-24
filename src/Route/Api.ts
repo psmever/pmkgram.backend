@@ -4,7 +4,7 @@ import { CheckStatus, BaseData, ErrorTest } from '@Controllers/Api/SystemControl
 import { Register, EmailExits, Login, Logout, TokenRefresh, TokenInfo } from '@Controllers/Api/AuthController'
 import { RestAuthenticateMiddleware } from '@Middlewares/RestAuthenticateMiddleware'
 import { ImageCreate } from '@Controllers/Api/MediaController'
-import { ProfileEdit, NickNameExits } from '@Controllers/Api/MemberController'
+import { ProfileEdit, NickNameExits, MyProfile } from '@Controllers/Api/MemberController'
 
 export const TestsRouter = Router()
 export const SystemRouter = Router()
@@ -38,5 +38,6 @@ AuthRouter.get('/token-info', RestAuthenticateMiddleware, TokenInfo)
 MediaRouter.post('/image-create', RestAuthenticateMiddleware, ImageCreate)
 
 /* Member Router */
+MemberRouter.get('/my-profile', RestAuthenticateMiddleware, MyProfile)
 MemberRouter.get('/:nickname/nickname-exits', RestAuthenticateMiddleware, NickNameExits)
 MemberRouter.post('/profile-update', RestAuthenticateMiddleware, ProfileEdit)

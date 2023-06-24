@@ -97,3 +97,15 @@ export const updateNickName = async ({ user_id, nickname }: { user_id: number; n
         },
     )
 }
+
+/**
+ * 사용자 프로필 정보
+ * @param user_id
+ */
+export const getUserProfile = async ({ user_id }: { user_id: number }): Promise<Users | null> => {
+    return await userRepository.findOne({
+        select: [`id`, `email`, 'nickname'],
+        where: { id: user_id },
+        relations: ['profile', 'profile.media'],
+    })
+}
