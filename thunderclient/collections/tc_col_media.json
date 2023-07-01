@@ -1,0 +1,58 @@
+{
+    "_id": "8750c304-b09d-4156-914a-b7d77d86f879",
+    "colName": "Media",
+    "created": "2023-06-17T07:20:12.963Z",
+    "sortNum": 40000,
+    "folders": [],
+    "requests": [
+        {
+            "_id": "f940cb65-e056-4f49-96bd-3b7e438dd64a",
+            "colId": "8750c304-b09d-4156-914a-b7d77d86f879",
+            "containerId": "",
+            "name": "이미지 업로드",
+            "url": "{{base-url}}/api/media/image-create",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-06-17T07:23:59.309Z",
+            "modified": "2023-06-17T15:08:25.663Z",
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "application/json; charset=utf-8",
+                    "isDisabled": true
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json; charset=utf-8",
+                    "isDisabled": true
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [],
+                "files": [
+                    {
+                        "name": "image",
+                        "value": "../../../../../../Downloads/profile.jpeg"
+                    }
+                ]
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            },
+            "tests": []
+        }
+    ]
+}

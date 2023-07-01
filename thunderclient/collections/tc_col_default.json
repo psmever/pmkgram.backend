@@ -1,0 +1,37 @@
+{
+    "_id": "cc4c2d99-1fa6-46fe-a0e8-89bfb9643848",
+    "colName": "default",
+    "created": "2023-06-17T06:42:15.753Z",
+    "sortNum": 10000,
+    "folders": [],
+    "requests": [
+        {
+            "_id": "a19e471f-181f-476c-b7a5-9fb6675c2293",
+            "colId": "cc4c2d99-1fa6-46fe-a0e8-89bfb9643848",
+            "containerId": "",
+            "name": "default",
+            "url": "{{base-url}}",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-06-17T06:42:38.831Z",
+            "modified": "2023-06-17T06:47:54.677Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
