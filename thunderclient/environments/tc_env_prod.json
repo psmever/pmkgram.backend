@@ -1,0 +1,26 @@
+{
+    "_id": "e9581417-69b1-49cd-bcf7-7f62fef849ce",
+    "name": "prod",
+    "default": true,
+    "sortNum": 20000,
+    "created": "2023-07-01T07:44:07.407Z",
+    "modified": "2023-07-01T07:44:07.407Z",
+    "data": [
+        {
+            "name": "base-url",
+            "value": "http://psmever.iptime.org:8031"
+        },
+        {
+            "name": "client-code-web",
+            "value": "010020"
+        },
+        {
+            "name": "access_token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IiQyYiQxMCRndUdFSmRMRTFGb2o5bDJ2UmhjRFBPLkhxc0ttVjFEUmw3RURYb3hhR0VqWGZSSE5GQU5CNiIsImlhdCI6MTY4ODE5NzY2OSwiZXhwIjoxNjg4MjAxMjY5fQ.gSMsjveRXgCbVoSisTyXmBNPvVe1r-6B6g7D_isS_N4"
+        },
+        {
+            "name": "refresh_token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IiQyYiQxMCRndUdFSmRMRTFGb2o5bDJ2UmhjRFBPLkhxc0ttVjFEUmw3RURYb3hhR0VqWGZSSE5GQU5CNiIsImlhdCI6MTY4ODE5NzY2OSwiZXhwIjoxNjg4Mjg0MDY5fQ.MnLv-gVNPOcbkFoShhJetCSUuZGFTg4Gh1rZFNZFT5g"
+        }
+    ]
+}
