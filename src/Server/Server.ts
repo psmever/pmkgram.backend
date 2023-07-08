@@ -2,7 +2,7 @@ import express, { Application } from 'express'
 import path from 'path'
 import _ from 'lodash'
 import fs from 'fs'
-import { TestsRouter, SystemRouter, AuthRouter, MediaRouter, MemberRouter } from '@Routes/Api'
+import { TestsRouter, SystemRouter, AuthRouter, MediaRouter, MemberRouter, FeedRouter } from '@Routes/Api'
 import { RestDefaultMiddleware } from '@Middlewares/RestDefaultMiddleware'
 import { DefaultRouter as DefaultWebRouter, AuthRouter as AuthWebRouter } from '@Routes/Web'
 import { Logger, AccessLogStream, LogDateTime } from '@Logger'
@@ -47,14 +47,16 @@ export const checkEnvironment = (): { state: boolean; message: string } => {
 const addRouters = (app: Application): void => {
     const baseApiRoute = '/api'
     const baseWebRoute = '/web'
-
+    /* apiRoute */
     app.use(`${baseApiRoute}/tests`, TestsRouter)
     app.use(`${baseApiRoute}/system`, RestDefaultMiddleware, SystemRouter)
     app.use(`${baseApiRoute}/auth`, RestDefaultMiddleware, AuthRouter)
     app.use(`${baseApiRoute}/media`, RestDefaultMiddleware, MediaRouter)
     app.use(`${baseApiRoute}/member`, RestDefaultMiddleware, MemberRouter)
-    app.use(`/`, DefaultWebRouter)
+    app.use(`${baseApiRoute}/feed`, RestDefaultMiddleware, FeedRouter)
+    /* webRoute */
     app.use(`${baseWebRoute}/auth`, AuthWebRouter)
+    app.use(`/`, DefaultWebRouter)
 }
 
 // 서버 초기화 설정.
@@ -88,7 +90,7 @@ export const initServer = (app: Application, Path: string): void => {
         level: '',
     }
 
-    app.use(bodyParser.urlencoded({ extended: false }))
+    app.use(bodyParser.urlencoded({ extended: true }))
     app.use(bodyParser.json())
     app.use(
         fileupload({

@@ -1,0 +1,41 @@
+{
+    "_id": "a4499991-b2a3-46d2-a1fb-e2c8d0478488",
+    "colName": "피드",
+    "created": "2023-07-08T05:58:52.439Z",
+    "sortNum": 70000,
+    "folders": [],
+    "requests": [
+        {
+            "_id": "33dd0c81-4884-4ce7-b330-1ab58ffde520",
+            "colId": "a4499991-b2a3-46d2-a1fb-e2c8d0478488",
+            "containerId": "",
+            "name": "피드 등록",
+            "url": "{{base-url}}/api/feed/feed-save",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-07-08T06:00:42.235Z",
+            "modified": "2023-07-08T09:09:35.944Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"content\" : \"2\",\n    \"feedImageId\": [24,25]\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
