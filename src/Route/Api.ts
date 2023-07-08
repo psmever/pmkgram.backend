@@ -4,11 +4,15 @@ import { CheckStatus, BaseData, ErrorTest } from '@Controllers/Api/SystemControl
 import { Register, EmailExits, Login, Logout, TokenRefresh, TokenInfo } from '@Controllers/Api/AuthController'
 import { RestAuthenticateMiddleware } from '@Middlewares/RestAuthenticateMiddleware'
 import { ImageCreate } from '@Controllers/Api/MediaController'
+import { ProfileEdit, NickNameExits, MyProfile } from '@Controllers/Api/MemberController'
+import { SaveFeed, UpdateFeed } from '@Controllers/Api/FeedController'
 
 export const TestsRouter = Router()
 export const SystemRouter = Router()
 export const AuthRouter = Router()
 export const MediaRouter = Router()
+export const MemberRouter = Router()
+export const FeedRouter = Router()
 
 /* 테스트 Router */
 TestsRouter.get('/default', Default)
@@ -34,3 +38,12 @@ AuthRouter.get('/token-info', RestAuthenticateMiddleware, TokenInfo)
 
 /* Media Router */
 MediaRouter.post('/image-create', RestAuthenticateMiddleware, ImageCreate)
+
+/* Member Router */
+MemberRouter.get('/my-profile', RestAuthenticateMiddleware, MyProfile)
+MemberRouter.get('/:nickname/nickname-exits', RestAuthenticateMiddleware, NickNameExits)
+MemberRouter.post('/profile-update', RestAuthenticateMiddleware, ProfileEdit)
+
+/* Feed Router */
+FeedRouter.post('/feed-save', RestAuthenticateMiddleware, SaveFeed)
+FeedRouter.put('/feed-update', RestAuthenticateMiddleware, UpdateFeed)

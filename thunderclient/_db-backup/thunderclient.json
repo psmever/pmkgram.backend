@@ -1,0 +1,421 @@
+[
+  {
+    "_id": "a19e471f-181f-476c-b7a5-9fb6675c2293",
+    "colId": "cc4c2d99-1fa6-46fe-a0e8-89bfb9643848",
+    "containerId": "",
+    "name": "default",
+    "url": "{{base-url}}",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2023-06-17T06:42:38.831Z",
+    "modified": "2023-06-17T06:47:54.677Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Client-Type",
+        "value": "{{client-code-web}}"
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "8146ed75-1ffe-4fe3-98f4-98de6e9c194b",
+    "colId": "82b6149b-bcb7-48cc-84f2-390da286c379",
+    "containerId": "",
+    "name": "상태체크",
+    "url": "{{base-url}}/api/system/check-status",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2023-06-17T06:43:15.222Z",
+    "modified": "2023-06-17T06:48:06.654Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Client-Type",
+        "value": "{{client-code-web}}"
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "64818c14-8d9d-47c6-9f48-ecde91db3f49",
+    "colId": "82b6149b-bcb7-48cc-84f2-390da286c379",
+    "containerId": "",
+    "name": "기본데이터",
+    "url": "{{base-url}}/api/system/base-data",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2023-06-17T06:49:46.111Z",
+    "modified": "2023-06-17T06:50:12.002Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Client-Type",
+        "value": "{{client-code-web}}"
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "4a7dadaa-8984-4de3-9612-dc3f33d3cb25",
+    "colId": "82b6149b-bcb7-48cc-84f2-390da286c379",
+    "containerId": "",
+    "name": "에러테스트",
+    "url": "{{base-url}}/api/system/error-test",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2023-06-17T06:52:21.684Z",
+    "modified": "2023-06-17T06:52:47.326Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Client-Type",
+        "value": "{{client-code-web}}"
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "6fec636c-25d7-40fd-ab3d-9488b54758df",
+    "colId": "2cddeace-b5a8-448c-8d60-78418751a2a4",
+    "containerId": "",
+    "name": "이메일 중복 확인",
+    "url": "{{base-url}}/api/auth/psmever%40gmail.com/email-exits",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2023-06-17T06:54:18.362Z",
+    "modified": "2023-06-17T07:01:03.954Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Client-Type",
+        "value": "{{client-code-web}}"
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "ebbcc299-13f6-4c80-89c3-cb6da0aa55c4",
+    "colId": "2cddeace-b5a8-448c-8d60-78418751a2a4",
+    "containerId": "",
+    "name": "회원가입",
+    "url": "{{base-url}}/api/auth/register",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2023-06-17T07:01:54.399Z",
+    "modified": "2023-06-17T09:34:03.782Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Client-Type",
+        "value": "{{client-code-web}}"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"email\": \"psmever@gmail.com\",\n    \"password\": \"password\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "f940cb65-e056-4f49-96bd-3b7e438dd64a",
+    "colId": "8750c304-b09d-4156-914a-b7d77d86f879",
+    "containerId": "",
+    "name": "이미지 업로드",
+    "url": "{{base-url}}/api/media/image-create",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2023-06-17T07:23:59.309Z",
+    "modified": "2023-06-17T15:08:25.663Z",
+    "headers": [
+      {
+        "name": "Accept",
+        "value": "application/json; charset=utf-8",
+        "isDisabled": true
+      },
+      {
+        "name": "Content-Type",
+        "value": "application/json; charset=utf-8",
+        "isDisabled": true
+      },
+      {
+        "name": "Client-Type",
+        "value": "{{client-code-web}}"
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "formdata",
+      "raw": "",
+      "form": [],
+      "files": [
+        {
+          "name": "image",
+          "value": "../../../../../../Downloads/profile.jpeg"
+        }
+      ]
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{access_token}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "42a55947-f06c-489e-9fd3-7ce2cc75b953",
+    "colId": "a3f4e187-efa0-41d4-9fc9-92545236ea73",
+    "containerId": "",
+    "name": "로그인",
+    "url": "{{base-url}}/api/auth/login",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2023-06-17T07:59:12.586Z",
+    "modified": "2023-06-17T09:35:45.091Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Client-Type",
+        "value": "{{client-code-web}}"
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"email\": \"psmever@gmail.com\",\n    \"password\": \"password\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "set-env-var",
+        "custom": "json.result.access_token",
+        "action": "setto",
+        "value": "{{access_token}}"
+      },
+      {
+        "type": "set-env-var",
+        "custom": "json.result.refresh_token",
+        "action": "setto",
+        "value": "{{refresh_token}}"
+      }
+    ]
+  },
+  {
+    "_id": "490b5c7c-a136-44c3-8f4c-2d36abc3413b",
+    "colId": "a3f4e187-efa0-41d4-9fc9-92545236ea73",
+    "containerId": "",
+    "name": "토큰정보",
+    "url": "{{base-url}}/api/auth/token-info",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2023-06-17T08:16:50.178Z",
+    "modified": "2023-06-17T08:20:18.556Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Client-Type",
+        "value": "{{client-code-web}}"
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"email\": \"psmever@gmail.com\",\n    \"password\": \"password\"\n}",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{access_token}}"
+    },
+    "tests": []
+  },
+  {
+    "_id": "df4b26cf-18f4-4b0d-974b-f01408bea204",
+    "colId": "a3f4e187-efa0-41d4-9fc9-92545236ea73",
+    "containerId": "",
+    "name": "로그아웃",
+    "url": "{{base-url}}/api/auth/logout",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2023-06-17T08:26:00.882Z",
+    "modified": "2023-06-17T08:26:52.689Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Client-Type",
+        "value": "{{client-code-web}}"
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "{{access_token}}"
+    },
+    "tests": [
+      {
+        "type": "set-env-var",
+        "custom": "json.result.access_token",
+        "action": "setto",
+        "value": "{{access_token}}"
+      },
+      {
+        "type": "set-env-var",
+        "custom": "json.result.refresh_token",
+        "action": "setto",
+        "value": "{{refresh_token}}"
+      }
+    ]
+  },
+  {
+    "_id": "1ad90b89-2f22-43a5-8822-1829e4f024be",
+    "colId": "a3f4e187-efa0-41d4-9fc9-92545236ea73",
+    "containerId": "",
+    "name": "토큰리프래쉬",
+    "url": "{{base-url}}/api/auth/token-refresh",
+    "method": "POST",
+    "sortNum": 40000,
+    "created": "2023-06-17T08:27:15.419Z",
+    "modified": "2023-06-17T08:28:12.133Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Client-Type",
+        "value": "{{client-code-web}}"
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"refresh_token\": \"{{refresh_token}}\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "set-env-var",
+        "custom": "json.result.access_token",
+        "action": "setto",
+        "value": "{{access_token}}"
+      },
+      {
+        "type": "set-env-var",
+        "custom": "json.result.refresh_token",
+        "action": "setto",
+        "value": "{{refresh_token}}"
+      }
+    ]
+  },
+  {
+    "_id": "2f1991ec-a106-4096-b008-31faa7fa2f1d",
+    "colId": "bda5b57c-c087-42dc-b55b-5be3967373de",
+    "containerId": "",
+    "name": "default",
+    "url": "{{base-url}}/api/tests/default",
+    "method": "GET",
+    "sortNum": 5000,
+    "created": "2023-06-17T08:29:31.207Z",
+    "modified": "2023-06-17T08:29:53.777Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "name": "Client-Type",
+        "value": "{{client-code-web}}"
+      },
+      {
+        "name": "User-Agent",
+        "value": "Thunder Client (https://www.thunderclient.com)",
+        "isDisabled": true
+      }
+    ],
+    "params": [],
+    "tests": []
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "_id": "cc4c2d99-1fa6-46fe-a0e8-89bfb9643848",
+    "colName": "default",
+    "created": "2023-06-17T06:42:15.753Z",
+    "sortNum": 10000,
+    "folders": []
+  },
+  {
+    "_id": "82b6149b-bcb7-48cc-84f2-390da286c379",
+    "colName": "System",
+    "created": "2023-06-17T06:43:03.736Z",
+    "sortNum": 20000,
+    "folders": []
+  },
+  {
+    "_id": "2cddeace-b5a8-448c-8d60-78418751a2a4",
+    "colName": "회원가입",
+    "created": "2023-06-17T06:54:07.738Z",
+    "sortNum": 30000,
+    "folders": []
+  },
+  {
+    "_id": "8750c304-b09d-4156-914a-b7d77d86f879",
+    "colName": "Media",
+    "created": "2023-06-17T07:20:12.963Z",
+    "sortNum": 40000,
+    "folders": []
+  },
+  {
+    "_id": "a3f4e187-efa0-41d4-9fc9-92545236ea73",
+    "colName": "인증",
+    "created": "2023-06-17T07:59:04.566Z",
+    "sortNum": 50000,
+    "folders": []
+  },
+  {
+    "_id": "bda5b57c-c087-42dc-b55b-5be3967373de",
+    "colName": "테스트",
+    "created": "2023-06-17T08:29:07.596Z",
+    "sortNum": 15000,
+    "folders": []
+  }
+]
