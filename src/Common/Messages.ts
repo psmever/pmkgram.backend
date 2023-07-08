@@ -41,4 +41,10 @@ export default {
             exitsNickName: `이미 사용중인 닉네임 입니다.`,
         },
     },
+    feed: {
+        emptyFeedContent: '피드 내용을 입력해 주세요.',
+        imageCheckError: `이미지 정보가 잘못 되었습니다(001)`,
+        imageArrayError: `이미지 정보가 잘못 되었습니다(002)`,
+        emptyFeedImage: `프로필 이미지를 등록해 주세요.`,
+    },
 }

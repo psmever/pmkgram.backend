@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm'
 
 @Entity()
-export class Feed extends BaseEntity {
+export class FeedImage extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number
 
