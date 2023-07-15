@@ -1,6 +1,8 @@
 import { Feed } from '@Entity/Feed'
 import { FeedImage } from '@Entity/FeedImage'
 import AppDataSource from '@Database/AppDataSource'
+import { toMySqlDatetime } from '@Commons/Helper'
+import { DeleteResult, UpdateResult } from 'typeorm'
 
 const feedRepository = AppDataSource.getRepository(Feed)
 const feedImageRepository = AppDataSource.getRepository(FeedImage)
@@ -20,6 +22,15 @@ export const saveFeed = async ({ user_id, content }: { user_id: number; content:
         { transaction: false, data: false },
     )
 }
+export const updateFeed = async ({ feed, content }: { feed: number; content: string }): Promise<UpdateResult> => {
+    return feedRepository.update(
+        { id: feed },
+        {
+            content: content,
+            updated_at: toMySqlDatetime(new Date()),
+        },
+    )
+}
 
 /**
  * 피드 이미지 등록
@@ -35,4 +46,15 @@ export const saveFeedImage = async ({ feed_id, feed_image_id }: { feed_id: numbe
         },
         { transaction: false, data: false },
     )
+}
+export const deleteFeedImage = async ({ feed_id }: { feed_id: number }): Promise<DeleteResult> => {
+    return feedImageRepository.delete({
+        feed_id: feed_id,
+    })
+}
+
+export const feedExits = async ({ id, user_id }: { id: number; user_id: number }): Promise<number> => {
+    const task = await feedRepository.find({ select: ['id'], where: { id: id, user_id: user_id } })
+
+    return task.length
 }
