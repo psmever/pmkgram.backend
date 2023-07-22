@@ -22,6 +22,13 @@ export const saveFeed = async ({ user_id, content }: { user_id: number; content:
         { transaction: false, data: false },
     )
 }
+
+/**
+ * 피드 수정
+ * @param feed
+ * @param content
+ 
+ */
 export const updateFeed = async ({ feed, content }: { feed: number; content: string }): Promise<UpdateResult> => {
     return feedRepository.update(
         { id: feed },
