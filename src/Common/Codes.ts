@@ -35,4 +35,12 @@ export default [
             { id: `999`, name: `etc` },
         ],
     },
+    {
+        id: '050',
+        name: '회원 성별',
+        list: [
+            { id: '010', name: '남자' },
+            { id: '020', name: '여자' },
+        ],
+    },
 ]
