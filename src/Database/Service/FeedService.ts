@@ -60,6 +60,16 @@ export const deleteFeedImage = async ({ feed_id }: { feed_id: number }): Promise
     })
 }
 
+export const deleteFeed = async ({ feed_id }: { feed_id: number; status: string }): Promise<UpdateResult> => {
+    return feedRepository.update(
+        { id: feed_id },
+        {
+            status: 'N',
+            updated_at: toMySqlDatetime(new Date()),
+        },
+    )
+}
+
 export const feedExits = async ({ id, user_id }: { id: number; user_id: number }): Promise<number> => {
     const task = await feedRepository.find({ select: ['id'], where: { id: id, user_id: user_id } })
 

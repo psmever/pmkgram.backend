@@ -5,7 +5,7 @@ import { Register, EmailExits, Login, Logout, TokenRefresh, TokenInfo } from '@C
 import { RestAuthenticateMiddleware } from '@Middlewares/RestAuthenticateMiddleware'
 import { ImageCreate } from '@Controllers/Api/MediaController'
 import { ProfileEdit, NickNameExits, MyProfile } from '@Controllers/Api/MemberController'
-import { SaveFeed, UpdateFeed } from '@Controllers/Api/FeedController'
+import { DeleteFeed, SaveFeed, UpdateFeed } from '@Controllers/Api/FeedController'
 
 export const TestsRouter = Router()
 export const SystemRouter = Router()
@@ -47,3 +47,5 @@ MemberRouter.post('/profile-update', RestAuthenticateMiddleware, ProfileEdit)
 /* Feed Router */
 FeedRouter.post('/feed-save', RestAuthenticateMiddleware, SaveFeed)
 FeedRouter.put('/feed-update', RestAuthenticateMiddleware, UpdateFeed)
+FeedRouter.delete(`/:feed([0-9]+)/feed-delete`, RestAuthenticateMiddleware, DeleteFeed)
+// AuthRouter.get(`/:feed([0-9]+)/delete`, RestAuthenticateMiddleware, TokenInfo)
