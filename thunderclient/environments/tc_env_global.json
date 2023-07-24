@@ -1,0 +1,19 @@
+{
+    "_id": "2a25079e-fbc4-4a51-b8e4-447db2b36232",
+    "name": "(Global Env)",
+    "default": false,
+    "global": true,
+    "sortNum": -2,
+    "created": "2023-07-22T05:56:33.934Z",
+    "modified": "2023-07-22T05:56:33.934Z",
+    "data": [
+        {
+            "name": "refresh_token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IiQyYiQxMCQ5NXRxWU1pMGRiaDllWXpHSkp4d2p1L0lQaG8ybndhWmNLWU9YRHhyNzZiOWwvbDZvY2ZxVyIsImlhdCI6MTY5MDAxOTExNywiZXhwIjoxNjkwMTA1NTE3fQ.CQp1na_4PdGSTYgV6kmnWjbh5Aqd15qhWlF3uC1Vmn8"
+        },
+        {
+            "name": "access_token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IiQyYiQxMCQ5NXRxWU1pMGRiaDllWXpHSkp4d2p1L0lQaG8ybndhWmNLWU9YRHhyNzZiOWwvbDZvY2ZxVyIsImlhdCI6MTY5MDAxOTExNywiZXhwIjoxNjkwMDIyNzE3fQ.KcUkx9Qm7yVvgL9iwS_s_pQq_kU96uJ52FcjyZNjgek"
+        }
+    ]
+}

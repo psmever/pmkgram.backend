@@ -68,6 +68,39 @@
                 "form": []
             },
             "tests": []
+        },
+        {
+            "_id": "f19cfddf-f33c-46a5-a630-c2f02a96bac9",
+            "colId": "a4499991-b2a3-46d2-a1fb-e2c8d0478488",
+            "containerId": "",
+            "name": "피드 삭제",
+            "url": "{{base-url}}/api/feed/{feed}/feed-delete",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2023-07-22T08:29:48.313Z",
+            "modified": "2023-07-22T09:51:15.076Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "feed",
+                    "value": "4",
+                    "isPath": true
+                }
+            ],
+            "tests": []
         }
     ]
 }

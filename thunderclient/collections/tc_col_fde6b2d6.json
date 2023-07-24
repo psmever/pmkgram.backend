@@ -14,7 +14,7 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2023-06-17T07:59:12.586Z",
-            "modified": "2023-06-17T09:35:45.091Z",
+            "modified": "2023-07-22T06:48:44.218Z",
             "headers": [
                 {
                     "name": "Content-Type",
@@ -41,13 +41,13 @@
                     "type": "set-env-var",
                     "custom": "json.result.access_token",
                     "action": "setto",
-                    "value": "{{access_token}}"
+                    "value": "{{access_token, global}}"
                 },
                 {
                     "type": "set-env-var",
                     "custom": "json.result.refresh_token",
                     "action": "setto",
-                    "value": "{{refresh_token}}"
+                    "value": "{{refresh_token, global}}"
                 }
             ]
         },

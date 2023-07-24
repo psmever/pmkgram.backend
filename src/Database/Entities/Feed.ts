@@ -11,6 +11,9 @@ export class Feed extends BaseEntity {
     @Column({ type: 'text', nullable: false })
     content: string
 
+    @Column({ type: `char`, nullable: false, length: 6 })
+    status: string
+
     @Column({ type: `timestamp`, nullable: false })
     created_at: string
 

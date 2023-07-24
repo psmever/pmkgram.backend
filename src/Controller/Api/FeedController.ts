@@ -1,6 +1,6 @@
 import Messages from '@Commons/Messages'
 import { ClientErrorResponse, SuccessDefault } from '@Commons/ResponseProvider'
-import { deleteFeedImage, feedExits, saveFeed, saveFeedImage, updateFeed } from '@Database/Service/FeedService'
+import { deleteFeed, deleteFeedImage, feedExits, saveFeed, saveFeedImage, updateFeed } from '@Database/Service/FeedService'
 import { Request, Response } from 'express'
 import _ from 'lodash'
 import { mediaExits } from '@Database/Service/MediaService'
@@ -94,6 +94,33 @@ export const UpdateFeed = async (req: Request, res: Response): Promise<Response>
         }
     }
     // - 로그인 계정 체크 (로그인 계정 =이미지 업로드 user_id)
+
+    return SuccessDefault(res)
+}
+
+// 피드 삭제하기
+export const DeleteFeed = async (req: Request, res: Response): Promise<Response> => {
+    const { feed } = req.params
+    const userId = req.app.locals.user.user_id
+
+    const taskFeed = Number(feed)
+    Logger.console(typeof feed)
+    Logger.console(JSON.stringify(_.isEmpty(taskFeed)))
+
+    // 핃드 데이터 유무 체크
+    if (!_.isEmpty(feed)) {
+        Logger.console('aaa')
+        const checkFeed = await feedExits({ user_id: userId, id: taskFeed })
+        if (checkFeed === 0) {
+            Logger.error(`UpdateFeed: checkFeed error`)
+            return ClientErrorResponse(res, Messages.feed.feedCheckError)
+        }
+        // // 피드 이미지 삭제
+        await deleteFeedImage({ feed_id: taskFeed })
+
+        // // 피드 삭제
+        await deleteFeed({ feed_id: taskFeed, status: 'N' })
+    }
 
     return SuccessDefault(res)
 }
