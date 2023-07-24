@@ -104,12 +104,9 @@ export const DeleteFeed = async (req: Request, res: Response): Promise<Response>
     const userId = req.app.locals.user.user_id
 
     const taskFeed = Number(feed)
-    Logger.console(typeof feed)
-    Logger.console(JSON.stringify(_.isEmpty(taskFeed)))
 
     // 핃드 데이터 유무 체크
     if (!_.isEmpty(feed)) {
-        Logger.console('aaa')
         const checkFeed = await feedExits({ user_id: userId, id: taskFeed })
         if (checkFeed === 0) {
             Logger.error(`UpdateFeed: checkFeed error`)
