@@ -13,6 +13,9 @@ export class Profile extends BaseEntity {
     @Column({ type: 'int', nullable: false })
     profile_image_id: number
 
+    @Column({ type: 'char', nullable: true, length: 6 })
+    gender: string
+
     @Column({ type: `timestamp`, nullable: false })
     updated_at: string
 
