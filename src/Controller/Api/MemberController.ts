@@ -18,6 +18,8 @@ export const MyProfile = async (req: Request, res: Response): Promise<Response> 
             email: infoTask.email,
             nickname: infoTask.nickname,
             profile_image: `${Config.MEDIA_HOSTNAME}${infoTask.profile.media.path}/${infoTask.profile.media?.filename}`,
+            gender: infoTask.profile.gender,
+            intro: infoTask.profile.intro,
         })
     } else {
         return ClientErrorResponse(res)

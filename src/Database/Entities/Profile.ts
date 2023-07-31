@@ -16,6 +16,9 @@ export class Profile extends BaseEntity {
     @Column({ type: 'char', nullable: true, length: 6 })
     gender: string
 
+    @Column({ type: 'char', nullable: true, length: 255 })
+    intro: string
+
     @Column({ type: `timestamp`, nullable: false })
     updated_at: string
 
