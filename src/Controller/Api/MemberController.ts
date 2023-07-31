@@ -3,7 +3,7 @@ import { ClientErrorResponse, SuccessDefault, SuccessResponse } from '@Commons/R
 import _ from 'lodash'
 import { Logger } from '@Logger'
 import { nickNameExits, updateNickName, getUserProfile } from '@Service/UserService'
-import { updateProfileImage } from '@Service/ProfileService'
+import { updateProfile, updateProfileImage } from '@Service/ProfileService'
 import { mediaExits } from '@Service/MediaService'
 import Messages from '@Messages'
 import Config from '@Config'
@@ -44,7 +44,7 @@ export const NickNameExits = async (req: Request, res: Response): Promise<Respon
 
 // 프로필 변경
 export const ProfileEdit = async (req: Request, res: Response): Promise<Response> => {
-    const { profileImage, nickname } = req.body
+    const { profileImage, nickname, gender, intro } = req.body
     const userId = req.app.locals.user.user_id
 
     if (_.isEmpty(nickname)) {
@@ -69,6 +69,8 @@ export const ProfileEdit = async (req: Request, res: Response): Promise<Response
     }
 
     await updateNickName({ user_id: userId, nickname: nickname })
+
+    await updateProfile({ user_id: userId, gender: gender, intro: intro })
 
     return SuccessDefault(res)
 }
