@@ -14,6 +14,7 @@ export const createDefaultProfile = async ({ user_id }: { user_id: number }): Pr
         {
             user_id: user_id,
             profile_image_id: 1,
+            gender: '050010',
         },
         { transaction: false, data: false },
     )
