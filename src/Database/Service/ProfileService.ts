@@ -42,11 +42,12 @@ export const updateProfileImage = async ({ user_id, media }: { user_id: number; 
  * @param intro
  */
 export const updateProfile = async ({ user_id, gender, intro }: { user_id: number; gender: string; intro: string }): Promise<UpdateResult> => {
+    const introValue: string | null = intro.trim() !== '' ? intro : null
     return profileRepository.update(
         { user_id: user_id },
         {
             gender: gender,
-            intro: intro,
+            intro: introValue,
             updated_at: toMySqlDatetime(new Date()),
         },
     )
