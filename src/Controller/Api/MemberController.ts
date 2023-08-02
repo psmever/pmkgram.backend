@@ -17,8 +17,13 @@ export const MyProfile = async (req: Request, res: Response): Promise<Response> 
         return SuccessResponse(res, {
             email: infoTask.email,
             nickname: infoTask.nickname,
-            profile_image: `${Config.MEDIA_HOSTNAME}${infoTask.profile.media.path}/${infoTask.profile.media?.filename}`,
-            gender: infoTask.profile.gender,
+            profile_image: {
+                id: infoTask.profile.profile_image_id,
+                url: `${Config.MEDIA_HOSTNAME}${infoTask.profile.media.path}/${infoTask.profile.media?.filename}`,
+            },
+            gender: {
+                code_id: infoTask.profile.gender,
+            },
             intro: infoTask.profile.intro,
         })
     } else {
