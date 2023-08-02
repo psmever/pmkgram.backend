@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, JoinColumn } from 'typeorm'
 import { Users } from './Users'
 import { Media } from './Media'
+import { Codes } from './Codes'
 
 @Entity()
 export class Profile extends BaseEntity {
@@ -32,4 +33,8 @@ export class Profile extends BaseEntity {
     @OneToOne(() => Media, (m) => m.id, { cascade: true })
     @JoinColumn({ name: `profile_image_id` })
     media?: Media
+
+    @OneToOne(() => Codes, (c) => c.code_id, { cascade: true })
+    @JoinColumn({ name: 'gender', referencedColumnName: 'code_id' })
+    code?: Codes
 }
