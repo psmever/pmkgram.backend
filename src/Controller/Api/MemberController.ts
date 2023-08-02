@@ -13,7 +13,6 @@ export const MyProfile = async (req: Request, res: Response): Promise<Response> 
     const userId = req.app.locals.user.user_id
 
     const infoTask = await getUserProfile({ user_id: userId })
-    Logger.console(JSON.stringify(infoTask))
     if (infoTask && infoTask.profile && infoTask.profile.media) {
         return SuccessResponse(res, {
             email: infoTask.email,
@@ -31,23 +30,6 @@ export const MyProfile = async (req: Request, res: Response): Promise<Response> 
         return ClientErrorResponse(res)
     }
 }
-
-// {
-//   "message": "정상 처리 하였습니다.",
-//   "result": {
-//     "email": "psmever@gmail.com",
-//     "nickname": "psmever1",
-//     "profile_image": {
-//       "id" : 1,
-//       "url" : "http://psmever.iptime.org:8032/upload/a/36d4d441-08ac-4dc0-8aa1-231bf90cc587.jpeg"
-//     },
-//     "gender": {
-//       "code_id" : "050010",
-//       "name" : "남자"
-//     },
-//     "intro": "자기소개"
-//   }
-// }
 
 // 닉네임 중복 확인
 export const NickNameExits = async (req: Request, res: Response): Promise<Response> => {
