@@ -1,6 +1,6 @@
 import Messages from '@Commons/Messages'
-import { ClientErrorResponse, SuccessDefault } from '@Commons/ResponseProvider'
-import { deleteFeed, deleteFeedImage, feedExits, saveFeed, saveFeedImage, updateFeed } from '@Database/Service/FeedService'
+import { ClientErrorResponse, SuccessDefault, SuccessResponse } from '@Commons/ResponseProvider'
+import { deleteFeed, deleteFeedImage, feedExits, saveFeed, saveFeedImage, updateFeed, mainFeedList } from '@Database/Service/FeedService'
 import { Request, Response } from 'express'
 import _ from 'lodash'
 import { mediaExits } from '@Database/Service/MediaService'
@@ -120,4 +120,10 @@ export const DeleteFeed = async (req: Request, res: Response): Promise<Response>
     }
 
     return SuccessDefault(res)
+}
+
+export const MainList = async (req: Request, res: Response): Promise<Response> => {
+    const task = await mainFeedList()
+
+    return SuccessResponse(res, { task: task })
 }
