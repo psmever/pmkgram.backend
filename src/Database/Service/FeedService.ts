@@ -89,10 +89,13 @@ export const feedExits = async ({ id, user_id }: { id: number; user_id: number }
     return task.length
 }
 
+/**
+ * 메인 리스트
+ */
 export const mainFeedList = async (): Promise<Array<Feed>> => {
     return await feedRepository.find({
         select: [`id`],
         where: { status: 'Y' },
-        relations: ['user', 'comment'],
+        relations: ['images', 'images.media', 'great', 'user', 'comment', 'comment.user'],
     })
 }

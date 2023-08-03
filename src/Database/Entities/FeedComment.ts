@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, JoinTable } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, JoinColumn, OneToOne } from 'typeorm'
 import { Feed } from '@Entity/Feed'
 import { Users } from '@Entity/Users'
 
@@ -13,14 +13,17 @@ export class FeedComment extends BaseEntity {
     @Column({ type: 'int', nullable: false })
     user_id: number
 
+    @Column({ type: `text`, nullable: false })
+    comment: string
+
     @Column({ type: `timestamp`, nullable: false })
     created_at: string
 
-    @OneToOne(() => Feed, (f) => f.id, { cascade: true })
-    @JoinTable()
-    feed?: Feed
-
     @OneToOne(() => Users, (u) => u.id, { cascade: true })
-    @JoinTable({ name: `id` })
+    @JoinColumn({ name: `user_id` })
     user?: Users
+
+    @ManyToOne(() => Feed, (feed) => feed.comment)
+    @JoinColumn({ name: 'feed_id', referencedColumnName: 'id' })
+    feed: Feed
 }

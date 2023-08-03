@@ -1,6 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, JoinTable, OneToMany, JoinColumn } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, OneToMany, JoinColumn } from 'typeorm'
 import { Users } from '@Entity/Users'
 import { FeedComment } from '@Entity/FeedComment'
+import { FeedImage } from '@Entity/FeedImage'
+import { FeedGreat } from '@Entity/FeedGreat'
 
 @Entity()
 export class Feed extends BaseEntity {
@@ -26,7 +28,12 @@ export class Feed extends BaseEntity {
     @JoinColumn({ name: `user_id` })
     user?: Users
 
-    @OneToMany(() => FeedComment, (fc) => fc.feed_id, { eager: true, cascade: true })
-    @JoinTable({ name: 'id' })
+    @OneToMany(() => FeedComment, (fc) => fc.feed, { cascade: true })
     comment?: FeedComment[]
+
+    @OneToMany(() => FeedImage, (fc) => fc.feed, { cascade: true })
+    images?: FeedImage[]
+
+    @OneToMany(() => FeedGreat, (fg) => fg.feed, { cascade: true })
+    great?: FeedGreat[]
 }

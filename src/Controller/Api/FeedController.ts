@@ -122,8 +122,20 @@ export const DeleteFeed = async (req: Request, res: Response): Promise<Response>
     return SuccessDefault(res)
 }
 
+/**
+ * 메인 리스트.
+ * @param req
+ * @param res
+ * @constructor
+ */
 export const MainList = async (req: Request, res: Response): Promise<Response> => {
-    const task = await mainFeedList()
+    const mFeed = await mainFeedList()
 
-    return SuccessResponse(res, { task: task })
+    // TODO: payload 정리, 페이징 처리
+    return SuccessResponse(
+        res,
+        _.map(mFeed, (feed) => {
+            return feed
+        }),
+    )
 }

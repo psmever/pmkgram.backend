@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, JoinTable } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, ManyToOne, JoinColumn } from 'typeorm'
 import { Feed } from '@Entity/Feed'
 import { Users } from '@Entity/Users'
 
@@ -16,11 +16,10 @@ export class FeedGreat extends BaseEntity {
     @Column({ type: `timestamp`, nullable: false })
     created_at: string
 
-    @OneToOne(() => Feed, (f) => f.id, { cascade: true })
-    @JoinTable()
+    @ManyToOne(() => Feed, (f) => f.great)
+    @JoinColumn({ name: 'feed_id', referencedColumnName: 'id' })
     feed?: Feed
 
     @OneToOne(() => Users, (f) => f.id, { cascade: true })
-    @JoinTable()
     user?: Users
 }
