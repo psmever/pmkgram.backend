@@ -1,7 +1,7 @@
 {
     "_id": "e9581417-69b1-49cd-bcf7-7f62fef849ce",
     "name": "prod",
-    "default": true,
+    "default": false,
     "sortNum": 1248.5,
     "created": "2023-07-01T07:44:07.407Z",
     "modified": "2023-07-01T07:44:07.407Z",

@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, JoinColumn, OneToOne } from 'typeorm'
+import { FeedImage } from '@Entity/FeedImage'
 
 @Entity()
 export class Media extends BaseEntity {
@@ -25,4 +26,8 @@ export class Media extends BaseEntity {
 
     @Column({ type: `timestamp`, nullable: false })
     created_at: Date
+
+    @OneToOne(() => FeedImage, (fi) => fi.media)
+    @JoinColumn({ name: 'id', referencedColumnName: 'feed_image_id' })
+    feedimage: FeedImage
 }
