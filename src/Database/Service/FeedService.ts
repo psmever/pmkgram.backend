@@ -94,8 +94,17 @@ export const feedExits = async ({ id, user_id }: { id: number; user_id: number }
  */
 export const mainFeedList = async (): Promise<Array<Feed>> => {
     return await feedRepository.find({
-        select: [`id`],
-        where: { status: 'Y' },
-        relations: ['images', 'images.media', 'great', 'user', 'comment', 'comment.user'],
+        select: [`id`, `content`, `created_at`],
+        where: { status: `Y` },
+        order: {
+            id: `DESC`,
+            comment: {
+                id: `DESC`,
+            },
+            images: {
+                id: `ASC`,
+            },
+        },
+        relations: [`comment.user`, `images`, `images.media`, `great`, `user`, `comment`],
     })
 }

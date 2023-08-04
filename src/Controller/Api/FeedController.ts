@@ -5,6 +5,8 @@ import { Request, Response } from 'express'
 import _ from 'lodash'
 import { mediaExits } from '@Database/Service/MediaService'
 import { Logger } from '@Commons/Logger'
+import { changeMysqlDate } from '@Helper'
+import Config from '@Config'
 
 // 피드 등록하기
 export const SaveFeed = async (req: Request, res: Response): Promise<Response> => {
@@ -131,11 +133,46 @@ export const DeleteFeed = async (req: Request, res: Response): Promise<Response>
 export const MainList = async (req: Request, res: Response): Promise<Response> => {
     const mFeed = await mainFeedList()
 
-    // TODO: payload 정리, 페이징 처리
+    // TODO: 페이징 처리
     return SuccessResponse(
         res,
         _.map(mFeed, (feed) => {
-            return feed
+            // payload 조합
+            const feedDate = changeMysqlDate(feed.created_at)
+            return {
+                id: feed.id,
+                contents: feed.content,
+                images: _.map(feed.images, (fi) => {
+                    const url = fi.media && fi.media.path ? `${Config.MEDIA_HOSTNAME}${fi.media.path}/${fi.media.filename}` : null
+
+                    return {
+                        filename: fi.media && fi.media.filename ? fi.media.filename : null,
+                        path: fi.media && fi.media.path ? fi.media.path : null,
+                        url: url,
+                    }
+                }),
+                great: feed.great && feed.great.length > 0 ? feed.great.length : 0,
+                mygreat: false,
+                comment: _.map(feed.comment, (fc) => {
+                    const fcDate = changeMysqlDate(fc.created_at)
+                    return {
+                        id: fc.id,
+                        user: {
+                            id: fc.user_id,
+                            nickname: fc.user && fc.user.nickname ? fc.user.nickname : null,
+                        },
+                        comment: fc.comment,
+                        time: {
+                            origin: fcDate.origin,
+                            step1: fcDate.format.step1,
+                        },
+                    }
+                }),
+                time: {
+                    origin: feedDate.origin,
+                    step1: feedDate.format.step1,
+                },
+            }
         }),
     )
 }
