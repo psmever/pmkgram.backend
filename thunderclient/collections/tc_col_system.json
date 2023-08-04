@@ -1,0 +1,93 @@
+{
+    "_id": "82b6149b-bcb7-48cc-84f2-390da286c379",
+    "colName": "System",
+    "created": "2023-06-17T06:43:03.736Z",
+    "sortNum": 20000,
+    "folders": [],
+    "requests": [
+        {
+            "_id": "8146ed75-1ffe-4fe3-98f4-98de6e9c194b",
+            "colId": "82b6149b-bcb7-48cc-84f2-390da286c379",
+            "containerId": "",
+            "name": "상태체크",
+            "url": "{{base-url}}/api/system/check-status",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-06-17T06:43:15.222Z",
+            "modified": "2023-06-17T06:48:06.654Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "64818c14-8d9d-47c6-9f48-ecde91db3f49",
+            "colId": "82b6149b-bcb7-48cc-84f2-390da286c379",
+            "containerId": "",
+            "name": "기본데이터",
+            "url": "{{base-url}}/api/system/base-data",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-06-17T06:49:46.111Z",
+            "modified": "2023-06-17T06:50:12.002Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "4a7dadaa-8984-4de3-9612-dc3f33d3cb25",
+            "colId": "82b6149b-bcb7-48cc-84f2-390da286c379",
+            "containerId": "",
+            "name": "에러테스트",
+            "url": "{{base-url}}/api/system/error-test",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-06-17T06:52:21.684Z",
+            "modified": "2023-06-17T06:52:47.326Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "tests": []
+        }
+    ]
+}

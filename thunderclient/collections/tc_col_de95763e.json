@@ -1,0 +1,37 @@
+{
+    "_id": "bda5b57c-c087-42dc-b55b-5be3967373de",
+    "colName": "테스트",
+    "created": "2023-06-17T08:29:07.596Z",
+    "sortNum": 15000,
+    "folders": [],
+    "requests": [
+        {
+            "_id": "2f1991ec-a106-4096-b008-31faa7fa2f1d",
+            "colId": "bda5b57c-c087-42dc-b55b-5be3967373de",
+            "containerId": "",
+            "name": "default",
+            "url": "{{base-url}}/api/tests/default",
+            "method": "GET",
+            "sortNum": 5000,
+            "created": "2023-06-17T08:29:31.207Z",
+            "modified": "2023-06-17T08:29:53.777Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "tests": []
+        }
+    ]
+}

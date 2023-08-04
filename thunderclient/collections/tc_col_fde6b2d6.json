@@ -1,0 +1,183 @@
+{
+    "_id": "a3f4e187-efa0-41d4-9fc9-92545236ea73",
+    "colName": "인증",
+    "created": "2023-06-17T07:59:04.566Z",
+    "sortNum": 50000,
+    "folders": [],
+    "requests": [
+        {
+            "_id": "42a55947-f06c-489e-9fd3-7ce2cc75b953",
+            "colId": "a3f4e187-efa0-41d4-9fc9-92545236ea73",
+            "containerId": "",
+            "name": "로그인",
+            "url": "{{base-url}}/api/auth/login",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-06-17T07:59:12.586Z",
+            "modified": "2023-07-22T06:48:44.218Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"email\": \"psmever@gmail.com\",\n    \"password\": \"password\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "set-env-var",
+                    "custom": "json.result.access_token",
+                    "action": "setto",
+                    "value": "{{access_token, global}}"
+                },
+                {
+                    "type": "set-env-var",
+                    "custom": "json.result.refresh_token",
+                    "action": "setto",
+                    "value": "{{refresh_token, global}}"
+                }
+            ]
+        },
+        {
+            "_id": "490b5c7c-a136-44c3-8f4c-2d36abc3413b",
+            "colId": "a3f4e187-efa0-41d4-9fc9-92545236ea73",
+            "containerId": "",
+            "name": "토큰정보",
+            "url": "{{base-url}}/api/auth/token-info",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-06-17T08:16:50.178Z",
+            "modified": "2023-06-17T08:20:18.556Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"email\": \"psmever@gmail.com\",\n    \"password\": \"password\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            },
+            "tests": []
+        },
+        {
+            "_id": "df4b26cf-18f4-4b0d-974b-f01408bea204",
+            "colId": "a3f4e187-efa0-41d4-9fc9-92545236ea73",
+            "containerId": "",
+            "name": "로그아웃",
+            "url": "{{base-url}}/api/auth/logout",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-06-17T08:26:00.882Z",
+            "modified": "2023-06-17T08:26:52.689Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            },
+            "tests": [
+                {
+                    "type": "set-env-var",
+                    "custom": "json.result.access_token",
+                    "action": "setto",
+                    "value": "{{access_token}}"
+                },
+                {
+                    "type": "set-env-var",
+                    "custom": "json.result.refresh_token",
+                    "action": "setto",
+                    "value": "{{refresh_token}}"
+                }
+            ]
+        },
+        {
+            "_id": "1ad90b89-2f22-43a5-8822-1829e4f024be",
+            "colId": "a3f4e187-efa0-41d4-9fc9-92545236ea73",
+            "containerId": "",
+            "name": "토큰리프래쉬",
+            "url": "{{base-url}}/api/auth/token-refresh",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-06-17T08:27:15.419Z",
+            "modified": "2023-06-17T08:28:12.133Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"refresh_token\": \"{{refresh_token}}\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "set-env-var",
+                    "custom": "json.result.access_token",
+                    "action": "setto",
+                    "value": "{{access_token}}"
+                },
+                {
+                    "type": "set-env-var",
+                    "custom": "json.result.refresh_token",
+                    "action": "setto",
+                    "value": "{{refresh_token}}"
+                }
+            ]
+        }
+    ]
+}

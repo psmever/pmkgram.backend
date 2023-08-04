@@ -35,4 +35,13 @@ export default [
             { id: `999`, name: `etc` },
         ],
     },
+    {
+        id: '050',
+        name: '회원 성별',
+        list: [
+            { id: '010', name: '밝히고 싶지 않음' },
+            { id: '020', name: '남성' },
+            { id: '030', name: '여성' },
+        ],
+    },
 ]

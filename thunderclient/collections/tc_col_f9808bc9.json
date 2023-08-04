@@ -1,0 +1,138 @@
+{
+    "_id": "a4499991-b2a3-46d2-a1fb-e2c8d0478488",
+    "colName": "피드",
+    "created": "2023-07-08T05:58:52.439Z",
+    "sortNum": 70000,
+    "folders": [],
+    "requests": [
+        {
+            "_id": "33dd0c81-4884-4ce7-b330-1ab58ffde520",
+            "colId": "a4499991-b2a3-46d2-a1fb-e2c8d0478488",
+            "containerId": "",
+            "name": "피드 등록",
+            "url": "{{base-url}}/api/feed/feed-save",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-07-08T06:00:42.235Z",
+            "modified": "2023-07-15T08:06:51.828Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"content\" : \"피드등록\",\n    \"feedImageId\": [12,10]\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "692060c0-f5a9-49db-86be-4fc1296b2bee",
+            "colId": "a4499991-b2a3-46d2-a1fb-e2c8d0478488",
+            "containerId": "",
+            "name": "피드 수정",
+            "url": "{{base-url}}/api/feed/feed-update",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2023-07-15T08:03:34.565Z",
+            "modified": "2023-07-15T09:45:36.619Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"feed\" : \"3\",\n    \"content\" : \"피드수정\",\n    \"feedImageId\": [26,27]\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f19cfddf-f33c-46a5-a630-c2f02a96bac9",
+            "colId": "a4499991-b2a3-46d2-a1fb-e2c8d0478488",
+            "containerId": "",
+            "name": "피드 삭제",
+            "url": "{{base-url}}/api/feed/{feed}/feed-delete",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2023-07-22T08:29:48.313Z",
+            "modified": "2023-07-22T09:51:15.076Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "feed",
+                    "value": "4",
+                    "isPath": true
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "43f72259-01e2-4e80-912d-13049c749001",
+            "colId": "a4499991-b2a3-46d2-a1fb-e2c8d0478488",
+            "containerId": "",
+            "name": "피드리스트(메인)",
+            "url": "{{base-url}}/api/feed/feed-list",
+            "method": "GET",
+            "sortNum": 15000,
+            "created": "2023-08-03T06:12:03.098Z",
+            "modified": "2023-08-03T06:13:03.698Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                }
+            ],
+            "params": [],
+            "tests": []
+        }
+    ]
+}

@@ -1,0 +1,65 @@
+{
+    "_id": "2cddeace-b5a8-448c-8d60-78418751a2a4",
+    "colName": "회원가입",
+    "created": "2023-06-17T06:54:07.738Z",
+    "sortNum": 30000,
+    "folders": [],
+    "requests": [
+        {
+            "_id": "6fec636c-25d7-40fd-ab3d-9488b54758df",
+            "colId": "2cddeace-b5a8-448c-8d60-78418751a2a4",
+            "containerId": "",
+            "name": "이메일 중복 확인",
+            "url": "{{base-url}}/api/auth/psmever%40gmail.com/email-exits",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-06-17T06:54:18.362Z",
+            "modified": "2023-06-17T07:01:03.954Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "ebbcc299-13f6-4c80-89c3-cb6da0aa55c4",
+            "colId": "2cddeace-b5a8-448c-8d60-78418751a2a4",
+            "containerId": "",
+            "name": "회원가입",
+            "url": "{{base-url}}/api/auth/register",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-06-17T07:01:54.399Z",
+            "modified": "2023-06-17T09:34:03.782Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"email\": \"psmever@gmail.com\",\n    \"password\": \"password\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
