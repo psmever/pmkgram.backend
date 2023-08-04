@@ -22,7 +22,8 @@ export const MyProfile = async (req: Request, res: Response): Promise<Response> 
                 url: `${Config.MEDIA_HOSTNAME}${infoTask.profile.media.path}/${infoTask.profile.media?.filename}`,
             },
             gender: {
-                code_id: infoTask.profile.gender,
+                name: infoTask.profile.code?.name,
+                code_id: infoTask.profile.code?.code_id,
             },
             intro: infoTask.profile.intro,
         })

@@ -106,6 +106,6 @@ export const getUserProfile = async ({ user_id }: { user_id: number }): Promise<
     return await userRepository.findOne({
         select: [`id`, `email`, 'nickname'],
         where: { id: user_id },
-        relations: ['profile', 'profile.media'],
+        relations: ['profile', 'profile.media', 'profile.code'],
     })
 }
