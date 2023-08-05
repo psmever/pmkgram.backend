@@ -3,8 +3,10 @@ import { FeedImage } from '@Entity/FeedImage'
 import AppDataSource from '@Database/AppDataSource'
 import { toMySqlDatetime } from '@Commons/Helper'
 import { DeleteResult, UpdateResult } from 'typeorm'
+import { FeedGreat } from '@Database/Entities/FeedGreat'
 
 const feedRepository = AppDataSource.getRepository(Feed)
+const feedGreatRepository = AppDataSource.getRepository(FeedGreat)
 const feedImageRepository = AppDataSource.getRepository(FeedImage)
 
 /**
@@ -106,5 +108,43 @@ export const mainFeedList = async (): Promise<Array<Feed>> => {
             },
         },
         relations: [`comment.user`, `images`, `images.media`, `great`, `user`, `comment`],
+    })
+}
+
+/**
+ * 피드 좋아요 유무 체크
+ * @param id
+ * @param user_id
+ */
+export const feedGreatExits = async ({ id, user_id }: { id: number; user_id: number }): Promise<number> => {
+    const task = await feedGreatRepository.find({ select: ['id'], where: { feed_id: id, user_id: user_id } })
+
+    return task.length
+}
+
+/**
+ * 피드 좋아요 등록
+ * @param id
+ * @param user_id
+ */
+export const saveFeedGreat = async ({ user_id, id }: { user_id: number; id: number }): Promise<FeedGreat> => {
+    return feedGreatRepository.save(
+        {
+            user_id: user_id,
+            feed_id: id,
+        },
+        { transaction: false, data: false },
+    )
+}
+
+/**
+ * 피드 좋아요 삭제
+ * @param id
+ * @param user_id
+ */
+export const deleteFeedGreat = async ({ user_id, id }: { user_id: number; id: number }): Promise<DeleteResult> => {
+    return feedGreatRepository.delete({
+        feed_id: id,
+        user_id: user_id,
     })
 }
