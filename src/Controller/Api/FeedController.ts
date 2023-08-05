@@ -1,6 +1,17 @@
 import Messages from '@Commons/Messages'
 import { ClientErrorResponse, SuccessDefault, SuccessResponse } from '@Commons/ResponseProvider'
-import { deleteFeed, deleteFeedImage, feedExits, saveFeed, saveFeedImage, updateFeed, mainFeedList } from '@Database/Service/FeedService'
+import {
+    deleteFeed,
+    deleteFeedImage,
+    feedExits,
+    saveFeed,
+    saveFeedImage,
+    updateFeed,
+    mainFeedList,
+    feedGreatExits,
+    saveFeedGreat,
+    deleteFeedGreat,
+} from '@Database/Service/FeedService'
 import { Request, Response } from 'express'
 import _ from 'lodash'
 import { mediaExits } from '@Database/Service/MediaService'
@@ -175,4 +186,29 @@ export const MainList = async (req: Request, res: Response): Promise<Response> =
             }
         }),
     )
+}
+
+/**
+ * 피드 좋아요 등록/삭제.
+ * @param feed
+ * @param user_id
+ */
+export const FixGreat = async (req: Request, res: Response): Promise<Response> => {
+    const { feed } = req.params
+    const userId = req.app.locals.user.user_id
+
+    const taskFeed = Number(feed)
+
+    // 핃드 데이터 유무 체크
+    if (!_.isEmpty(feed)) {
+        const checkFeedGreat = await feedGreatExits({ user_id: userId, id: taskFeed })
+        if (checkFeedGreat === 0) {
+            // 피드 좋아요 INSERT
+            await saveFeedGreat({ user_id: userId, id: taskFeed })
+        } else {
+            // 피드 좋아요 DELETE
+            await deleteFeedGreat({ user_id: userId, id: taskFeed })
+        }
+    }
+    return SuccessDefault(res)
 }
