@@ -136,12 +136,7 @@ export const DeleteFeed = async (req: Request, res: Response): Promise<Response>
     return SuccessDefault(res)
 }
 
-/**
- * 메인 리스트.
- * @param req
- * @param res
- * @constructor
- */
+// 메인 리스트.
 export const MainList = async (req: Request, res: Response): Promise<Response> => {
     const mFeed = await mainFeedList()
 
@@ -153,6 +148,11 @@ export const MainList = async (req: Request, res: Response): Promise<Response> =
             const feedDate = changeMysqlDate(feed.created_at)
             return {
                 id: feed.id,
+                user: {
+                    id: feed.user ? feed.user.id : null,
+                    nickname: feed.user ? feed.user.nickname : null,
+                    image: feed.user && feed.user.profile && feed.user.profile.media ? `${Config.MEDIA_HOSTNAME}${feed.user.profile.media.path}/${feed.user.profile.media.filename}` : null,
+                },
                 contents: feed.content,
                 images: _.map(feed.images, (fi) => {
                     const url = fi.media && fi.media.path ? `${Config.MEDIA_HOSTNAME}${fi.media.path}/${fi.media.filename}` : null
@@ -189,11 +189,7 @@ export const MainList = async (req: Request, res: Response): Promise<Response> =
     )
 }
 
-/**
- * 피드 좋아요 등록/삭제.
- * @param feed
- * @param user_id
- */
+// 피드 좋아요 등록/삭제.
 export const FixGreat = async (req: Request, res: Response): Promise<Response> => {
     const { feed } = req.params
     const userId = req.app.locals.user.user_id
@@ -214,6 +210,7 @@ export const FixGreat = async (req: Request, res: Response): Promise<Response> =
     return SuccessDefault(res)
 }
 
+// 개인홈 피드 리스트
 export const PersonalList = async (req: Request, res: Response): Promise<Response> => {
     const userId = req.app.locals.user.user_id
     const mFeed = await personalFeedList(userId)
