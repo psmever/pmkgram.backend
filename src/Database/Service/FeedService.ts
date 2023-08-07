@@ -148,3 +148,22 @@ export const deleteFeedGreat = async ({ user_id, id }: { user_id: number; id: nu
         user_id: user_id,
     })
 }
+
+
+export const personalFeedList = async (userId: number): Promise<Array<Feed>> => {
+
+    return await feedRepository.find({
+        select: [`id`, `content`, `created_at`],
+        where: { status: `Y`, user_id:userId },
+        order: {
+            id: `DESC`,
+            comment: {
+                id: `DESC`,
+            },
+            images: {
+                id: `ASC`,
+            },
+        },
+        relations: [`comment.user`, `images`, `images.media`, `great`, `user`, `comment`],
+    })
+}
