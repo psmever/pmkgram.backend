@@ -107,7 +107,7 @@ export const mainFeedList = async (): Promise<Array<Feed>> => {
                 id: `ASC`,
             },
         },
-        relations: [`comment.user`, `images`, `images.media`, `great`, `user`, `comment`],
+        relations: [`comment.user`, `images`, `images.media`, `great`, `user.profile.media`, `comment`],
     })
 }
 
