@@ -183,6 +183,7 @@ export const MainList = async (req: Request, res: Response): Promise<Response> =
                 time: {
                     origin: feedDate.origin,
                     step1: feedDate.format.step1,
+                    sinceString: feedDate.format.sinceString,
                 },
             }
         }),

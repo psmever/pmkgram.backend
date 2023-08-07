@@ -66,6 +66,7 @@ export const changeMysqlDate = (
         step2: string
         step3: string
         step4: string
+        sinceString: string
     }
 } => {
     const days = ['일', '월', '화', '수', '목', '금', '토']
@@ -115,6 +116,33 @@ export const changeMysqlDate = (
                 2,
                 '0',
             )}:${String(dateMinutes).padStart(2, '0')}`,
+            sinceString: timeSince(convertDate)
         },
     }
+}
+
+/**
+ * 날싸를 이용 since 타일 변경
+ * @param date
+ */
+export const timeSince = (date: Date) : string => {
+
+    const intervals = [
+        { label: '년', seconds: 31536000 },
+        { label: '달', seconds: 2592000 },
+        { label: '일', seconds: 86400 },
+        { label: '시간', seconds: 3600 },
+        { label: '분', seconds: 60 },
+        { label: '초', seconds: 1 }
+    ];
+
+    const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+    const interval = intervals.find(i => i.seconds < seconds);
+
+    if(interval) {
+        const count = Math.floor(seconds / interval.seconds);
+        return `${count}${interval.label}${count !== 1 ? '' : ''} 전`;
+    }
+
+    return `알수 없음`;
 }
