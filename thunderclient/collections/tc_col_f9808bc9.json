@@ -107,11 +107,11 @@
             "colId": "a4499991-b2a3-46d2-a1fb-e2c8d0478488",
             "containerId": "",
             "name": "피드리스트(메인)",
-            "url": "{{base-url}}/api/feed/2/feed-list",
+            "url": "{{base-url}}/api/feed/0/feed-list",
             "method": "GET",
             "sortNum": 15000,
             "created": "2023-08-03T06:12:03.098Z",
-            "modified": "2023-08-08T02:54:55.345Z",
+            "modified": "2023-08-08T14:46:12.925Z",
             "headers": [
                 {
                     "name": "Content-Type",
@@ -177,6 +177,70 @@
             "sortNum": 22500,
             "created": "2023-08-07T02:02:18.082Z",
             "modified": "2023-08-07T02:36:22.868Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b1ba3410-2587-4c04-8cca-95733839b897",
+            "colId": "a4499991-b2a3-46d2-a1fb-e2c8d0478488",
+            "containerId": "",
+            "name": "코멘트 등록",
+            "url": "{{base-url}}/api/feed/12/comment-save",
+            "method": "POST",
+            "sortNum": 35000,
+            "created": "2023-08-08T14:17:59.664Z",
+            "modified": "2023-08-08T14:26:46.396Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"comment\" : \"피드 코멘트 등록 테트.\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "cf4e66f1-a129-4b1f-9f7d-24741abf1d66",
+            "colId": "a4499991-b2a3-46d2-a1fb-e2c8d0478488",
+            "containerId": "",
+            "name": "코멘트 리스트(피드용)",
+            "url": "{{base-url}}/api/feed/12/comment-list",
+            "method": "GET",
+            "sortNum": 37500,
+            "created": "2023-08-08T14:35:50.504Z",
+            "modified": "2023-08-08T14:36:27.138Z",
             "headers": [
                 {
                     "name": "Content-Type",

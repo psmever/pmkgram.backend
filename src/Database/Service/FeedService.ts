@@ -1,4 +1,5 @@
 import { Feed } from '@Entity/Feed'
+import { FeedComment } from '@Entity/FeedComment'
 import { FeedImage } from '@Entity/FeedImage'
 import AppDataSource from '@Database/AppDataSource'
 import { toMySqlDatetime } from '@Commons/Helper'
@@ -10,6 +11,7 @@ import _ from 'lodash'
 const feedRepository = AppDataSource.getRepository(Feed)
 const feedGreatRepository = AppDataSource.getRepository(FeedGreat)
 const feedImageRepository = AppDataSource.getRepository(FeedImage)
+const feedCommentRepository = AppDataSource.getRepository(FeedComment)
 
 /**
  * 피드 등록
@@ -85,8 +87,18 @@ export const deleteFeed = async ({ feed_id }: { feed_id: number; status: string 
  * @param id
  * @param user_id
  */
-export const feedExits = async ({ id, user_id }: { id: number; user_id: number }): Promise<number> => {
-    const task = await feedRepository.find({ select: ['id'], where: { id: id, user_id: user_id } })
+export const feedExits = async ({ id, user_id }: { id: number; user_id?: number }): Promise<number> => {
+    const sqlWhere = { id: id }
+
+    if (user_id && user_id > 0) {
+        _.assign(sqlWhere, { user_id: user_id })
+    }
+
+    const task = await feedRepository.find({
+        select: ['id'],
+
+        where: sqlWhere,
+    })
 
     return task.length
 }
@@ -209,5 +221,37 @@ export const deleteFeedGreat = async ({ user_id, id }: { user_id: number; id: nu
     return feedGreatRepository.delete({
         feed_id: id,
         user_id: user_id,
+    })
+}
+
+/**
+ * 피드 코멘트 등록처리
+ * @param user_id
+ * @param feedId
+ * @param comment
+ */
+export const feedCommentSave = async ({ user_id, feedId, comment }: { user_id: number; feedId: number; comment: string }): Promise<FeedComment> => {
+    return feedCommentRepository.save(
+        {
+            user_id: user_id,
+            feed_id: feedId,
+            comment: comment,
+        },
+        { transaction: false, data: false },
+    )
+}
+
+/**
+ * 피드 코멘트 리스트
+ * @param feedId
+ */
+export const feedCommentList = async ({ feedId }: { feedId: number }): Promise<Array<FeedComment>> => {
+    return await feedCommentRepository.find({
+        select: [`id`, `feed_id`, `comment`, `created_at`],
+        where: { status: `Y`, feed_id: feedId },
+        order: {
+            id: `DESC`,
+        },
+        relations: [`user.profile`],
     })
 }

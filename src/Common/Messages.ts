@@ -47,5 +47,6 @@ export default {
         imageArrayError: `이미지 정보가 잘못 되었습니다(002)`,
         emptyFeedImage: `피드 이미지를 등록해 주세요.`,
         feedCheckError: '피드 정보가 잘못되었습니다.',
+        emptyFeedComment: '코멘트 내용을 입력해 주세요.',
     },
 }

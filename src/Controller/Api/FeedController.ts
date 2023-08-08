@@ -1,5 +1,5 @@
 import Messages from '@Commons/Messages'
-import { ClientErrorResponse, SuccessDefault, SuccessResponse } from '@Commons/ResponseProvider'
+import { ClientErrorResponse, SuccessDefault, SuccessResponse, ServerErrorResponse } from '@Commons/ResponseProvider'
 import {
     deleteFeed,
     deleteFeedImage,
@@ -12,6 +12,8 @@ import {
     deleteFeedGreat,
     getFeedListPaginationList,
     feedSelectListById,
+    feedCommentSave,
+    feedCommentList,
 } from '@Database/Service/FeedService'
 import { Request, Response } from 'express'
 import _ from 'lodash'
@@ -273,4 +275,62 @@ export const MyPersonalList = async (req: Request, res: Response): Promise<Respo
     const mFeed = await feedSelectListById({ ids: _.map(mFeeds, (id) => id.id) })
 
     return SuccessResponse(res, generateFeedList(mFeed))
+}
+
+// 코멘트 추가
+export const FeedCommentSave = async (req: Request, res: Response): Promise<Response> => {
+    const { feedId: paramFeedId } = req.params
+    const { comment } = req.body
+
+    const userId = req.app.locals.user.user_id
+    const feedId = Number(paramFeedId)
+
+    // 내용 체크
+    if (_.isEmpty(comment)) {
+        return ClientErrorResponse(res, Messages.feed.emptyFeedComment)
+    }
+
+    const checkFeed = await feedExits({ id: feedId })
+    if (checkFeed === 0) {
+        Logger.error(`FeedCommentSave: checkFeed error`)
+        return ClientErrorResponse(res, Messages.feed.feedCheckError)
+    }
+
+    const task = await feedCommentSave({ feedId: feedId, user_id: userId, comment: comment })
+
+    if (task.id) {
+        return SuccessDefault(res)
+    } else {
+        Logger.error(`FeedCommentSave: comment insert error`)
+        return ServerErrorResponse(res)
+    }
+}
+
+// 코멘트 리스트
+export const FeedCommentList = async (req: Request, res: Response): Promise<Response> => {
+    const { feedId: paramFeedId } = req.params
+    const feedId = Number(paramFeedId)
+
+    const task = await feedCommentList({ feedId: feedId })
+
+    return SuccessResponse(
+        res,
+        _.map(task, (comment) => {
+            const commentDate = changeMysqlDate(comment.created_at)
+            return {
+                id: comment.id,
+                feedId: comment.feed_id,
+                comment: comment.comment,
+                user: {
+                    id: comment.user ? comment.user.id : null,
+                    nickname: comment.user ? comment.user.nickname : null,
+                },
+                time: {
+                    origin: commentDate.origin,
+                    step1: commentDate.format.step1,
+                    sinceString: commentDate.format.sinceString,
+                },
+            }
+        }),
+    )
 }
