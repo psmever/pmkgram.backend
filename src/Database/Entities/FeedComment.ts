@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, JoinColumn, OneToOne } from 'typeorm'
 import { Feed } from '@Entity/Feed'
 import { Users } from '@Entity/Users'
+import { StatusTypeEnum } from '@Entity/EmailAuth'
 
 @Entity()
 export class FeedComment extends BaseEntity {
@@ -15,6 +16,9 @@ export class FeedComment extends BaseEntity {
 
     @Column({ type: `text`, nullable: false })
     comment: string
+
+    @Column({ type: `enum`, nullable: false, enum: StatusTypeEnum })
+    status: string
 
     @Column({ type: `timestamp`, nullable: false })
     created_at: string
