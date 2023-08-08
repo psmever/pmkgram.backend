@@ -107,11 +107,11 @@
             "colId": "a4499991-b2a3-46d2-a1fb-e2c8d0478488",
             "containerId": "",
             "name": "피드리스트(메인)",
-            "url": "{{base-url}}/api/feed/feed-list",
+            "url": "{{base-url}}/api/feed/2/feed-list",
             "method": "GET",
             "sortNum": 15000,
             "created": "2023-08-03T06:12:03.098Z",
-            "modified": "2023-08-03T06:13:03.698Z",
+            "modified": "2023-08-08T02:54:55.345Z",
             "headers": [
                 {
                     "name": "Content-Type",
