@@ -7,11 +7,11 @@ import {
     saveFeed,
     saveFeedImage,
     updateFeed,
-    mainFeedList,
     feedGreatExits,
     saveFeedGreat,
     deleteFeedGreat,
-    personalFeedList,
+    getFeedListPaginationList,
+    feedSelectListById,
 } from '@Database/Service/FeedService'
 import { Request, Response } from 'express'
 import _ from 'lodash'
@@ -19,6 +19,8 @@ import { mediaExits } from '@Database/Service/MediaService'
 import { Logger } from '@Commons/Logger'
 import { changeMysqlDate } from '@Helper'
 import Config from '@Config'
+import Const from '@Const'
+import { Feed } from '@Entity/Feed'
 
 // 피드 등록하기
 export const SaveFeed = async (req: Request, res: Response): Promise<Response> => {
@@ -136,58 +138,111 @@ export const DeleteFeed = async (req: Request, res: Response): Promise<Response>
     return SuccessDefault(res)
 }
 
+/**
+ * 피드 리스트용 payload 새성
+ * @param feeds
+ */
+const generateFeedList = (
+    feeds: Array<Feed>,
+): Array<{
+    id: number
+    user: {
+        id: number | null
+        nickname: string | null
+        image: string | null
+    }
+    contents: string
+    images: Array<{
+        filename: string | null
+        path: string | null
+        url: string | null
+    }>
+    great: number
+    mygreat: boolean
+    comment: Array<{
+        id: number
+        user: {
+            id: number
+            nickname: string | null
+        }
+        comment: string
+        time: {
+            origin: Date
+            step1: string
+        }
+    }>
+    time: {
+        origin: Date
+        step1: string
+        sinceString: string
+    }
+}> => {
+    return _.map(feeds, (feed) => {
+        // payload 조합
+        const feedDate = changeMysqlDate(feed.created_at)
+        return {
+            id: feed.id,
+            user: {
+                id: feed.user ? feed.user.id : null,
+                nickname: feed.user ? feed.user.nickname : null,
+                image:
+                    feed.user && feed.user.profile && feed.user.profile.media
+                        ? `${Config.MEDIA_HOSTNAME}${feed.user.profile.media.path}/${feed.user.profile.media.filename}`
+                        : null,
+            },
+            contents: feed.content,
+            images: _.map(feed.images, (fi) => {
+                const url = fi.media && fi.media.path ? `${Config.MEDIA_HOSTNAME}${fi.media.path}/${fi.media.filename}` : null
+
+                return {
+                    filename: fi.media && fi.media.filename ? fi.media.filename : null,
+                    path: fi.media && fi.media.path ? fi.media.path : null,
+                    url: url,
+                }
+            }),
+            great: feed.great && feed.great.length > 0 ? feed.great.length : 0,
+            mygreat: false,
+            comment: _.map(feed.comment, (fc) => {
+                const fcDate = changeMysqlDate(fc.created_at)
+                return {
+                    id: fc.id,
+                    user: {
+                        id: fc.user_id,
+                        nickname: fc.user && fc.user.nickname ? fc.user.nickname : null,
+                    },
+                    comment: fc.comment,
+                    time: {
+                        origin: fcDate.origin,
+                        step1: fcDate.format.step1,
+                    },
+                }
+            }),
+            time: {
+                origin: feedDate.origin,
+                step1: feedDate.format.step1,
+                sinceString: feedDate.format.sinceString,
+            },
+        }
+    })
+}
+
 // 메인 리스트.
 export const MainList = async (req: Request, res: Response): Promise<Response> => {
-    const mFeed = await mainFeedList()
+    const { lastId } = req.params
+    const mFeeds = await getFeedListPaginationList({ perPage: Const.defaultPerPage, lastId: Number(lastId) })
+    const mFeed = await feedSelectListById({ ids: _.map(mFeeds, (id) => id.id) })
+    const payload = generateFeedList(mFeed)
 
-    // TODO: 페이징 처리
-    return SuccessResponse(
-        res,
-        _.map(mFeed, (feed) => {
-            // payload 조합
-            const feedDate = changeMysqlDate(feed.created_at)
-            return {
-                id: feed.id,
-                user: {
-                    id: feed.user ? feed.user.id : null,
-                    nickname: feed.user ? feed.user.nickname : null,
-                    image: feed.user && feed.user.profile && feed.user.profile.media ? `${Config.MEDIA_HOSTNAME}${feed.user.profile.media.path}/${feed.user.profile.media.filename}` : null,
-                },
-                contents: feed.content,
-                images: _.map(feed.images, (fi) => {
-                    const url = fi.media && fi.media.path ? `${Config.MEDIA_HOSTNAME}${fi.media.path}/${fi.media.filename}` : null
-
-                    return {
-                        filename: fi.media && fi.media.filename ? fi.media.filename : null,
-                        path: fi.media && fi.media.path ? fi.media.path : null,
-                        url: url,
-                    }
-                }),
-                great: feed.great && feed.great.length > 0 ? feed.great.length : 0,
-                mygreat: false,
-                comment: _.map(feed.comment, (fc) => {
-                    const fcDate = changeMysqlDate(fc.created_at)
-                    return {
-                        id: fc.id,
-                        user: {
-                            id: fc.user_id,
-                            nickname: fc.user && fc.user.nickname ? fc.user.nickname : null,
-                        },
-                        comment: fc.comment,
-                        time: {
-                            origin: fcDate.origin,
-                            step1: fcDate.format.step1,
-                        },
-                    }
-                }),
-                time: {
-                    origin: feedDate.origin,
-                    step1: feedDate.format.step1,
-                    sinceString: feedDate.format.sinceString,
-                },
-            }
-        }),
-    )
+    return SuccessResponse(res, {
+        pagination: {
+            id: {
+                first: _.get(_.first(mFeed), 'id'),
+                last: _.get(_.last(mFeed), 'id'),
+            },
+            more: payload.length >= Const.defaultPerPage,
+        },
+        feed: generateFeedList(mFeed),
+    })
 }
 
 // 피드 좋아요 등록/삭제.
@@ -212,50 +267,10 @@ export const FixGreat = async (req: Request, res: Response): Promise<Response> =
 }
 
 // 개인홈 피드 리스트
-export const PersonalList = async (req: Request, res: Response): Promise<Response> => {
+export const MyPersonalList = async (req: Request, res: Response): Promise<Response> => {
     const userId = req.app.locals.user.user_id
-    const mFeed = await personalFeedList(userId)
+    const mFeeds = await getFeedListPaginationList({ perPage: Const.defaultPerPage, userId: userId })
+    const mFeed = await feedSelectListById({ ids: _.map(mFeeds, (id) => id.id) })
 
-    // TODO: 페이징 처리
-    return SuccessResponse(
-        res,
-        _.map(mFeed, (feed) => {
-            // payload 조합
-            const feedDate = changeMysqlDate(feed.created_at)
-            return {
-                id: feed.id,
-                contents: feed.content,
-                images: _.map(feed.images, (fi) => {
-                    const url = fi.media && fi.media.path ? `${Config.MEDIA_HOSTNAME}${fi.media.path}/${fi.media.filename}` : null
-
-                    return {
-                        filename: fi.media && fi.media.filename ? fi.media.filename : null,
-                        path: fi.media && fi.media.path ? fi.media.path : null,
-                        url: url,
-                    }
-                }),
-                great: feed.great && feed.great.length > 0 ? feed.great.length : 0,
-                mygreat: false,
-                comment: _.map(feed.comment, (fc) => {
-                    const fcDate = changeMysqlDate(fc.created_at)
-                    return {
-                        id: fc.id,
-                        user: {
-                            id: fc.user_id,
-                            nickname: fc.user && fc.user.nickname ? fc.user.nickname : null,
-                        },
-                        comment: fc.comment,
-                        time: {
-                            origin: fcDate.origin,
-                            step1: fcDate.format.step1,
-                        },
-                    }
-                }),
-                time: {
-                    origin: feedDate.origin,
-                    step1: feedDate.format.step1,
-                },
-            }
-        }),
-    )
+    return SuccessResponse(res, generateFeedList(mFeed))
 }

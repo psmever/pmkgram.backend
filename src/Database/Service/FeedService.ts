@@ -2,8 +2,10 @@ import { Feed } from '@Entity/Feed'
 import { FeedImage } from '@Entity/FeedImage'
 import AppDataSource from '@Database/AppDataSource'
 import { toMySqlDatetime } from '@Commons/Helper'
-import { DeleteResult, UpdateResult } from 'typeorm'
+import { DeleteResult, UpdateResult, LessThan, In } from 'typeorm'
 import { FeedGreat } from '@Database/Entities/FeedGreat'
+import Const from '@Const'
+import _ from 'lodash'
 
 const feedRepository = AppDataSource.getRepository(Feed)
 const feedGreatRepository = AppDataSource.getRepository(FeedGreat)
@@ -13,7 +15,6 @@ const feedImageRepository = AppDataSource.getRepository(FeedImage)
  * 피드 등록
  * @param user_id
  * @param content
-
  */
 export const saveFeed = async ({ user_id, content }: { user_id: number; content: string }): Promise<Feed> => {
     return feedRepository.save(
@@ -29,7 +30,6 @@ export const saveFeed = async ({ user_id, content }: { user_id: number; content:
  * 피드 수정
  * @param feed
  * @param content
-
  */
 export const updateFeed = async ({ feed, content }: { feed: number; content: string }): Promise<UpdateResult> => {
     return feedRepository.update(
@@ -92,9 +92,72 @@ export const feedExits = async ({ id, user_id }: { id: number; user_id: number }
 }
 
 /**
- * 메인 리스트
+ * 페이징 처리용 feed id 리스트 생성
+ * typeorm 에서 relations 을 했을시 order by take 순서가 꼬여서 select 를 한번 더 한다.
+ * @param perPage
+ * @param lastId
+ * @param userId
  */
-export const mainFeedList = async (): Promise<Array<Feed>> => {
+export const getFeedListPaginationList = async ({
+    perPage = Const.defaultPerPage,
+    lastId,
+    userId,
+}: {
+    perPage: number
+    lastId?: number
+    userId?: number
+}): Promise<Array<Feed>> => {
+    const sqlWhere = { status: `Y` }
+
+    if (userId && userId > 0) {
+        _.assign(sqlWhere, { user_id: userId })
+    }
+
+    if (lastId && lastId > 0) {
+        _.assign(sqlWhere, { id: LessThan(lastId) })
+    }
+
+    return await feedRepository.find({
+        select: [`id`],
+        where: sqlWhere,
+        order: {
+            id: `DESC`,
+        },
+        take: perPage,
+    })
+}
+
+/**
+ * 배열 형태의 id를 이용 feed 리스트를 가지고 오기.
+ * @param ids
+ */
+export const feedSelectListById = async ({ ids }: { ids: Array<number> }): Promise<Array<Feed>> => {
+    const sqlWhere = { status: `Y` }
+
+    if (ids && _.isArray(ids)) {
+        _.assign(sqlWhere, { id: In(ids) })
+    }
+
+    return await feedRepository.find({
+        select: [`id`, `content`, `created_at`],
+        where: sqlWhere,
+        order: {
+            id: `DESC`,
+            comment: {
+                id: `DESC`,
+            },
+            images: {
+                id: `ASC`,
+            },
+        },
+        relations: [`comment.user`, `images`, `images.media`, `great`, `user.profile.media`, `comment`],
+    })
+}
+
+/**
+ * 메인 전체 리스트
+ */
+export const mainFeedFullList = async (): Promise<Array<Feed>> => {
     return await feedRepository.find({
         select: [`id`, `content`, `created_at`],
         where: { status: `Y` },
@@ -146,24 +209,5 @@ export const deleteFeedGreat = async ({ user_id, id }: { user_id: number; id: nu
     return feedGreatRepository.delete({
         feed_id: id,
         user_id: user_id,
-    })
-}
-
-
-export const personalFeedList = async (userId: number): Promise<Array<Feed>> => {
-
-    return await feedRepository.find({
-        select: [`id`, `content`, `created_at`],
-        where: { status: `Y`, user_id:userId },
-        order: {
-            id: `DESC`,
-            comment: {
-                id: `DESC`,
-            },
-            images: {
-                id: `ASC`,
-            },
-        },
-        relations: [`comment.user`, `images`, `images.media`, `great`, `user`, `comment`],
     })
 }

@@ -9,4 +9,5 @@ export default {
         badRequest: 400,
         noContent: 204,
     },
+    defaultPerPage: 5,
 }
