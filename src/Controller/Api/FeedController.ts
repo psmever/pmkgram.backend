@@ -17,7 +17,7 @@ import { Request, Response } from 'express'
 import _ from 'lodash'
 import { mediaExits } from '@Database/Service/MediaService'
 import { Logger } from '@Commons/Logger'
-import { changeMysqlDate } from '@Helper'
+import { changeMysqlDate, addComma } from '@Helper'
 import Config from '@Config'
 import Const from '@Const'
 import { Feed } from '@Entity/Feed'
@@ -157,7 +157,10 @@ const generateFeedList = (
         path: string | null
         url: string | null
     }>
-    great: number
+    great: {
+        number: number
+        string: string
+    }
     mygreat: boolean
     comment: Array<{
         id: number
@@ -200,7 +203,10 @@ const generateFeedList = (
                     url: url,
                 }
             }),
-            great: feed.great && feed.great.length > 0 ? feed.great.length : 0,
+            great: {
+                number: feed.great && feed.great.length > 0 ? feed.great.length : 0,
+                string: `${addComma(feed.great && feed.great.length > 0 ? feed.great.length : 0)}`,
+            },
             mygreat: false,
             comment: _.map(feed.comment, (fc) => {
                 const fcDate = changeMysqlDate(fc.created_at)
