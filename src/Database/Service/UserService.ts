@@ -109,3 +109,16 @@ export const getUserProfile = async ({ user_id }: { user_id: number }): Promise<
         relations: ['profile', 'profile.media', 'profile.code'],
     })
 }
+
+
+/**
+ * 사용자 프로필 정보
+ * @param nickname
+ */
+export const getUserProfileByNickname = async ( nickname: string ): Promise<Users | null> => {
+    return await userRepository.findOne({
+        select: [`id`, `email`, 'nickname'],
+        where: { nickname: nickname },
+        relations: ['profile', 'profile.media', 'profile.code'],
+    })
+}
