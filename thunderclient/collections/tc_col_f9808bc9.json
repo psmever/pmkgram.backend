@@ -198,6 +198,38 @@
             ],
             "params": [],
             "tests": []
+        },
+        {
+            "_id": "570a0ac5-3a95-4da9-8174-290d827fe9f0",
+            "colId": "a4499991-b2a3-46d2-a1fb-e2c8d0478488",
+            "containerId": "",
+            "name": "피드리스트(개인) 닉네임으로",
+            "url": "{{base-url}}/api/feed/jin/feed-list",
+            "method": "GET",
+            "sortNum": 26250,
+            "created": "2023-08-09T09:09:01.564Z",
+            "modified": "2023-08-10T04:02:01.396Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                }
+            ],
+            "params": [],
+            "tests": []
         }
     ]
 }

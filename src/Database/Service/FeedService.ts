@@ -255,3 +255,21 @@ export const feedCommentList = async ({ feedId }: { feedId: number }): Promise<A
         relations: [`user.profile`],
     })
 }
+
+export const personalFeedList = async (userId: number): Promise<Array<Feed>> => {
+
+    return await feedRepository.find({
+        select: [`id`, `content`, `created_at`],
+        where: { status: `Y`, user_id:userId },
+        order: {
+            id: `DESC`,
+            comment: {
+                id: `DESC`,
+            },
+            images: {
+                id: `ASC`,
+            },
+        },
+        relations: [`comment.user`, `images`, `images.media`, `great`, `user`, `comment`],
+    })
+}
