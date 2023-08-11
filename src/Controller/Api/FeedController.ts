@@ -224,6 +224,7 @@ const generateFeedList = (
                     time: {
                         origin: fcDate.origin,
                         step1: fcDate.format.step1,
+                        sinceString: fcDate.format.sinceString,
                     },
                 }
             }),
@@ -347,10 +348,10 @@ export const FeedCommentList = async (req: Request, res: Response): Promise<Resp
 export const NicknamePersonalList = async (req: Request, res: Response): Promise<Response> => {
     const { nickname } = req.params
     const getUserId = await getUserProfileByNickname(nickname)
-    let mFeed;
-    
-    if(getUserId){
-      mFeed = await personalFeedList(getUserId.id)
+    let mFeed
+
+    if (getUserId) {
+        mFeed = await personalFeedList(getUserId.id)
     }
 
     // TODO: 페이징 처리
