@@ -1,27 +1,19 @@
 {
-    "_id": "2a25079e-fbc4-4a51-b8e4-447db2b36232",
+    "_id": "bee537e0-0789-4057-9293-2ee0454111fa",
     "name": "(Global Env)",
     "default": false,
     "global": true,
     "sortNum": -2,
-    "created": "2023-07-22T05:56:33.934Z",
-    "modified": "2023-07-22T05:56:33.934Z",
+    "created": "2023-08-11T05:25:06.263Z",
+    "modified": "2023-08-11T05:25:06.263Z",
     "data": [
         {
+            "name": "access_token",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IiQyYiQxMCR3alpzUUdTeHZxV0ZLeGExYnVRT2d1ZWxnRUNpZExFYlBVVlJSLmx5UnVUZC5ZUVczaWtkUyIsImlhdCI6MTY5MTczMTUzNSwiZXhwIjoxNjkxNzM1MTM1fQ.xL69w90JHggAf5Bd6Nhd14T1QFGi_Lr-yufiU0W970w"
+        },
+        {
             "name": "refresh_token",
-<<<<<<< HEAD
-            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IiQyYiQxMCRyV2lYc1ZQSUptbElVWnUzVFNRZXF1d2tLMU9XQVlkM3k4OTlDbUZ0c01CTktITWxtSVFLMiIsImlhdCI6MTY5MTUwNDM0NiwiZXhwIjoxNjkxNTkwNzQ2fQ.32PumPC_zNwJQTct1kFyEnKA5WxjiI6fY6ND9k49XwU"
-        },
-        {
-            "name": "access_token",
-            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IiQyYiQxMCRyV2lYc1ZQSUptbElVWnUzVFNRZXF1d2tLMU9XQVlkM3k4OTlDbUZ0c01CTktITWxtSVFLMiIsImlhdCI6MTY5MTUwNDM0NiwiZXhwIjoxNjkxNTA3OTQ2fQ.VCKJ8-WefGcwP1pFqmF52HMHgpkDKVcMhnZRWpfCA4A"
-=======
-            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IiQyYiQxMCRDdmlVTWI4SngvdTRtbFB4LjM0cUouNHBEUTRQdzE4YVBNVmRSMHZjWGM4a0ZMckxOc3YxeSIsImlhdCI6MTY5MTYzOTg4OCwiZXhwIjoxNjkxNzI2Mjg4fQ.Xlm_53qpgvxJThBE9xDMWEN_JPfXmyd1NFFgYrkb_lY"
-        },
-        {
-            "name": "access_token",
-            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IiQyYiQxMCRDdmlVTWI4SngvdTRtbFB4LjM0cUouNHBEUTRQdzE4YVBNVmRSMHZjWGM4a0ZMckxOc3YxeSIsImlhdCI6MTY5MTYzOTg4OCwiZXhwIjoxNjkxNjQzNDg4fQ.7RQTCcYa0892P2KmACyWgl1Tld_ncvMyLuxs3N2_tR4"
->>>>>>> feature/profile-home
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IiQyYiQxMCR3alpzUUdTeHZxV0ZLeGExYnVRT2d1ZWxnRUNpZExFYlBVVlJSLmx5UnVUZC5ZUVczaWtkUyIsImlhdCI6MTY5MTczMTUzNSwiZXhwIjoxNjkxODE3OTM1fQ.9QJHkUoTe1BukdbgnylpMq8Eb9hLi8iSCdHeS6J-9Ow"
         }
     ]
 }
