@@ -94,7 +94,7 @@ export const ProfileEdit = async (req: Request, res: Response): Promise<Response
     }
 
     // 이미지 업데이트
-    if (_.isNumber(profileImage) && !_.isEmpty(profileImage)) {
+    if (_.isNumber(profileImage)) {
         const checkMedia = await mediaExits({ user_id: userId, id: profileImage })
         if (checkMedia === 0) {
             Logger.error(`ProfileEdit: checkMedia error`)
