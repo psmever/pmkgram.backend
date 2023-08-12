@@ -16,6 +16,7 @@ import {
     FeedCommentList,
     NicknamePersonalList,
     FixBookmark,
+    DetailFeed,
 } from '@Controllers/Api/FeedController'
 
 export const TestsRouter = Router()
@@ -67,3 +68,4 @@ FeedRouter.put(`/:feed([0-9]+)/great`, RestAuthenticateMiddleware, FixGreat)
 FeedRouter.post(`/:feedId([0-9]+)/comment-save`, RestAuthenticateMiddleware, FeedCommentSave)
 FeedRouter.get(`/:feedId([0-9]+)/comment-list`, RestAuthenticateMiddleware, FeedCommentList)
 FeedRouter.put(`/:feed([0-9]+)/bookmark`, RestAuthenticateMiddleware, FixBookmark)
+FeedRouter.get(`/:feed([0-9]+)/feed-detail`, RestAuthenticateMiddleware, DetailFeed)

@@ -327,6 +327,44 @@
                 }
             ],
             "tests": []
+        },
+        {
+            "_id": "fca28c71-27c4-43ee-be98-28b7e2e57ba4",
+            "colId": "a4499991-b2a3-46d2-a1fb-e2c8d0478488",
+            "containerId": "",
+            "name": "피드 상세",
+            "url": "{{base-url}}/api/feed/{feed}/feed-detail",
+            "method": "GET",
+            "sortNum": 28125,
+            "created": "2023-08-12T07:25:44.839Z",
+            "modified": "2023-08-12T07:49:35.049Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                }
+            ],
+            "params": [
+                {
+                    "name": "feed",
+                    "value": "9",
+                    "isPath": true
+                }
+            ],
+            "tests": []
         }
     ]
 }

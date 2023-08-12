@@ -18,6 +18,7 @@ import {
     feedBookmarkExits,
     saveFeedBookmark,
     deleteFeedBookmark,
+    detailFeed,
 } from '@Database/Service/FeedService'
 import { getUserProfileByNickname } from '@Database/Service/UserService'
 import { Request, Response } from 'express'
@@ -422,4 +423,14 @@ export const FixBookmark = async (req: Request, res: Response): Promise<Response
         }
     }
     return SuccessDefault(res)
+}
+
+// 피드 상세
+export const DetailFeed = async (req: Request, res: Response): Promise<Response> => {
+    const { feed } = req.params
+    const userId = req.app.locals.user.user_id
+    const taskFeed = Number(feed)
+
+    const detail = await detailFeed(taskFeed)
+    return SuccessResponse(res, generateFeedList(detail, userId))
 }
