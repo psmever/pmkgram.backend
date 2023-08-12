@@ -156,7 +156,7 @@ export const feedSelectListById = async ({ ids }: { ids: Array<number> }): Promi
         order: {
             id: `DESC`,
             comment: {
-                id: `DESC`,
+                id: `asc`,
             },
             images: {
                 id: `ASC`,
@@ -250,8 +250,25 @@ export const feedCommentList = async ({ feedId }: { feedId: number }): Promise<A
         select: [`id`, `feed_id`, `comment`, `created_at`],
         where: { status: `Y`, feed_id: feedId },
         order: {
-            id: `DESC`,
+            id: `asc`,
         },
         relations: [`user.profile`],
+    })
+}
+
+export const personalFeedList = async (userId: number): Promise<Array<Feed>> => {
+    return await feedRepository.find({
+        select: [`id`, `content`, `created_at`],
+        where: { status: `Y`, user_id: userId },
+        order: {
+            id: `DESC`,
+            comment: {
+                id: `DESC`,
+            },
+            images: {
+                id: `ASC`,
+            },
+        },
+        relations: [`comment.user`, `images`, `images.media`, `great`, `user`, `comment`],
     })
 }

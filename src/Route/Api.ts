@@ -4,7 +4,7 @@ import { CheckStatus, BaseData, ErrorTest } from '@Controllers/Api/SystemControl
 import { Register, EmailExits, Login, Logout, TokenRefresh, TokenInfo } from '@Controllers/Api/AuthController'
 import { RestAuthenticateMiddleware } from '@Middlewares/RestAuthenticateMiddleware'
 import { ImageCreate } from '@Controllers/Api/MediaController'
-import { ProfileEdit, NickNameExits, MyProfile } from '@Controllers/Api/MemberController'
+import { ProfileEdit, NickNameExits, MyProfile, MyProfileByNickname } from '@Controllers/Api/MemberController'
 import {
     DeleteFeed,
     SaveFeed,
@@ -14,6 +14,7 @@ import {
     MyPersonalList,
     FeedCommentSave,
     FeedCommentList,
+    NicknamePersonalList
 } from '@Controllers/Api/FeedController'
 
 export const TestsRouter = Router()
@@ -50,6 +51,7 @@ MediaRouter.post('/image-create', RestAuthenticateMiddleware, ImageCreate)
 
 /* Member Router */
 MemberRouter.get('/my-profile', RestAuthenticateMiddleware, MyProfile)
+MemberRouter.get('/:nickname/my-profile', RestAuthenticateMiddleware, MyProfileByNickname)
 MemberRouter.get('/:nickname/nickname-exits', RestAuthenticateMiddleware, NickNameExits)
 MemberRouter.post('/profile-update', RestAuthenticateMiddleware, ProfileEdit)
 
@@ -59,6 +61,7 @@ FeedRouter.put('/feed-update', RestAuthenticateMiddleware, UpdateFeed)
 FeedRouter.delete(`/:feed([0-9]+)/feed-delete`, RestAuthenticateMiddleware, DeleteFeed)
 FeedRouter.get(`/:lastId([0-9]+)/feed-list`, MainList)
 FeedRouter.get(`/my-feed-list`, RestAuthenticateMiddleware, MyPersonalList)
+FeedRouter.get(`/:nickname/feed-list`, RestAuthenticateMiddleware, NicknamePersonalList)
 FeedRouter.put(`/:feed([0-9]+)/great`, RestAuthenticateMiddleware, FixGreat)
 FeedRouter.post(`/:feedId([0-9]+)/comment-save`, RestAuthenticateMiddleware, FeedCommentSave)
 FeedRouter.get(`/:feedId([0-9]+)/comment-list`, RestAuthenticateMiddleware, FeedCommentList)

@@ -14,12 +14,14 @@ import {
     feedSelectListById,
     feedCommentSave,
     feedCommentList,
+    personalFeedList,
 } from '@Database/Service/FeedService'
+import { getUserProfileByNickname } from '@Database/Service/UserService'
 import { Request, Response } from 'express'
 import _ from 'lodash'
 import { mediaExits } from '@Database/Service/MediaService'
 import { Logger } from '@Commons/Logger'
-import { changeMysqlDate } from '@Helper'
+import { changeMysqlDate, addComma } from '@Helper'
 import Config from '@Config'
 import Const from '@Const'
 import { Feed } from '@Entity/Feed'
@@ -159,7 +161,10 @@ const generateFeedList = (
         path: string | null
         url: string | null
     }>
-    great: number
+    great: {
+        number: number
+        string: string
+    }
     mygreat: boolean
     comment: Array<{
         id: number
@@ -202,7 +207,10 @@ const generateFeedList = (
                     url: url,
                 }
             }),
-            great: feed.great && feed.great.length > 0 ? feed.great.length : 0,
+            great: {
+                number: feed.great && feed.great.length > 0 ? feed.great.length : 0,
+                string: `${addComma(feed.great && feed.great.length > 0 ? feed.great.length : 0)}`,
+            },
             mygreat: false,
             comment: _.map(feed.comment, (fc) => {
                 const fcDate = changeMysqlDate(fc.created_at)
@@ -216,6 +224,7 @@ const generateFeedList = (
                     time: {
                         origin: fcDate.origin,
                         step1: fcDate.format.step1,
+                        sinceString: fcDate.format.sinceString,
                     },
                 }
             }),
@@ -329,6 +338,60 @@ export const FeedCommentList = async (req: Request, res: Response): Promise<Resp
                     origin: commentDate.origin,
                     step1: commentDate.format.step1,
                     sinceString: commentDate.format.sinceString,
+                },
+            }
+        }),
+    )
+}
+
+//닉네임 별 개인 피드리스트
+export const NicknamePersonalList = async (req: Request, res: Response): Promise<Response> => {
+    const { nickname } = req.params
+    const getUserId = await getUserProfileByNickname(nickname)
+    let mFeed
+
+    if (getUserId) {
+        mFeed = await personalFeedList(getUserId.id)
+    }
+
+    // TODO: 페이징 처리
+    return SuccessResponse(
+        res,
+        _.map(mFeed, (feed) => {
+            // payload 조합
+            const feedDate = changeMysqlDate(feed.created_at)
+            return {
+                id: feed.id,
+                contents: feed.content,
+                images: _.map(feed.images, (fi) => {
+                    const url = fi.media && fi.media.path ? `${Config.MEDIA_HOSTNAME}${fi.media.path}/${fi.media.filename}` : null
+
+                    return {
+                        filename: fi.media && fi.media.filename ? fi.media.filename : null,
+                        path: fi.media && fi.media.path ? fi.media.path : null,
+                        url: url,
+                    }
+                }),
+                great: feed.great && feed.great.length > 0 ? feed.great.length : 0,
+                mygreat: false,
+                comment: _.map(feed.comment, (fc) => {
+                    const fcDate = changeMysqlDate(fc.created_at)
+                    return {
+                        id: fc.id,
+                        user: {
+                            id: fc.user_id,
+                            nickname: fc.user && fc.user.nickname ? fc.user.nickname : null,
+                        },
+                        comment: fc.comment,
+                        time: {
+                            origin: fcDate.origin,
+                            step1: fcDate.format.step1,
+                        },
+                    }
+                }),
+                time: {
+                    origin: feedDate.origin,
+                    step1: feedDate.format.step1,
                 },
             }
         }),

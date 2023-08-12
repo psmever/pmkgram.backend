@@ -78,7 +78,7 @@
             "method": "POST",
             "sortNum": 30000,
             "created": "2023-07-01T06:55:13.482Z",
-            "modified": "2023-07-31T02:01:32.535Z",
+            "modified": "2023-08-12T05:26:29.810Z",
             "headers": [
                 {
                     "name": "Content-Type",
@@ -96,9 +96,41 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n    \"profileImage\" : \"2\",\n    \"nickname\" : \"psmever1\",\n    \"gender\": \"050020\",\n    \"intro\": \"스터디장\"\n}",
+                "raw": "{\n    \"profileImage\" : 3,\n    \"nickname\" : \"psmever2\",\n    \"gender\": \"050020\",\n    \"intro\": \"스터디장1\"\n}",
                 "form": []
             },
+            "tests": []
+        },
+        {
+            "_id": "5d528bac-e2b6-4d27-b269-0b60d5a0f790",
+            "colId": "99f940b2-822e-4dcb-9c53-193ea8d72072",
+            "containerId": "",
+            "name": "닉네임으로 내 프로필 정보",
+            "url": "{{base-url}}/api/member/psmever1/my-profile",
+            "method": "GET",
+            "sortNum": 25000,
+            "created": "2023-08-11T04:13:59.574Z",
+            "modified": "2023-08-11T04:15:29.829Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "Client-Type",
+                    "value": "{{client-code-web}}"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)",
+                    "isDisabled": true
+                },
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{access_token}}"
+                }
+            ],
+            "params": [],
             "tests": []
         }
     ]
