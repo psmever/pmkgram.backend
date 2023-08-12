@@ -15,6 +15,9 @@ import {
     feedCommentSave,
     feedCommentList,
     personalFeedList,
+    feedBookmarkExits,
+    saveFeedBookmark,
+    deleteFeedBookmark,
 } from '@Database/Service/FeedService'
 import { getUserProfileByNickname } from '@Database/Service/UserService'
 import { Request, Response } from 'express'
@@ -398,4 +401,25 @@ export const NicknamePersonalList = async (req: Request, res: Response): Promise
             }
         }),
     )
+}
+
+// 피드 책갈피 등록/삭제.
+export const FixBookmark = async (req: Request, res: Response): Promise<Response> => {
+    const { feed } = req.params
+    const userId = req.app.locals.user.user_id
+
+    const taskFeed = Number(feed)
+
+    // 핃드 데이터 유무 체크
+    if (!_.isEmpty(feed)) {
+        const checkFeedGreat = await feedBookmarkExits({ user_id: userId, id: taskFeed })
+        if (checkFeedGreat === 0) {
+            // 피드 책갈피 INSERT
+            await saveFeedBookmark({ user_id: userId, id: taskFeed })
+        } else {
+            // 피드 책갈피 DELETE
+            await deleteFeedBookmark({ user_id: userId, id: taskFeed })
+        }
+    }
+    return SuccessDefault(res)
 }

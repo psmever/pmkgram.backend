@@ -7,11 +7,13 @@ import { DeleteResult, UpdateResult, LessThan, In } from 'typeorm'
 import { FeedGreat } from '@Database/Entities/FeedGreat'
 import Const from '@Const'
 import _ from 'lodash'
+import { FeedBookmark } from '@Database/Entities/FeedBookmark'
 
 const feedRepository = AppDataSource.getRepository(Feed)
 const feedGreatRepository = AppDataSource.getRepository(FeedGreat)
 const feedImageRepository = AppDataSource.getRepository(FeedImage)
 const feedCommentRepository = AppDataSource.getRepository(FeedComment)
+const feedBookmarkRepository = AppDataSource.getRepository(FeedBookmark)
 
 /**
  * 피드 등록
@@ -270,5 +272,43 @@ export const personalFeedList = async (userId: number): Promise<Array<Feed>> => 
             },
         },
         relations: [`comment.user`, `images`, `images.media`, `great`, `user`, `comment`],
+    })
+}
+
+/**
+ * 피드 책갈피 유무 체크
+ * @param id
+ * @param user_id
+ */
+export const feedBookmarkExits = async ({ id, user_id }: { id: number; user_id: number }): Promise<number> => {
+    const task = await feedBookmarkRepository.find({ select: ['id'], where: { feed_id: id, user_id: user_id } })
+
+    return task.length
+}
+
+/**
+ * 피드 책갈피 등록
+ * @param id
+ * @param user_id
+ */
+export const saveFeedBookmark = async ({ user_id, id }: { user_id: number; id: number }): Promise<FeedGreat> => {
+    return feedBookmarkRepository.save(
+        {
+            user_id: user_id,
+            feed_id: id,
+        },
+        { transaction: false, data: false },
+    )
+}
+
+/**
+ * 피드 책갈피 삭제
+ * @param id
+ * @param user_id
+ */
+export const deleteFeedBookmark = async ({ user_id, id }: { user_id: number; id: number }): Promise<DeleteResult> => {
+    return feedBookmarkRepository.delete({
+        feed_id: id,
+        user_id: user_id,
     })
 }
