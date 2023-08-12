@@ -14,7 +14,7 @@ import {
     MyPersonalList,
     FeedCommentSave,
     FeedCommentList,
-    NicknamePersonalList
+    NicknamePersonalList,
 } from '@Controllers/Api/FeedController'
 
 export const TestsRouter = Router()
@@ -59,7 +59,7 @@ MemberRouter.post('/profile-update', RestAuthenticateMiddleware, ProfileEdit)
 FeedRouter.post('/feed-save', RestAuthenticateMiddleware, SaveFeed)
 FeedRouter.put('/feed-update', RestAuthenticateMiddleware, UpdateFeed)
 FeedRouter.delete(`/:feed([0-9]+)/feed-delete`, RestAuthenticateMiddleware, DeleteFeed)
-FeedRouter.get(`/:lastId([0-9]+)/feed-list`, MainList)
+FeedRouter.get(`/:lastId([0-9]+)/feed-list`, RestAuthenticateMiddleware, MainList)
 FeedRouter.get(`/my-feed-list`, RestAuthenticateMiddleware, MyPersonalList)
 FeedRouter.get(`/:nickname/feed-list`, RestAuthenticateMiddleware, NicknamePersonalList)
 FeedRouter.put(`/:feed([0-9]+)/great`, RestAuthenticateMiddleware, FixGreat)

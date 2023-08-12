@@ -148,6 +148,7 @@ export const DeleteFeed = async (req: Request, res: Response): Promise<Response>
  */
 const generateFeedList = (
     feeds: Array<Feed>,
+    userId: number,
 ): Array<{
     id: number
     user: {
@@ -211,7 +212,7 @@ const generateFeedList = (
                 number: feed.great && feed.great.length > 0 ? feed.great.length : 0,
                 string: `${addComma(feed.great && feed.great.length > 0 ? feed.great.length : 0)}`,
             },
-            mygreat: false,
+            mygreat: userId > 0 && feed.great ? feed.great.some((gt) => (gt.user_id === userId ? true : false)) : false,
             comment: _.map(feed.comment, (fc) => {
                 const fcDate = changeMysqlDate(fc.created_at)
                 return {
@@ -240,9 +241,10 @@ const generateFeedList = (
 // 메인 리스트.
 export const MainList = async (req: Request, res: Response): Promise<Response> => {
     const { lastId } = req.params
+    const userId = req.app.locals.user.user_id
     const mFeeds = await getFeedListPaginationList({ perPage: Const.defaultPerPage, lastId: Number(lastId) })
     const mFeed = await feedSelectListById({ ids: _.map(mFeeds, (id) => id.id) })
-    const payload = generateFeedList(mFeed)
+    const payload = generateFeedList(mFeed, userId)
 
     return SuccessResponse(res, {
         pagination: {
@@ -252,7 +254,7 @@ export const MainList = async (req: Request, res: Response): Promise<Response> =
             },
             more: payload.length >= Const.defaultPerPage,
         },
-        feed: generateFeedList(mFeed),
+        feed: generateFeedList(mFeed, userId),
     })
 }
 
@@ -283,7 +285,7 @@ export const MyPersonalList = async (req: Request, res: Response): Promise<Respo
     const mFeeds = await getFeedListPaginationList({ perPage: Const.defaultPerPage, userId: userId })
     const mFeed = await feedSelectListById({ ids: _.map(mFeeds, (id) => id.id) })
 
-    return SuccessResponse(res, generateFeedList(mFeed))
+    return SuccessResponse(res, generateFeedList(mFeed, userId))
 }
 
 // 코멘트 추가
