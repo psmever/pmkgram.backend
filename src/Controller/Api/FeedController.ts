@@ -432,5 +432,5 @@ export const DetailFeed = async (req: Request, res: Response): Promise<Response>
     const taskFeed = Number(feed)
 
     const detail = await detailFeed(taskFeed)
-    return SuccessResponse(res, generateFeedList(detail, userId))
+    return SuccessResponse(res, generateFeedList(detail, userId)[0])
 }
