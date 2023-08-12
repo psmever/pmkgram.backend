@@ -431,6 +431,12 @@ export const DetailFeed = async (req: Request, res: Response): Promise<Response>
     const userId = req.app.locals.user.user_id
     const taskFeed = Number(feed)
 
-    const detail = await detailFeed(taskFeed)
-    return SuccessResponse(res, generateFeedList(detail, userId)[0])
+    const dFeed = await detailFeed(taskFeed)
+    const payload = generateFeedList(dFeed, userId)
+
+    if (payload.length > 0) {
+        return SuccessResponse(res, generateFeedList(dFeed, userId)[0])
+    } else {
+        return ClientErrorResponse(res, Messages.feed.feedCheckError)
+    }
 }
