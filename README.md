@@ -81,7 +81,7 @@ production.environment.env
 ## 배포
 
 ```bash
-# yarn deploy:prod
+# yarn deploy:dev
 
 
 ➜  pmkgram.backend [ develop * ] yarn deploy:prod
