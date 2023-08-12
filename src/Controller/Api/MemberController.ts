@@ -37,10 +37,10 @@ export const MyProfileByNickname = async (req: Request, res: Response): Promise<
     const { nickname } = req.params
     const getUserId = await getUserProfileByNickname(nickname)
 
-    let infoTask;
+    let infoTask
 
-    if(getUserId){
-      infoTask = await getUserProfile({ user_id: getUserId?.id })
+    if (getUserId) {
+        infoTask = await getUserProfile({ user_id: getUserId?.id })
     }
 
     if (infoTask && infoTask.profile && infoTask.profile.media) {
@@ -94,7 +94,7 @@ export const ProfileEdit = async (req: Request, res: Response): Promise<Response
     }
 
     // 이미지 업데이트
-    if (!_.isEmpty(profileImage)) {
+    if (_.isNumber(profileImage)) {
         const checkMedia = await mediaExits({ user_id: userId, id: profileImage })
         if (checkMedia === 0) {
             Logger.error(`ProfileEdit: checkMedia error`)
