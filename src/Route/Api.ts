@@ -18,6 +18,7 @@ import {
     FixBookmark,
     DetailFeed,
 } from '@Controllers/Api/FeedController'
+import { FeedAuthenticateMiddleware } from '@Middlewares/FeedAuthenticateMiddleware'
 
 export const TestsRouter = Router()
 export const SystemRouter = Router()
@@ -61,11 +62,11 @@ MemberRouter.post('/profile-update', RestAuthenticateMiddleware, ProfileEdit)
 FeedRouter.post('/feed-save', RestAuthenticateMiddleware, SaveFeed)
 FeedRouter.put('/feed-update', RestAuthenticateMiddleware, UpdateFeed)
 FeedRouter.delete(`/:feed([0-9]+)/feed-delete`, RestAuthenticateMiddleware, DeleteFeed)
-FeedRouter.get(`/:lastId([0-9]+)/feed-list`, RestAuthenticateMiddleware, MainList)
+FeedRouter.get(`/:lastId([0-9]+)/feed-list`, FeedAuthenticateMiddleware, MainList)
 FeedRouter.get(`/my-feed-list`, RestAuthenticateMiddleware, MyPersonalList)
 FeedRouter.get(`/:nickname/feed-list`, RestAuthenticateMiddleware, NicknamePersonalList)
 FeedRouter.put(`/:feed([0-9]+)/great`, RestAuthenticateMiddleware, FixGreat)
 FeedRouter.post(`/:feedId([0-9]+)/comment-save`, RestAuthenticateMiddleware, FeedCommentSave)
 FeedRouter.get(`/:feedId([0-9]+)/comment-list`, RestAuthenticateMiddleware, FeedCommentList)
 FeedRouter.put(`/:feed([0-9]+)/bookmark`, RestAuthenticateMiddleware, FixBookmark)
-FeedRouter.get(`/:feed([0-9]+)/feed-detail`, DetailFeed)
+FeedRouter.get(`/:feed([0-9]+)/feed-detail`, FeedAuthenticateMiddleware, DetailFeed)

@@ -1,28 +1,31 @@
 import { Request, Response, NextFunction } from 'express'
-import { AuthenticateErrorResponse } from '@Commons/ResponseProvider'
 import { Logger } from '@Logger'
 import { tokenInfo } from '@TokenManager'
 
-export const RestAuthenticateMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const FeedAuthenticateMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const Authorization = req.header('Authorization')?.replace('Bearer ', '')
     if (!Authorization) {
         // 토큰 체크
-        AuthenticateErrorResponse(res)
+        next()
     } else {
         Logger.info(`try token Info : ${Authorization}`)
         const tokeninfo = await tokenInfo({ token: Authorization }) // 토큰 디코딩 정보
         if (!tokeninfo.status) {
             // 토큰 디코딩 상태 체크
-            Logger.error(`tokeninfo.status false : ${Authorization}`)
-            AuthenticateErrorResponse(res)
+            next()
         } else {
             if (!tokeninfo.token) {
-                Logger.error(`tokeninfo.token false : ${Authorization}`)
-                AuthenticateErrorResponse(res)
+                next()
             } else {
                 if (tokeninfo.token.status === 'N') {
-                    Logger.error(`tokeninfo.token.status N : ${Authorization}`)
-                    AuthenticateErrorResponse(res)
+                    req.app.locals.user = {
+                        auth: false,
+                        user_id: 0,
+                        email: '',
+                        status: '',
+                        level: '',
+                    }
+                    next()
                 } else {
                     req.app.locals.user = {
                         auth: true,
