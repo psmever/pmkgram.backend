@@ -312,3 +312,23 @@ export const deleteFeedBookmark = async ({ user_id, id }: { user_id: number; id:
         user_id: user_id,
     })
 }
+/**
+ * 피드 상세
+ * @param feed
+ */
+export const detailFeed = async (feed: number): Promise<Array<Feed>> => {
+    return await feedRepository.find({
+        select: [`id`, `content`, `created_at`],
+        where: { status: `Y`, id: feed },
+        order: {
+            id: `DESC`,
+            comment: {
+                id: `DESC`,
+            },
+            images: {
+                id: `ASC`,
+            },
+        },
+        relations: [`comment.user`, `images`, `images.media`, `great`, `user`, `comment`],
+    })
+}
